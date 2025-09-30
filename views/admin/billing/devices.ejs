@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %> - BILLINGKU Bill</title>
+    <title><%= title %> - MJ Bill</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <style>
         .device-card {
             transition: transform 0.2s;
@@ -30,7 +30,7 @@
         <div class="row">
             <%- include('../../partials/billing-sidebar') %>
             
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">
                         <i class="bx bx-wifi"></i>
@@ -161,11 +161,11 @@
 
         async function loadDevices() {
             try {
-                console.log('🔍 Loading devices...');
+                console.log('?? Loading devices...');
                 const response = await fetch('/admin/billing/api/devices');
                 
-                console.log('📡 Response status:', response.status);
-                console.log('📡 Response headers:', response.headers.get('content-type'));
+                console.log('?? Response status:', response.status);
+                console.log('?? Response headers:', response.headers.get('content-type'));
                 
                 if (response.status === 401 || response.status === 403) {
                     showError('Authentication required. Please login first.');
@@ -187,7 +187,7 @@
                     showError('Error loading devices: ' + (data.message || 'Unknown error'));
                 }
             } catch (error) {
-                console.error('❌ Error loading devices:', error);
+                console.error('? Error loading devices:', error);
                 if (error.message.includes('Unexpected token')) {
                     showError('Server returned HTML instead of JSON. Please check if you are logged in.');
                 } else {

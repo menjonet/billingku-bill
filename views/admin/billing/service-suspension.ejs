@@ -165,6 +165,45 @@
                     </div>
                 </div>
 
+                <!-- Bandwidth Limit Setting -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <strong>Bandwidth Limit Isolir</strong>
+                                <button class="btn btn-sm btn-primary" id="saveBandwidthLimitBtn">
+                                    <i class="bx bx-save me-1"></i>Simpan
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <label for="bandwidthLimitInput" class="form-label">Bandwidth Limit</label>
+                                <input type="text" id="bandwidthLimitInput" class="form-control" 
+                                       value="<%= appSettings.suspension_bandwidth_limit || '1k/1k' %>" 
+                                       placeholder="Contoh: 1k/1k, 512k/512k">
+                                <small class="text-muted">Batas bandwidth untuk pelanggan yang diisolir. Current: <%= appSettings.suspension_bandwidth_limit || '1k/1k' %></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <strong>Metode Suspend IP Statis</strong>
+                                <button class="btn btn-sm btn-primary" id="saveSuspensionMethodBtn">
+                                    <i class="bx bx-save me-1"></i>Simpan
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <label for="suspensionMethodSelect" class="form-label">Metode Suspend</label>
+                                <select id="suspensionMethodSelect" class="form-select">
+                                    <option value="address_list" <%= (appSettings.static_ip_suspension_method || 'address_list') === 'address_list' ? 'selected' : '' %>>Address List (Recommended)</option>
+                                    <option value="disable" <%= (appSettings.static_ip_suspension_method || 'address_list') === 'disable' ? 'selected' : '' %>>Disable Interface</option>
+                                </select>
+                                <small class="text-muted">Metode untuk suspend pelanggan IP statis. Current: <%= appSettings.static_ip_suspension_method || 'address_list' %></small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Action Buttons -->
                 <div class="row mb-4">
                     <div class="col-md-4">
@@ -434,11 +473,14 @@
 
         // Initialize
         $(document).ready(function() {
-            // Load isolir profiles and current setting
-            loadIsolirProfiles();
+            // Load current setting first, then load profiles with that value
             loadCurrentIsolirProfile();
             loadStats();
             loadSuspendedCustomers();
+            
+            // Setup new form handlers
+            setupBandwidthLimitHandler();
+            setupSuspensionMethodHandler();
         });
 
         // Load Mikrotik PPPoE profiles into isolir select
@@ -458,13 +500,89 @@
                         opt.textContent = n;
                         sel.appendChild(opt);
                     });
-                    if (selected) sel.value = selected;
+                    // Set selected value after options are loaded
+                    if (selected) {
+                        sel.value = selected;
+                        // If value doesn't exist, add it
+                        if (sel.value !== selected) {
+                            const opt = document.createElement('option');
+                            opt.value = selected;
+                            opt.textContent = selected;
+                            sel.appendChild(opt);
+                            sel.value = selected;
+                        }
+                    }
                 })
                 .catch(err => {
                     console.error('Load isolir profiles error:', err);
                     sel.innerHTML = '<option value="isolir">isolir</option>';
+                    if (selected && selected !== 'isolir') {
+                        const opt = document.createElement('option');
+                        opt.value = selected;
+                        opt.textContent = selected;
+                        sel.appendChild(opt);
+                        sel.value = selected;
+                    }
                     showToast('error', 'Gagal', 'Gagal memuat profile Mikrotik');
                 });
+        }
+
+        // Setup Bandwidth Limit Handler
+        function setupBandwidthLimitHandler() {
+            $('#saveBandwidthLimitBtn').click(function(){
+                const value = $('#bandwidthLimitInput').val().trim();
+                if (!value) {
+                    showToast('error', 'Gagal', 'Bandwidth limit tidak boleh kosong');
+                    return;
+                }
+                
+                const btn = $(this);
+                btn.prop('disabled', true).html('<i class="bx bx-loader-alt bx-spin me-1"></i>Menyimpan...');
+                fetch('/admin/billing/service-suspension/bandwidth-limit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+                    body: new URLSearchParams({ suspension_bandwidth_limit: value }).toString()
+                }).then(r => r.json()).then(data => {
+                    if (data && data.success) {
+                        showToast('success', 'Tersimpan', `Bandwidth limit diset ke: ${value}`);
+                    } else {
+                        showToast('error', 'Gagal', data.message || 'Gagal menyimpan');
+                    }
+                }).catch(err => {
+                    showToast('error', 'Gagal', 'Gagal menyimpan');
+                }).finally(() => {
+                    btn.prop('disabled', false).html('<i class="bx bx-save me-1"></i>Simpan');
+                });
+            });
+        }
+
+        // Setup Suspension Method Handler
+        function setupSuspensionMethodHandler() {
+            $('#saveSuspensionMethodBtn').click(function(){
+                const value = $('#suspensionMethodSelect').val();
+                if (!value) {
+                    showToast('error', 'Gagal', 'Metode suspend tidak boleh kosong');
+                    return;
+                }
+                
+                const btn = $(this);
+                btn.prop('disabled', true).html('<i class="bx bx-loader-alt bx-spin me-1"></i>Menyimpan...');
+                fetch('/admin/billing/service-suspension/suspension-method', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+                    body: new URLSearchParams({ static_ip_suspension_method: value }).toString()
+                }).then(r => r.json()).then(data => {
+                    if (data && data.success) {
+                        showToast('success', 'Tersimpan', `Metode suspend diset ke: ${value}`);
+                    } else {
+                        showToast('error', 'Gagal', data.message || 'Gagal menyimpan');
+                    }
+                }).catch(err => {
+                    showToast('error', 'Gagal', 'Gagal menyimpan');
+                }).finally(() => {
+                    btn.prop('disabled', false).html('<i class="bx bx-save me-1"></i>Simpan');
+                });
+            });
         }
 
         // Get current isolir profile setting
@@ -474,26 +592,21 @@
                 .then(data => {
                     if (data && data.success) {
                         const current = data.isolir_profile || 'isolir';
-                        // ensure options exist then set
-                        const sel = document.getElementById('isolirProfileSelect');
-                        if (sel && sel.options.length > 0) {
-                            sel.value = current;
-                            if (sel.value !== current) {
-                                const opt = document.createElement('option');
-                                opt.value = current;
-                                opt.textContent = current;
-                                sel.appendChild(opt);
-                                sel.value = current;
-                            }
-                        }
-                        else {
-                            loadIsolirProfiles(current);
-                        }
+                        // Load profiles with current value selected
+                        loadIsolirProfiles(current);
                         // tandai siap agar change berikutnya dianggap aksi user
+                        isolirSelectReady = true;
+                    } else {
+                        // Fallback jika gagal ambil setting
+                        loadIsolirProfiles('isolir');
                         isolirSelectReady = true;
                     }
                 })
-                .catch(() => {});
+                .catch(() => {
+                    // Fallback jika gagal ambil setting
+                    loadIsolirProfiles('isolir');
+                    isolirSelectReady = true;
+                });
         }
 
         // Save isolir profile

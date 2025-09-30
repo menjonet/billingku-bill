@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
     <title>Network Mapping - New Version</title>
     
     <!-- Leaflet CSS -->
@@ -61,6 +62,16 @@
         .odp-marker:hover {
             transform: scale(1.15);
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        
+        .odp-pole-marker {
+            background: linear-gradient(45deg, #6f42c1, #5a2d91) !important;
+            border: 2px solid #4a1c7a !important;
+        }
+        
+        .odp-pole-marker:hover {
+            background: linear-gradient(45deg, #5a2d91, #4a1c7a) !important;
+            transform: scale(1.2);
         }
         
         .custom-customer-icon {
@@ -141,9 +152,9 @@
         
         .cable-line.connected {
             stroke: #28a745;
-            stroke-width: 3;
-            stroke-dasharray: none;
-            animation: none;
+            stroke-width: 4;
+            stroke-dasharray: 15, 10;
+            animation: cableFlow 2s linear infinite;
         }
         
         .cable-line.disconnected {
@@ -328,52 +339,138 @@
             to { stroke-dashoffset: -15; }
         }
         
+        @keyframes cableFlow {
+            0% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: 25; }
+        }
+        
         @keyframes dash-red {
             to { stroke-dashoffset: -10; }
         }
         
-        /* Enhanced Popup Styling */
-        .custom-popup .leaflet-popup-content-wrapper {
-            background: linear-gradient(135deg, #ffffff, #f8f9fa);
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-            border: 1px solid #e9ecef;
+        /* Detailed Popup Styling */
+        .detailed-popup {
+            min-width: 280px;
+            max-width: 350px;
         }
         
-        .custom-popup .leaflet-popup-content {
-            margin: 0;
-            padding: 0;
+        .detailed-popup .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #dee2e6;
         }
         
-        .popup-header {
-            background: linear-gradient(135deg, #2c3e50, #34495e);
-            color: white;
-            padding: 12px 16px;
-            border-radius: 12px 12px 0 0;
+        .detailed-popup .popup-header h6 {
             margin: 0;
-        }
-        
-        .popup-header h6 {
-            margin: 0;
-            font-size: 14px;
+            font-size: 1rem;
             font-weight: 600;
         }
         
-        .popup-body {
-            padding: 16px;
+        .detailed-popup .status-badge {
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
         }
         
-        .popup-body p {
-            margin: 8px 0;
-            font-size: 13px;
-            color: #495057;
+        .detailed-popup .status-online {
+            background: #d4edda;
+            color: #155724;
         }
         
-        .popup-footer {
-            padding: 12px 16px;
-            border-top: 1px solid #e9ecef;
+        .detailed-popup .status-offline {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .detailed-popup .info-section p {
+            margin: 0.25rem 0;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+        
+        .detailed-popup .edit-section {
             background: #f8f9fa;
-            border-radius: 0 0 12px 12px;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border: 1px solid #e9ecef;
+        }
+        
+        .detailed-popup .edit-section .form-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .detailed-popup .edit-section .input-group {
+            margin-bottom: 0.5rem;
+        }
+        
+        .detailed-popup .edit-section .form-control {
+            font-size: 0.8rem;
+        }
+        
+        .detailed-popup .edit-section .btn {
+            font-size: 0.7rem;
+            padding: 0.25rem 0.5rem;
+        }
+        
+        .detailed-popup .actions-section {
+            border-top: 1px solid #e9ecef;
+            padding-top: 0.5rem;
+        }
+        
+        .detailed-popup .actions-section .btn {
+            font-size: 0.8rem;
+            padding: 0.5rem 1rem;
+        }
+        
+        /* Payment Status Badges */
+        .payment-badge {
+            padding: 2px 6px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .payment-paid {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .payment-unpaid {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        
+        .payment-overdue {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .payment-no_invoice {
+            background: #e2e3e5;
+            color: #6c757d;
+            border: 1px solid #d6d8db;
+        }
+        
+        /* Billing Info Section */
+        .billing-info {
+            border-left: 3px solid #007bff !important;
+        }
+        
+        .billing-info h6 {
+            color: #495057;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
         }
         
         .status-active {
@@ -495,6 +592,9 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        
+        .back-button {
+            display: inline-flex;
             align-items: center;
             gap: 8px;
             transition: background-color 0.3s ease;
@@ -1471,10 +1571,12 @@
         }
         
         // Create custom marker icons
-        function createODPIcon() {
+        function createODPIcon(isPole = false) {
+            const iconClass = isPole ? 'fas fa-traffic-cone' : 'fas fa-broadcast-tower';
+            const markerClass = isPole ? 'odp-marker odp-pole-marker' : 'odp-marker';
             return L.divIcon({
                 className: 'custom-odp-icon',
-                html: '<div class="odp-marker"><i class="fas fa-broadcast-tower"></i></div>',
+                html: `<div class="${markerClass}"><i class="${iconClass}"></i></div>`,
                 iconSize: [24, 24],
                 iconAnchor: [12, 12]
             });
@@ -1484,8 +1586,8 @@
             return L.divIcon({
                 className: 'custom-customer-icon',
                 html: '<div class="customer-marker"><i class="fas fa-home"></i></div>',
-                iconSize: [25, 25],
-                iconAnchor: [12, 12]
+                iconSize: [30, 30],
+                iconAnchor: [15, 15]
             });
         }
         
@@ -1513,6 +1615,8 @@
                 if (result.success) {
                     networkData = result.data;
                     console.log('✅ Network data loaded:', networkData);
+                    console.log('📊 Customers data:', networkData.customers);
+                    console.log('📊 Customer sample:', networkData.customers?.[0]);
                     
                     // Render all data
                     renderNetworkData();
@@ -1548,10 +1652,10 @@
                 // Clear existing layers
                 clearLayers();
                 
-                // Render customers
-                if (networkData.customers?.length > 0) {
-                    renderCustomers(networkData.customers);
-                }
+                // Skip separate customer rendering - billing info will be shown in ONU popup
+                // if (networkData.customers?.length > 0) {
+                //     renderCustomers(networkData.customers);
+                // }
                 
                 // Render ONU devices
                 if (networkData.onuDevices?.length > 0) {
@@ -1603,12 +1707,34 @@
         // Render customers
         function renderCustomers(customers) {
             console.log(`👥 Rendering ${customers.length} customers...`);
+            console.log('📊 Customer data sample:', customers[0]);
             
             customers.forEach(customer => {
                 if (customer.latitude && customer.longitude) {
-                    const marker = L.marker([customer.latitude, customer.longitude], {
+                    console.log(`📍 Creating customer marker for: ${customer.name} at ${customer.latitude}, ${customer.longitude}`);
+                    
+                    // Add small offset to avoid overlapping with ONU markers
+                    const offsetLat = parseFloat(customer.latitude) + 0.0001;
+                    const offsetLng = parseFloat(customer.longitude) + 0.0001;
+                    
+                    const marker = L.marker([offsetLat, offsetLng], {
                         icon: createCustomerIcon()
                     }).addTo(customerLayer);
+                    
+                    // Calculate billing info
+                    const paymentStatus = customer.payment_status || 'no_invoice';
+                    const packageInfo = customer.package_name ? `${customer.package_name} - Rp ${customer.package_price ? customer.package_price.toLocaleString('id-ID') : 'N/A'}` : 'N/A';
+                    const dueDate = customer.due_date ? new Date(customer.due_date).toLocaleDateString('id-ID') : 'N/A';
+                    
+                    // Calculate days overdue
+                    let daysOverdue = '';
+                    if (customer.due_date && paymentStatus === 'overdue') {
+                        const today = new Date();
+                        const due = new Date(customer.due_date);
+                        const diffTime = today - due;
+                        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                        daysOverdue = ` (${diffDays} hari terlambat)`;
+                    }
                     
                     const popupContent = `
                         <div class="custom-popup">
@@ -1619,7 +1745,16 @@
                                 <p><strong>Phone:</strong> ${customer.phone || 'N/A'}</p>
                                 <p><strong>Address:</strong> ${customer.address || 'N/A'}</p>
                                 <p><strong>Status:</strong> <span class="status-${customer.status}">${customer.status}</span></p>
-                                <p><strong>Package:</strong> ${customer.package || 'N/A'}</p>
+                                <p><strong>Package:</strong> ${packageInfo}</p>
+                                
+                                <!-- Billing Information -->
+                                <div class="billing-info mt-2 p-2" style="background: #f8f9fa; border-radius: 6px; border-left: 3px solid #007bff;">
+                                    <h6 class="mb-2" style="color: #495057; font-size: 0.9rem;"><i class="fas fa-credit-card"></i> Billing Info</h6>
+                                    <p class="mb-1" style="font-size: 0.85rem;"><strong>Status:</strong> 
+                                        <span class="payment-badge payment-${paymentStatus}">${paymentStatus === 'paid' ? '✅ Paid' : paymentStatus === 'unpaid' ? '⏳ Unpaid' : paymentStatus === 'overdue' ? '🔴 Overdue' : '❓ No Invoice'}</span>
+                                    </p>
+                                    <p class="mb-0" style="font-size: 0.85rem;"><strong>Jatuh Tempo:</strong> ${dueDate}${daysOverdue}</p>
+                                </div>
                             </div>
                             <div class="popup-footer">
                                 <button class="btn btn-sm btn-primary" onclick="viewCustomerDetails(${customer.id})">
@@ -1628,6 +1763,13 @@
                             </div>
                         </div>
                     `;
+                    
+                    console.log(`💳 Customer billing info:`, {
+                        paymentStatus,
+                        packageInfo,
+                        dueDate,
+                        daysOverdue
+                    });
                     
                     marker.bindPopup(popupContent);
                 }
@@ -1649,25 +1791,63 @@
                     const statusClass = device.status?.toLowerCase() === 'offline' ? 'status-offline' : 'status-online';
                     const statusIcon = device.status?.toLowerCase() === 'offline' ? 'fas fa-wifi-slash' : 'fas fa-wifi';
                     
+                    // Find customer data for billing info
+                    const customer = networkData.customers?.find(c => c.pppoe_username === device.customerPPPoE);
+                    let billingInfo = '';
+                    
+                    if (customer) {
+                        const paymentStatus = customer.payment_status || 'no_invoice';
+                        const packageInfo = customer.package_name ? `${customer.package_name} - Rp ${customer.package_price ? customer.package_price.toLocaleString('id-ID') : 'N/A'}` : 'N/A';
+                        const dueDate = customer.due_date ? new Date(customer.due_date).toLocaleDateString('id-ID') : 'N/A';
+                        
+                        // Calculate days overdue
+                        let daysOverdue = '';
+                        if (customer.due_date && paymentStatus === 'overdue') {
+                            const today = new Date();
+                            const due = new Date(customer.due_date);
+                            const diffTime = today - due;
+                            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                            daysOverdue = ` (${diffDays} hari terlambat)`;
+                        }
+                        
+                        billingInfo = `
+                            <!-- Billing Information -->
+                            <div class="billing-info mt-3 p-2" style="background: #f8f9fa; border-radius: 6px; border-left: 3px solid #007bff;">
+                                <h6 class="mb-2" style="color: #495057; font-size: 0.9rem;"><i class="fas fa-credit-card"></i> Billing Info</h6>
+                                <p class="mb-1" style="font-size: 0.85rem;"><strong>Status:</strong> 
+                                    <span class="payment-badge payment-${paymentStatus}">${paymentStatus === 'paid' ? '✅ Paid' : paymentStatus === 'unpaid' ? '⏳ Unpaid' : paymentStatus === 'overdue' ? '🔴 Overdue' : '❓ No Invoice'}</span>
+                                </p>
+                                <p class="mb-1" style="font-size: 0.85rem;"><strong>Package:</strong> ${packageInfo}</p>
+                                <p class="mb-0" style="font-size: 0.85rem;"><strong>Jatuh Tempo:</strong> ${dueDate}${daysOverdue}</p>
+                            </div>
+                        `;
+                    }
+                    
                     const popupContent = `
-                        <div class="custom-popup">
+                        <div class="detailed-popup">
                             <div class="popup-header">
                                 <h6><i class="${statusIcon}"></i> ${device.name || 'ONU Device'}</h6>
+                                <span class="status-badge ${statusClass}">${device.status}</span>
                             </div>
                             <div class="popup-body">
-                                <p><strong>Serial:</strong> ${device.serialNumber || 'N/A'}</p>
-                                <p><strong>Customer:</strong> ${device.customerName || 'N/A'}</p>
-                                <p><strong>PPPoE Username:</strong> ${device.pppoeUsername || 'N/A'}</p>
-                                <p><strong>Status:</strong> <span class="status-badge ${statusClass}">${device.status}</span></p>
-                                <p><strong>RX Power:</strong> ${device.rxPower || 'N/A'} dBm</p>
+                                <div class="info-section">
+                                    <p><strong>Serial:</strong> ${device.serialNumber || 'N/A'}</p>
+                                    <p><strong>Customer:</strong> ${device.customerName || 'N/A'}</p>
+                                    <p><strong>Phone:</strong> ${device.customerPhone || 'N/A'}</p>
+                                    <p><strong>PPPoE:</strong> ${device.customerPPPoE || 'N/A'}</p>
+                                    <p><strong>RX Power:</strong> ${device.rxPower || 'N/A'} dBm</p>
+                                    <p><strong>Address:</strong> ${device.customerAddress || 'N/A'}</p>
+                                    <p><strong>ODP:</strong> ${device.odpName || 'N/A'}</p>
+                                    <p><strong>Coordinates:</strong> ${device.latitude}, ${device.longitude}</p>
+                                </div>
                                 
                                 <!-- Editable Fields -->
-                                <div class="mt-3">
+                                <div class="edit-section mt-3">
                                     <div class="mb-2">
                                         <label class="form-label"><strong>SSID:</strong></label>
                                         <div class="input-group input-group-sm">
                                             <input type="text" class="form-control" id="edit-ssid-${device.id}" value="${device.ssid || ''}" placeholder="Enter SSID">
-                                            <button class="btn btn-outline-success btn-sm" onclick="updateONUSSID('${device.id}')">
+                                            <button class="btn btn-outline-success btn-sm" onclick="updateONUSSID('${device.id}')" title="Save SSID">
                                                 <i class="fas fa-save"></i>
                                             </button>
                                         </div>
@@ -1677,46 +1857,21 @@
                                         <label class="form-label"><strong>Password:</strong></label>
                                         <div class="input-group input-group-sm">
                                             <input type="password" class="form-control" id="edit-password-${device.id}" value="${device.password || ''}" placeholder="Enter Password">
-                                            <button class="btn btn-outline-success btn-sm" onclick="updateONUPassword('${device.id}')">
-                                                <i class="fas fa-save"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="mb-2">
-                                        <label class="form-label"><strong>ODP:</strong></label>
-                                        <div class="input-group input-group-sm">
-                                            <select class="form-select" id="edit-odp-${device.id}">
-                                                <option value="">Select ODP</option>
-                                                ${networkData.odps?.map(odp => `<option value="${odp.id}" ${device.odp_id == odp.id ? 'selected' : ''}>${odp.name}</option>`).join('') || ''}
-                                            </select>
-                                            <button class="btn btn-outline-success btn-sm" onclick="updateONUODP('${device.id}')">
-                                                <i class="fas fa-save"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="mb-2">
-                                        <label class="form-label"><strong>Customer:</strong></label>
-                                        <div class="input-group input-group-sm">
-                                            <select class="form-select" id="edit-customer-${device.id}">
-                                                <option value="">Select Customer</option>
-                                                ${networkData.customers?.map(customer => `<option value="${customer.id}" ${device.customer_id == customer.id ? 'selected' : ''}>${customer.name}</option>`).join('') || ''}
-                                            </select>
-                                            <button class="btn btn-outline-success btn-sm" onclick="updateONUCustomer('${device.id}')">
+                                            <button class="btn btn-outline-success btn-sm" onclick="updateONUPassword('${device.id}')" title="Save Password">
                                                 <i class="fas fa-save"></i>
                                             </button>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="popup-footer">
-                                <button class="btn btn-sm btn-primary" onclick="viewONUDetails('${device.id}')">
-                                    <i class="fas fa-eye"></i> View Details
-                                </button>
-                                <button class="btn btn-sm btn-warning" onclick="restartONU('${device.id}')">
-                                    <i class="fas fa-redo"></i> Restart
-                                </button>
+                                
+                                <!-- Actions -->
+                                <div class="actions-section mt-3">
+                                    <button class="btn btn-sm btn-warning w-100" onclick="restartONU('${device.id}')">
+                                        <i class="fas fa-redo"></i> Restart ONU
+                                    </button>
+                                </div>
+                                
+                                ${billingInfo}
                             </div>
                         </div>
                     `;
@@ -1735,13 +1890,13 @@
             odps.forEach(odp => {
                 if (odp.latitude && odp.longitude) {
                     const marker = L.marker([odp.latitude, odp.longitude], {
-                        icon: createODPIcon()
+                        icon: createODPIcon(odp.is_pole)
                     }).addTo(odpLayer);
                     
                     const popupContent = `
                         <div class="custom-popup">
                             <div class="popup-header">
-                                <h6><i class="fas fa-broadcast-tower"></i> ${odp.name}</h6>
+                                <h6><i class="fas ${odp.is_pole ? 'fa-traffic-cone' : 'fa-broadcast-tower'}"></i> ${odp.name}${odp.is_pole ? ' <span class="badge bg-purple text-white ms-1">Tiang/Pol</span>' : ''}</h6>
                             </div>
                             <div class="popup-body">
                                 <p><strong>Code:</strong> ${odp.code}</p>
@@ -1789,9 +1944,11 @@
                     
                     const polyline = L.polyline(cable.coordinates, {
                         color: cableStatus === 'connected' ? '#28a745' : '#dc3545',
-                        weight: cableStatus === 'connected' ? 3 : 2,
+                        weight: cableStatus === 'connected' ? 4 : 2,
                         opacity: cableStatus === 'connected' ? 0.9 : 0.7,
-                        className: cableClass
+                        className: cableClass,
+                        dashArray: cableStatus === 'connected' ? '10, 5' : '5, 5',
+                        dashOffset: '0'
                     });
                     
                     polyline.bindPopup(`
@@ -2253,7 +2410,7 @@
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
                 },
                 body: JSON.stringify(odpData)
             })
@@ -2417,7 +2574,7 @@
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
                 },
                 body: JSON.stringify(customerData)
             })
@@ -2598,7 +2755,7 @@
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
                         },
                         body: JSON.stringify({
                             id: deviceId,
@@ -2624,7 +2781,7 @@
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
                         },
                         body: JSON.stringify({
                             id: deviceId,
@@ -2655,7 +2812,7 @@
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
                 },
                 body: JSON.stringify(basicOnuData)
             })
@@ -2740,7 +2897,7 @@
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
                         },
                         body: JSON.stringify({
                             deviceId: deviceId,
@@ -2815,6 +2972,11 @@
         // Update ONU SSID
         function updateONUSSID(deviceId) {
             const ssidInput = document.getElementById(`edit-ssid-${deviceId}`);
+            if (!ssidInput) {
+                alert('Input SSID tidak ditemukan');
+                return;
+            }
+            
             const ssid = ssidInput.value.trim();
             
             if (!ssid) {
@@ -2823,15 +2985,23 @@
             }
             
             const saveBtn = ssidInput.nextElementSibling;
+            if (!saveBtn) {
+                alert('Tombol save tidak ditemukan');
+                return;
+            }
+            
             const originalText = saveBtn.innerHTML;
             saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
             saveBtn.disabled = true;
+            
+            // Get CSRF token safely
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
             
             fetch('/admin/genieacs/edit', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    'X-CSRF-TOKEN': csrfToken
                 },
                 body: JSON.stringify({
                     id: deviceId,
@@ -2867,6 +3037,11 @@
         // Update ONU Password
         function updateONUPassword(deviceId) {
             const passwordInput = document.getElementById(`edit-password-${deviceId}`);
+            if (!passwordInput) {
+                alert('Input Password tidak ditemukan');
+                return;
+            }
+            
             const password = passwordInput.value.trim();
             
             if (!password) {
@@ -2875,15 +3050,23 @@
             }
             
             const saveBtn = passwordInput.nextElementSibling;
+            if (!saveBtn) {
+                alert('Tombol save tidak ditemukan');
+                return;
+            }
+            
             const originalText = saveBtn.innerHTML;
             saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
             saveBtn.disabled = true;
+            
+            // Get CSRF token safely
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
             
             fetch('/admin/genieacs/edit', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    'X-CSRF-TOKEN': csrfToken
                 },
                 body: JSON.stringify({
                     id: deviceId,
@@ -2935,7 +3118,7 @@
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
                 },
                 body: JSON.stringify({
                     id: deviceId,
@@ -2989,7 +3172,7 @@
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
                 },
                 body: JSON.stringify({
                     id: deviceId,
