@@ -448,22 +448,22 @@
     }
     
     function sendCustomerNotification(phone, jobNumber) {
-        const message = `🔧 *UPDATE JOB INSTALASI* 🔧\n\n` +
+        const message = `?? *UPDATE JOB INSTALASI* ??\n\n` +
                        `*Job Number:* ${jobNumber}\n` +
                        `*Status:* Sedang dalam proses\n\n` +
                        `Tim teknisi kami akan menghubungi Anda segera untuk konfirmasi jadwal instalasi.\n\n` +
-                       `_Message otomatis dari sistem GEMBOK_`;
+                       `_Message otomatis dari sistem MJBill_`;
         
         const whatsappUrl = `https://wa.me/${phone.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, '_blank');
     }
     
     function sendTechnicianNotification(phone, jobNumber) {
-        const message = `🔧 *REMINDER JOB INSTALASI* 🔧\n\n` +
+        const message = `?? *REMINDER JOB INSTALASI* ??\n\n` +
                        `*Job Number:* ${jobNumber}\n` +
                        `*Status:* <%= job.status === 'scheduled' ? 'Terjadwal' : job.status === 'assigned' ? 'Ditugaskan' : job.status === 'in_progress' ? 'Sedang Proses' : job.status === 'completed' ? 'Selesai' : 'Dibatalkan' %>\n\n` +
                        `Mohon update status job ini sesuai progress instalasi.\n\n` +
-                       `_Message otomatis dari sistem GEMBOK_`;
+                       `_Message otomatis dari sistem MJBill_`;
         
         const whatsappUrl = `https://wa.me/${phone.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, '_blank');

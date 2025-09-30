@@ -506,7 +506,7 @@
             'urgent': 'Urgent'
         }[priority];
         
-        let message = `🔧 *TUGAS INSTALASI BARU* 🔧\n\n`;
+        let message = `?? *TUGAS INSTALASI BARU* ??\n\n`;
         message += `*Job Number:* ${jobData.job_number}\n`;
         message += `*Pelanggan:* ${jobData.customer_name}\n`;
         message += `*No. HP:* ${jobData.customer_phone}\n`;
@@ -520,9 +520,9 @@
         if (notes) {
             message += `*Catatan:* ${notes}\n`;
         }
-        message += `\n📱 *Silakan konfirmasi penerimaan tugas ini*\n`;
-        message += `⏰ *Deadline:* ${jobData.installation_date}\n`;
-        message += `\n_Message otomatis dari sistem GEMBOK_`;
+        message += `\n?? *Silakan konfirmasi penerimaan tugas ini*\n`;
+        message += `? *Deadline:* ${jobData.installation_date}\n`;
+        message += `\n_Message otomatis dari sistem MJBill_`;
         
         return message;
     }
