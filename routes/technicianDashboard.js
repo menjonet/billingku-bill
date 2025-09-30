@@ -300,9 +300,9 @@ router.get('/customers', technicianAuth, async (req, res) => {
             technician: req.technician,
             // View ini mengakses settings.company_header
             settings: {
-                company_header: getSetting('company_header', 'GEMBOK'),
+                company_header: getSetting('company_header', 'MJBill'),
                 footer_info: getSetting('footer_info', 'Portal Teknisi'),
-                logo_filename: getSetting('logo_filename', 'logo.png')
+                logo_filename: getSetting('logo_filename', 'logo1.png')
             },
             isTechnicianView: true,
             technician: req.technician,
@@ -1037,9 +1037,9 @@ router.get('/mapping', technicianAuth, async (req, res) => {
         res.render('technician/mapping', {
             title: 'Network Mapping - Portal Teknisi',
             settings: {
-                company_header: getSetting('company_header', 'GEMBOK'),
+                company_header: getSetting('company_header', 'MJBill'),
                 footer_info: getSetting('footer_info', 'Portal Teknisi'),
-                logo_filename: getSetting('logo_filename', 'logo.png')
+                logo_filename: getSetting('logo_filename', 'logo1.png')
             },
             customers,
             isTechnicianView: true,
@@ -1053,7 +1053,7 @@ router.get('/mapping', technicianAuth, async (req, res) => {
             message: 'Error loading mapping page',
             error: error.message,
             appSettings: {
-                companyHeader: getSetting('company_header', 'GEMBOK'),
+                companyHeader: getSetting('company_header', 'MJBill'),
                 footerInfo: getSetting('footer_info', 'Portal Teknisi')
             }
         });
@@ -1067,7 +1067,7 @@ router.put('/genieacs/devices/:deviceId', technicianAuth, async (req, res) => {
         const { ssid, password, ssid5g, tag } = req.body;
         
         const { getSetting } = require('../config/settingsManager');
-        const genieacsUrl = getSetting('genieacs_url', 'http://localhost:7557');
+        const genieacsUrl = getSetting('genieacs_url', 'http://192.168.8.151:7557');
         const genieacsUsername = getSetting('genieacs_username', 'admin');
         const genieacsPassword = getSetting('genieacs_password', 'password');
         
@@ -1462,7 +1462,7 @@ router.get('/installations', technicianAuth, async (req, res) => {
             search,
             status,
             settings: {
-                company_header: getSetting('company_header', 'GEMBOK'),
+                company_header: getSetting('company_header', 'MJBill'),
                 footer_info: getSetting('footer_info', 'Portal Teknisi')
             }
         });
@@ -1499,15 +1499,15 @@ router.get('/troubletickets', technicianAuth, async (req, res) => {
             reports,
             stats,
             appSettings: {
-                companyHeader: getSetting('company_header', 'GEMBOK'),
+                companyHeader: getSetting('company_header', 'MJBill'),
                 footerInfo: getSetting('footer_info', 'Portal Teknisi'),
-                logoFilename: getSetting('logo_filename', 'logo.png'),
+                logoFilename: getSetting('logo_filename', 'logo1.png'),
                 company_slogan: getSetting('company_slogan', ''),
                 company_website: getSetting('company_website', ''),
                 invoice_notes: getSetting('invoice_notes', '')
             },
             settings: {
-                company_header: getSetting('company_header', 'GEMBOK'),
+                company_header: getSetting('company_header', 'MJBill'),
                 footer_info: getSetting('footer_info', 'Portal Teknisi')
             },
             // Add technician context to differentiate from admin
@@ -1556,15 +1556,15 @@ router.get('/troubletickets/detail/:id', technicianAuth, async (req, res) => {
             title: `Detail Laporan #${reportId} - Portal Teknisi`,
             report,
             appSettings: {
-                companyHeader: getSetting('company_header', 'GEMBOK'),
+                companyHeader: getSetting('company_header', 'MJBill'),
                 footerInfo: getSetting('footer_info', 'Portal Teknisi'),
-                logoFilename: getSetting('logo_filename', 'logo.png'),
+                logoFilename: getSetting('logo_filename', 'logo1.png'),
                 company_slogan: getSetting('company_slogan', ''),
                 company_website: getSetting('company_website', ''),
                 invoice_notes: getSetting('invoice_notes', '')
             },
             settings: {
-                company_header: getSetting('company_header', 'GEMBOK'),
+                company_header: getSetting('company_header', 'MJBill'),
                 footer_info: getSetting('footer_info', 'Portal Teknisi')
             },
             // Add technician context to differentiate from admin
@@ -1655,7 +1655,7 @@ router.get('/payments', technicianAuth, async (req, res) => {
             },
             statusFilter: status,
             settings: {
-                company_header: getSetting('company_header', 'GEMBOK'),
+                company_header: getSetting('company_header', 'MJBill'),
                 footer_info: getSetting('footer_info', 'Portal Teknisi')
             }
         });
@@ -2440,9 +2440,10 @@ router.get('/api/mapping-data', technicianAuth, async (req, res) => {
             db.all(`
                 SELECT c.id, c.name, c.phone, c.email, c.address, c.latitude, c.longitude,
                        c.pppoe_username, c.status, c.package_id, c.odp_id,
-                       o.name as odp_name
+                       o.name as odp_name, p.name as package_name, p.price as package_price
                 FROM customers c
                 LEFT JOIN odps o ON c.odp_id = o.id
+                LEFT JOIN packages p ON c.package_id = p.id
                 WHERE c.latitude IS NOT NULL AND c.longitude IS NOT NULL
                 ORDER BY c.name
             `, (err, rows) => {
@@ -3394,9 +3395,9 @@ router.get('/mobile/customers', technicianAuth, async (req, res) => {
                 hasPrev: currentPage > 1
             },
             settings: {
-                company_header: getSetting('company_header', 'GEMBOK'),
+                company_header: getSetting('company_header', 'MJBill'),
                 footer_info: getSetting('footer_info', 'Portal Teknisi'),
-                logo_filename: getSetting('logo_filename', 'logo.png')
+                logo_filename: getSetting('logo_filename', 'logo1.png')
             },
             isTechnicianView: true,
             technician: req.technician,

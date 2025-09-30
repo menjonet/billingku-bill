@@ -228,11 +228,36 @@ router.get('/api/mapping/new', adminAuth, async (req, res) => {
             new Promise((resolve) => {
                 console.log('🔍 Loading customers from database...');
                 db.all(`
-                    SELECT id, name, phone, pppoe_username, latitude, longitude, 
-                           address, package_id, status, join_date, odp_id
-                    FROM customers 
-                    WHERE latitude IS NOT NULL AND longitude IS NOT NULL
-                    ORDER BY name
+                    SELECT c.id, c.name, c.phone, c.pppoe_username, c.latitude, c.longitude, 
+                           c.address, c.package_id, c.status, c.join_date, c.odp_id,
+                           p.name as package_name, p.price as package_price,
+                           CASE 
+                               WHEN EXISTS (
+                                   SELECT 1 FROM invoices i 
+                                   WHERE i.customer_id = c.id 
+                                   AND i.status = 'unpaid' 
+                                   AND i.due_date < date('now')
+                               ) THEN 'overdue'
+                               WHEN EXISTS (
+                                   SELECT 1 FROM invoices i 
+                                   WHERE i.customer_id = c.id 
+                                   AND i.status = 'unpaid'
+                               ) THEN 'unpaid'
+                               WHEN EXISTS (
+                                   SELECT 1 FROM invoices i 
+                                   WHERE i.customer_id = c.id 
+                                   AND i.status = 'paid'
+                               ) THEN 'paid'
+                               ELSE 'no_invoice'
+                           END as payment_status,
+                           (SELECT i.due_date FROM invoices i 
+                            WHERE i.customer_id = c.id 
+                            AND i.status = 'unpaid' 
+                            ORDER BY i.due_date DESC LIMIT 1) as due_date
+                    FROM customers c 
+                    LEFT JOIN packages p ON c.package_id = p.id
+                    WHERE c.latitude IS NOT NULL AND c.longitude IS NOT NULL
+                    ORDER BY c.name
                 `, [], (err, rows) => {
                     if (err) {
                         console.error('❌ Error loading customers:', err);
@@ -464,6 +489,9 @@ router.get('/api/mapping/new', adminAuth, async (req, res) => {
                                    ssid: getParameterValue(device, 'InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.SSID') || 
                                         getParameterValue(device, 'Device.WiFi.SSID.1.SSID') ||
                                         getParameterValue(device, 'VirtualParameters.wifiSSID') || 'N/A',
+                                   password: getParameterValue(device, 'InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.KeyPassphrase') || 
+                                            getParameterValue(device, 'InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.PreSharedKey.1.KeyPassphrase') ||
+                                            getParameterValue(device, 'VirtualParameters.wifiPassword') || 'N/A',
                                 latitude: customerData.latitude,
                                 longitude: customerData.longitude,
                                 customerName: customerData.name,

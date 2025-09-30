@@ -13,23 +13,23 @@ const ensureCustomerSession = async (req, res, next) => {
 
         // Jika tidak ada customer_username tapi ada phone, ambil dari billing
         if (!username && phone) {
-            console.log(`🔄 [SESSION_FIX] No customer_username but phone exists: ${phone}, fetching from billing`);
+            console.log(`?? [SESSION_FIX] No customer_username but phone exists: ${phone}, fetching from billing`);
             try {
                 const customer = await billingManager.getCustomerByPhone(phone);
                 if (customer) {
                     req.session.customer_username = customer.username;
                     req.session.customer_phone = phone;
                     username = customer.username;
-                    console.log(`✅ [SESSION_FIX] Set customer_username: ${username} for phone: ${phone}`);
+                    console.log(`? [SESSION_FIX] Set customer_username: ${username} for phone: ${phone}`);
                 } else {
                     // Customer tidak ada di billing, buat temporary username
                     req.session.customer_username = `temp_${phone}`;
                     req.session.customer_phone = phone;
                     username = `temp_${phone}`;
-                    console.log(`⚠️ [SESSION_FIX] Customer not in billing, created temp username: ${username} for phone: ${phone}`);
+                    console.log(`?? [SESSION_FIX] Customer not in billing, created temp username: ${username} for phone: ${phone}`);
                 }
             } catch (error) {
-                console.error(`❌ [SESSION_FIX] Error getting customer from billing:`, error);
+                console.error(`? [SESSION_FIX] Error getting customer from billing:`, error);
                 // Fallback ke temporary username
                 req.session.customer_username = `temp_${phone}`;
                 req.session.customer_phone = phone;
@@ -45,16 +45,16 @@ const ensureCustomerSession = async (req, res, next) => {
                     req.session.customer_username = customerFix.username;
                     req.session.customer_phone = phone;
                     username = customerFix.username;
-                    console.log(`✅ [SESSION_FIX] Replaced temp username with real username: ${username} for phone: ${phone}`);
+                    console.log(`? [SESSION_FIX] Replaced temp username with real username: ${username} for phone: ${phone}`);
                 }
             } catch (e) {
-                console.warn(`⚠️ [SESSION_FIX] Retry getCustomerByPhone failed: ${e.message}`);
+                console.warn(`?? [SESSION_FIX] Retry getCustomerByPhone failed: ${e.message}`);
             }
         }
 
         // Jika masih tidak ada customer_username atau phone, redirect ke login
         if (!username && !phone) {
-            console.log(`❌ [SESSION_FIX] No session found, redirecting to login`);
+            console.log(`? [SESSION_FIX] No session found, redirecting to login`);
             return res.redirect('/customer/login');
         }
 
@@ -70,14 +70,14 @@ const getAppSettings = (req, res, next) => {
     req.appSettings = {
         companyHeader: getSetting('company_header', 'ISP Monitor'),
         footerInfo: getSetting('footer_info', ''),
-        logoFilename: getSetting('logo_filename', 'logo.png'),
-        payment_bank_name: getSetting('payment_bank_name', 'BCA'),
-        payment_account_number: getSetting('payment_account_number', '1234567890'),
-        payment_account_holder: getSetting('payment_account_holder', 'ALIJAYA DIGITAL NETWORK'),
-        payment_cash_address: getSetting('payment_cash_address', 'Jl. Contoh No. 123'),
+        logoFilename: getSetting('logo_filename', 'logo1png'),
+        payment_bank_name: getSetting('payment_bank_name', 'BRI'),
+        payment_account_number: getSetting('payment_account_number', '03270101819953'),
+        payment_account_holder: getSetting('payment_account_holder', 'LINTAS DATA PRIMA'),
+        payment_cash_address: getSetting('payment_cash_address', 'Sruwen RT05 Rw04 Bergas Kidul'),
         payment_cash_hours: getSetting('payment_cash_hours', '08:00 - 17:00'),
-        contact_whatsapp: getSetting('contact_whatsapp', '081947215703'),
-        contact_phone: getSetting('contact_phone', '0812-3456-7890')
+        contact_whatsapp: getSetting('contact_whatsapp', '085800541752'),
+        contact_phone: getSetting('contact_phone', '0858-0054-1752')
     };
     next();
 };
@@ -94,7 +94,7 @@ router.get('/dashboard', ensureCustomerSession, getAppSettings, async (req, res)
 
         // Handle temporary customer (belum ada di billing)
         if (username.startsWith('temp_')) {
-            console.log(`📋 [BILLING_DASHBOARD] Temporary customer detected: ${username}, phone: ${phone}`);
+            console.log(`?? [BILLING_DASHBOARD] Temporary customer detected: ${username}, phone: ${phone}`);
             
             // Render dashboard dengan data kosong untuk customer tanpa billing
             return res.render('customer/billing/dashboard', {
@@ -121,7 +121,7 @@ router.get('/dashboard', ensureCustomerSession, getAppSettings, async (req, res)
             if (phone) {
                 const customerByPhone = await billingManager.getCustomerByPhone(phone);
                 if (!customerByPhone) {
-                    console.log(`⚠️ [BILLING_DASHBOARD] Customer not found for username: ${username} or phone: ${phone}, treating as no billing data`);
+                    console.log(`?? [BILLING_DASHBOARD] Customer not found for username: ${username} or phone: ${phone}, treating as no billing data`);
                     
                     // Render dashboard dengan data kosong
                     return res.render('customer/billing/dashboard', {
@@ -465,17 +465,17 @@ router.get('/invoices/:id/download', getAppSettings, async (req, res) => {
 router.get('/invoices/:id/print', ensureCustomerSession, getAppSettings, async (req, res) => {
     try {
         const username = req.session.customer_username;
-        console.log(`📄 [PRINT] Print request - username: ${username}, invoice_id: ${req.params.id}`);
+        console.log(`?? [PRINT] Print request - username: ${username}, invoice_id: ${req.params.id}`);
         
         if (!username) {
-            console.log(`❌ [PRINT] No customer_username in session`);
+            console.log(`? [PRINT] No customer_username in session`);
             return res.redirect('/customer/login');
         }
 
         const { id } = req.params;
         const invoice = await billingManager.getInvoiceById(id);
         
-        console.log(`📄 [PRINT] Invoice found:`, invoice ? {
+        console.log(`?? [PRINT] Invoice found:`, invoice ? {
             id: invoice.id,
             customer_username: invoice.customer_username,
             invoice_number: invoice.invoice_number,
@@ -483,7 +483,7 @@ router.get('/invoices/:id/print', ensureCustomerSession, getAppSettings, async (
         } : 'null');
         
         if (!invoice || invoice.customer_username !== username) {
-            console.log(`❌ [PRINT] Access denied - invoice.customer_username: ${invoice?.customer_username}, session username: ${username}`);
+            console.log(`? [PRINT] Access denied - invoice.customer_username: ${invoice?.customer_username}, session username: ${username}`);
             return res.status(404).render('error', {
                 message: 'Tagihan tidak ditemukan',
                 error: 'Terjadi kesalahan. Silakan coba lagi.',
@@ -585,13 +585,8 @@ router.post('/create-payment', async (req, res) => {
             });
         }
 
-        // Validate Tripay minimum amount
-        if (gateway === 'tripay' && Number(invoice.amount) < 10000) {
-            return res.status(400).json({
-                success: false,
-                message: 'Minimal nominal pembayaran adalah Rp 10.000'
-            });
-        }
+        // Note: Tripay minimum amount validation removed for production
+        // In production mode, Tripay doesn't have minimum amount restriction
 
         // Create online payment with specific method for Tripay
         const result = await billingManager.createOnlinePaymentWithMethod(invoice_id, gateway, method);

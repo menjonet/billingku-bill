@@ -128,14 +128,14 @@ router.get('/', adminAuth, async (req, res) => {
             status,
             selectedTechnician: technician,
             settings: {
-                logo_filename: getSetting('logo_filename', 'logo.png'),
-                company_header: getSetting('company_header', 'BILLINGKU')
+                logo_filename: getSetting('logo_filename', 'logo1.png'),
+                company_header: getSetting('company_header', 'MJBill')
             },
             versionInfo: {
                 version: '1.0.0',
                 buildNumber: '001',
                 versionDate: '2024-01-01',
-                companyHeader: getSetting('company_header', 'BILLINGKU')
+                companyHeader: getSetting('company_header', 'MJBill')
             },
             versionBadge: {
                 class: 'badge-primary',
@@ -171,14 +171,14 @@ router.get('/create', adminAuth, async (req, res) => {
             technicians,
             job: null, // null for create mode
             settings: {
-                logo_filename: getSetting('logo_filename', 'logo.png'),
-                company_header: getSetting('company_header', 'BILLINGKU')
+                logo_filename: getSetting('logo_filename', 'logo1.png'),
+                company_header: getSetting('company_header', 'MJBill')
             },
             versionInfo: {
                 version: '1.0.0',
                 buildNumber: '001',
                 versionDate: '2024-01-01',
-                companyHeader: getSetting('company_header', 'BILLINGKU')
+                companyHeader: getSetting('company_header', 'MJBill')
             },
             versionBadge: {
                 class: 'badge-primary',
@@ -403,14 +403,14 @@ router.get('/edit/:id', adminAuth, async (req, res) => {
             technicians,
             job, // pass job data for edit mode
             settings: {
-                logo_filename: getSetting('logo_filename', 'logo.png'),
-                company_header: getSetting('company_header', 'BILLINGKU')
+                logo_filename: getSetting('logo_filename', 'logo1.png'),
+                company_header: getSetting('company_header', 'MJBill')
             },
             versionInfo: {
                 version: '1.0.0',
                 buildNumber: '001',
                 versionDate: '2024-01-01',
-                companyHeader: getSetting('company_header', 'BILLINGKU')
+                companyHeader: getSetting('company_header', 'MJBill')
             },
             versionBadge: {
                 class: 'badge-primary',
@@ -802,14 +802,14 @@ router.get('/view/:id', adminAuth, async (req, res) => {
                 title: 'Job Tidak Ditemukan',
                 message: 'Jadwal instalasi yang dicari tidak ditemukan',
                 settings: {
-                    logo_filename: getSetting('logo_filename', 'logo.png'),
-                    company_header: getSetting('company_header', 'BILLINGKU')
+                    logo_filename: getSetting('logo_filename', 'logo1.png'),
+                    company_header: getSetting('company_header', 'MJBill')
                 },
                 versionInfo: {
                     version: '1.0.0',
                     buildNumber: '001',
                     versionDate: '2024-01-01',
-                    companyHeader: getSetting('company_header', 'BILLINGKU')
+                    companyHeader: getSetting('company_header', 'MJBill')
                 },
                 versionBadge: {
                     class: 'badge-primary',
@@ -844,14 +844,14 @@ router.get('/view/:id', adminAuth, async (req, res) => {
             statusHistory,
             technicians,
             settings: {
-                logo_filename: getSetting('logo_filename', 'logo.png'),
-                company_header: getSetting('company_header', 'BILLINGKU')
+                logo_filename: getSetting('logo_filename', 'logo1.png'),
+                company_header: getSetting('company_header', 'MJBill')
             },
             versionInfo: {
                 version: '1.0.0',
                 buildNumber: '001',
                 versionDate: '2024-01-01',
-                companyHeader: getSetting('company_header', 'BILLINGKU')
+                companyHeader: getSetting('company_header', 'MJBill')
             },
             versionBadge: {
                 class: 'badge-primary',
@@ -865,14 +865,14 @@ router.get('/view/:id', adminAuth, async (req, res) => {
             title: 'Error',
             message: 'Terjadi kesalahan saat memuat detail job instalasi',
             settings: {
-                logo_filename: getSetting('logo_filename', 'logo.png'),
-                company_header: getSetting('company_header', 'BILLINGKU')
+                logo_filename: getSetting('logo_filename', 'logo1.png'),
+                company_header: getSetting('company_header', 'MJBill')
             },
             versionInfo: {
                 version: '1.0.0',
                 buildNumber: '001',
                 versionDate: '2024-01-01',
-                companyHeader: getSetting('company_header', 'BILLINGKU')
+                companyHeader: getSetting('company_header', 'MJBill')
             },
             versionBadge: {
                 class: 'badge-primary',

@@ -79,14 +79,14 @@ router.get('/', adminAuth, async (req, res) => {
             },
             filterStatus: statusFilter,
             settings: {
-                logo_filename: getSetting('logo_filename', 'logo.png'),
-                company_header: getSetting('company_header', 'GEMBOK')
+                logo_filename: getSetting('logo_filename', 'logo1.png'),
+                company_header: getSetting('company_header', 'MJBill')
             },
             versionInfo: {
                 version: '1.0.0',
                 buildNumber: '001',
                 versionDate: '2024-01-01',
-                companyHeader: getSetting('company_header', 'GEMBOK')
+                companyHeader: getSetting('company_header', 'MJBill')
             },
             versionBadge: {
                 class: 'badge-primary',
@@ -474,7 +474,7 @@ router.delete('/:id', adminAuth, async (req, res) => {
             });
         }
 
-        // If technician has no jobs at all → perform HARD DELETE
+        // If technician has no jobs at all ? perform HARD DELETE
         if (totalJobs === 0) {
             const hardResult = await new Promise((resolve, reject) => {
                 const delSql = `DELETE FROM technicians WHERE id = ?`;

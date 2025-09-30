@@ -43,7 +43,9 @@ const getAppSettings = (req, res, next) => {
         contact_address: getSetting('contact_address', ''),
         contact_whatsapp: getSetting('contact_whatsapp', ''),
         suspension_grace_period_days: getSetting('suspension_grace_period_days', '7'),
-        isolir_profile: getSetting('isolir_profile', 'isolir')
+        isolir_profile: getSetting('isolir_profile', 'isolir'),
+        suspension_bandwidth_limit: getSetting('suspension_bandwidth_limit', '1k/1k'),
+        static_ip_suspension_method: getSetting('static_ip_suspension_method', 'address_list')
     };
     next();
 };
@@ -1718,11 +1720,13 @@ router.get('/export/customers.xlsx', async (req, res) => {
         const workbook = new ExcelJS.Workbook();
         const worksheet = workbook.addWorksheet('Customers');
 
-        // Header lengkap dengan koordinat map dan data lainnya
+        // Header lengkap dengan semua data customer
         const headers = [
             'ID', 'Username', 'Nama', 'Phone', 'PPPoE Username', 'Email', 'Alamat',
-            'Latitude', 'Longitude', 'Package ID', 'Package Name', 'PPPoE Profile', 
-            'Status', 'Auto Suspension', 'Billing Day', 'Join Date', 'Created At'
+            'Latitude', 'Longitude', 'Package ID', 'Package Name', 'Package Price', 'PPPoE Profile', 
+            'Status', 'Payment Status', 'Auto Suspension', 'Billing Day', 'Join Date',
+            'Static IP', 'MAC Address', 'Assigned IP', 'ODP ID', 'Cable Type', 'Cable Notes',
+            'Port Number', 'Cable Status', 'Cable Length'
         ];
         
         // Set header dengan styling
@@ -1737,7 +1741,7 @@ router.get('/export/customers.xlsx', async (req, res) => {
         // Set column widths
         worksheet.columns = [
             { header: 'ID', key: 'id', width: 8 },
-            { header: 'Username', key: 'username', width: 15 },
+            { header: 'Username', key: 'username', width: 20 },
             { header: 'Nama', key: 'name', width: 25 },
             { header: 'Phone', key: 'phone', width: 15 },
             { header: 'PPPoE Username', key: 'pppoe_username', width: 20 },
@@ -1747,12 +1751,22 @@ router.get('/export/customers.xlsx', async (req, res) => {
             { header: 'Longitude', key: 'longitude', width: 12 },
             { header: 'Package ID', key: 'package_id', width: 10 },
             { header: 'Package Name', key: 'package_name', width: 20 },
+            { header: 'Package Price', key: 'package_price', width: 15 },
             { header: 'PPPoE Profile', key: 'pppoe_profile', width: 15 },
             { header: 'Status', key: 'status', width: 10 },
+            { header: 'Payment Status', key: 'payment_status', width: 15 },
             { header: 'Auto Suspension', key: 'auto_suspension', width: 15 },
             { header: 'Billing Day', key: 'billing_day', width: 12 },
             { header: 'Join Date', key: 'join_date', width: 15 },
-            { header: 'Created At', key: 'created_at', width: 15 }
+            { header: 'Static IP', key: 'static_ip', width: 15 },
+            { header: 'MAC Address', key: 'mac_address', width: 18 },
+            { header: 'Assigned IP', key: 'assigned_ip', width: 15 },
+            { header: 'ODP ID', key: 'odp_id', width: 10 },
+            { header: 'Cable Type', key: 'cable_type', width: 12 },
+            { header: 'Cable Notes', key: 'cable_notes', width: 20 },
+            { header: 'Port Number', key: 'port_number', width: 12 },
+            { header: 'Cable Status', key: 'cable_status', width: 12 },
+            { header: 'Cable Length', key: 'cable_length', width: 12 }
         ];
 
         customers.forEach(c => {
@@ -1768,20 +1782,46 @@ router.get('/export/customers.xlsx', async (req, res) => {
                 c.longitude || '',
                 c.package_id || '',
                 c.package_name || '',
+                c.package_price || '',
                 c.pppoe_profile || 'default',
                 c.status || 'active',
+                c.payment_status || 'no_invoice',
                 typeof c.auto_suspension !== 'undefined' ? c.auto_suspension : 1,
                 c.billing_day || 15,
                 c.join_date ? new Date(c.join_date).toLocaleDateString('id-ID') : '',
-                c.created_at ? new Date(c.created_at).toLocaleDateString('id-ID') : ''
+                c.static_ip || '',
+                c.mac_address || '',
+                c.assigned_ip || '',
+                c.odp_id || '',
+                c.cable_type || '',
+                c.cable_notes || '',
+                c.port_number || '',
+                c.cable_status || '',
+                c.cable_length || ''
             ]);
 
-            // Highlight rows dengan koordinat valid
-            if (c.latitude && c.longitude) {
+            // Highlight rows berdasarkan status
+            if (c.status === 'active') {
                 row.fill = {
                     type: 'pattern',
                     pattern: 'solid',
-                    fgColor: { argb: 'FFF0F8FF' }
+                    fgColor: { argb: 'FFF0F8FF' } // Light blue for active
+                };
+            } else if (c.status === 'suspended') {
+                row.fill = {
+                    type: 'pattern',
+                    pattern: 'solid',
+                    fgColor: { argb: 'FFFFE4E1' } // Light red for suspended
+                };
+            }
+
+            // Highlight rows dengan koordinat valid
+            if (c.latitude && c.longitude) {
+                row.border = {
+                    top: { style: 'thin', color: { argb: 'FF00FF00' } },
+                    left: { style: 'thin', color: { argb: 'FF00FF00' } },
+                    bottom: { style: 'thin', color: { argb: 'FF00FF00' } },
+                    right: { style: 'thin', color: { argb: 'FF00FF00' } }
                 };
             }
         });
@@ -1790,12 +1830,34 @@ router.get('/export/customers.xlsx', async (req, res) => {
         const summarySheet = workbook.addWorksheet('Summary');
         summarySheet.addRow(['Export Summary']);
         summarySheet.addRow(['Total Customers', customers.length]);
+        summarySheet.addRow(['Active Customers', customers.filter(c => c.status === 'active').length]);
+        summarySheet.addRow(['Suspended Customers', customers.filter(c => c.status === 'suspended').length]);
         summarySheet.addRow(['Customers with Coordinates', customers.filter(c => c.latitude && c.longitude).length]);
         summarySheet.addRow(['Customers without Coordinates', customers.filter(c => !c.latitude || !c.longitude).length]);
+        summarySheet.addRow(['Customers with Static IP', customers.filter(c => c.static_ip).length]);
         summarySheet.addRow(['Export Date', new Date().toLocaleString('id-ID')]);
 
+        // Add package summary
+        const packageSummary = workbook.addWorksheet('Package Summary');
+        packageSummary.addRow(['Package Summary']);
+        packageSummary.addRow(['Package Name', 'Customer Count', 'Total Revenue']);
+        
+        const packageStats = {};
+        customers.forEach(c => {
+            const pkgName = c.package_name || 'Unknown';
+            if (!packageStats[pkgName]) {
+                packageStats[pkgName] = { count: 0, revenue: 0 };
+            }
+            packageStats[pkgName].count++;
+            packageStats[pkgName].revenue += parseFloat(c.package_price || 0);
+        });
+
+        Object.entries(packageStats).forEach(([pkgName, stats]) => {
+            packageSummary.addRow([pkgName, stats.count, stats.revenue]);
+        });
+
         res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        res.setHeader('Content-Disposition', 'attachment; filename="customers_complete.xlsx"');
+        res.setHeader('Content-Disposition', 'attachment; filename="customers_complete_' + new Date().toISOString().split('T')[0] + '.xlsx"');
         await workbook.xlsx.write(res);
         res.end();
     } catch (error) {
@@ -2446,7 +2508,7 @@ router.get('/system/check-update', async (req, res) => {
 router.post('/system/update', async (req, res) => {
     try {
         const branch = (req.body && req.body.branch && String(req.body.branch).trim()) || getSetting('git_default_branch', 'main');
-        const appName = getSetting('pm2_app_name', 'gembok-bill');
+        const appName = getSetting('pm2_app_name', 'mj-bill');
         const repoPath = getSetting('repo_path', process.cwd());
         const opts = { cwd: repoPath, windowsHide: true, shell: process.platform === 'win32' ? undefined : '/bin/bash' };
 
@@ -4427,6 +4489,76 @@ router.post('/service-suspension/grace-period', async (req, res) => {
     } catch (error) {
         logger.error('Error saving grace period:', error);
         res.status(500).json({ success: false, message: error.message });
+    }
+});
+
+// Save Bandwidth Limit
+router.post('/service-suspension/bandwidth-limit', async (req, res) => {
+    try {
+        const { suspension_bandwidth_limit } = req.body || {};
+        
+        if (!suspension_bandwidth_limit || typeof suspension_bandwidth_limit !== 'string') {
+            return res.status(400).json({ 
+                success: false, 
+                message: 'Bandwidth limit tidak valid' 
+            });
+        }
+        
+        const ok = setSetting('suspension_bandwidth_limit', suspension_bandwidth_limit.trim());
+        if (!ok) {
+            return res.status(500).json({ 
+                success: false, 
+                message: 'Gagal menyimpan ke settings.json' 
+            });
+        }
+        
+        logger.info(`Bandwidth limit isolir updated to ${suspension_bandwidth_limit.trim()}`);
+        res.json({ 
+            success: true, 
+            message: `Bandwidth limit diset ke ${suspension_bandwidth_limit.trim()}`,
+            suspension_bandwidth_limit: suspension_bandwidth_limit.trim()
+        });
+    } catch (error) {
+        logger.error('Error saving bandwidth limit:', error);
+        res.status(500).json({ 
+            success: false, 
+            message: 'Error saving bandwidth limit: ' + error.message 
+        });
+    }
+});
+
+// Save Suspension Method
+router.post('/service-suspension/suspension-method', async (req, res) => {
+    try {
+        const { static_ip_suspension_method } = req.body || {};
+        
+        if (!static_ip_suspension_method || !['address_list', 'disable'].includes(static_ip_suspension_method)) {
+            return res.status(400).json({ 
+                success: false, 
+                message: 'Metode suspend tidak valid' 
+            });
+        }
+        
+        const ok = setSetting('static_ip_suspension_method', static_ip_suspension_method);
+        if (!ok) {
+            return res.status(500).json({ 
+                success: false, 
+                message: 'Gagal menyimpan ke settings.json' 
+            });
+        }
+        
+        logger.info(`Static IP suspension method updated to ${static_ip_suspension_method}`);
+        res.json({ 
+            success: true, 
+            message: `Metode suspend diset ke ${static_ip_suspension_method}`,
+            static_ip_suspension_method: static_ip_suspension_method
+        });
+    } catch (error) {
+        logger.error('Error saving suspension method:', error);
+        res.status(500).json({ 
+            success: false, 
+            message: 'Error saving suspension method: ' + error.message 
+        });
     }
 });
 

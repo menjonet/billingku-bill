@@ -100,7 +100,7 @@ class TechnicianAuthManager {
             throw new Error('WhatsApp service not available');
         }
 
-        const message = `🔐 *KODE OTP PORTAL TEKNISI*\n\nKode OTP Anda: *${otpCode}*\n\n⏰ Berlaku selama ${this.otpExpiryMinutes} menit\n🔒 Jangan bagikan kode ini kepada siapa pun\n\n*${getSetting('company_header', 'GEMBOK TEKNISI PORTAL')}*`;
+        const message = `?? *KODE OTP PORTAL TEKNISI*\n\nKode OTP Anda: *${otpCode}*\n\n? Berlaku selama ${this.otpExpiryMinutes} menit\n?? Jangan bagikan kode ini kepada siapa pun\n\n*${getSetting('company_header', 'MJBill TEKNISI PORTAL')}*`;
 
         try {
             const jid = `${phone}@s.whatsapp.net`;
@@ -244,7 +244,7 @@ function technicianAuth(req, res, next) {
 // GET: Halaman login teknisi
 router.get('/login', (req, res) => {
     const settings = {
-        company_header: getSetting('company_header', 'GEMBOK'),
+        company_header: getSetting('company_header', 'MJBill'),
         footer_info: getSetting('footer_info', 'Portal Teknisi'),
         otp_length: authManager.otpLength,
         otp_expiry_minutes: authManager.otpExpiryMinutes,
@@ -272,7 +272,7 @@ router.post('/request-otp', async (req, res) => {
                 success: null,
                 step: 'phone',
                 phone: null,
-                settings: { company_header: getSetting('company_header', 'GEMBOK') }
+                settings: { company_header: getSetting('company_header', 'MJBill') }
             });
         }
 
@@ -293,7 +293,7 @@ router.post('/request-otp', async (req, res) => {
                 success: null,
                 step: 'phone',
                 phone: null,
-                settings: { company_header: getSetting('company_header', 'GEMBOK') }
+                settings: { company_header: getSetting('company_header', 'MJBill') }
             });
         }
 
@@ -319,7 +319,7 @@ router.post('/request-otp', async (req, res) => {
                     step: 'otp',
                     phone: formattedPhone,
                     settings: { 
-                        company_header: getSetting('company_header', 'GEMBOK'),
+                        company_header: getSetting('company_header', 'MJBill'),
                         otp_length: authManager.otpLength 
                     }
                 });
@@ -330,7 +330,7 @@ router.post('/request-otp', async (req, res) => {
                     success: null,
                     step: 'phone',
                     phone: null,
-                    settings: { company_header: getSetting('company_header', 'GEMBOK') }
+                    settings: { company_header: getSetting('company_header', 'MJBill') }
                 });
             }
         } else {
@@ -359,7 +359,7 @@ router.post('/request-otp', async (req, res) => {
                     success: null,
                     step: 'phone',
                     phone: null,
-                    settings: { company_header: getSetting('company_header', 'GEMBOK') }
+                    settings: { company_header: getSetting('company_header', 'MJBill') }
                 });
             }
         }
@@ -371,7 +371,7 @@ router.post('/request-otp', async (req, res) => {
             success: null,
             step: 'phone',
             phone: null,
-            settings: { company_header: getSetting('company_header', 'GEMBOK') }
+            settings: { company_header: getSetting('company_header', 'MJBill') }
         });
     }
 });
@@ -396,7 +396,7 @@ router.post('/verify-otp', async (req, res) => {
                 step: 'otp',
                 phone: phone,
                 settings: { 
-                    company_header: getSetting('company_header', 'GEMBOK'),
+                    company_header: getSetting('company_header', 'MJBill'),
                     otp_length: authManager.otpLength 
                 }
             });
@@ -430,7 +430,7 @@ router.post('/verify-otp', async (req, res) => {
             success: null,
             step: 'phone',
             phone: null,
-            settings: { company_header: getSetting('company_header', 'GEMBOK') }
+            settings: { company_header: getSetting('company_header', 'MJBill') }
         });
     }
 });
