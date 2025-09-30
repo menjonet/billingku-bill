@@ -21690,1316 +21690,971 @@
 [2025-09-04T04:45:18.339Z] [INFO] Monitoring PPPoE connections: 170 active connections
 [2025-09-04T04:46:18.341Z] [INFO] Monitoring PPPoE connections: 170 active connections
 [2025-09-04T04:47:18.351Z] [INFO] Monitoring PPPoE connections: 170 active connections
-[2025-09-22T06:27:25.448Z] [INFO] 🚀 CacheManager initialized with default TTL: 5 minutes
-[2025-09-22T06:27:25.890Z] [INFO] Invoice scheduler initialized - will run on 1st of every month at 08:00
-[2025-09-22T06:27:25.891Z] [INFO] Daily invoice-by-billing_day scheduler is DISABLED (only monthly on the 1st)
-[2025-09-22T06:27:25.896Z] [INFO] Due date reminder scheduler initialized - will run daily at 09:00
-[2025-09-22T06:27:25.901Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
-[2025-09-22T06:27:25.905Z] [INFO] Monthly summary scheduler initialized - will run on 1st of every month at 23:59
-[2025-09-22T06:27:25.912Z] [INFO] Service suspension/restoration scheduler initialized - will run daily at 10:00 and 11:00
-[2025-09-22T06:27:25.917Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
-[2025-09-22T06:27:27.953Z] [INFO] PPPoE monitoring started with interval 60000ms
-[2025-09-22T06:27:27.955Z] [INFO] Attempting to start server on configured port: 3003
-[2025-09-22T06:27:27.957Z] [INFO] Memulai server pada port yang dikonfigurasi: 3003
-[2025-09-22T06:27:27.959Z] [INFO] Port diambil dari settings.json - tidak ada fallback ke port alternatif
-[2025-09-22T06:27:27.974Z] [INFO] ✅ Server berhasil berjalan pada port 3003
-[2025-09-22T06:27:27.976Z] [INFO] 🌐 Web Portal tersedia di: http://localhost:3003
-[2025-09-22T06:27:27.977Z] [INFO] Environment: development
-[2025-09-22T06:27:28.437Z] [INFO] WhatsApp socket set in pppoe-notifications module
-[2025-09-22T06:27:28.439Z] [INFO] WhatsApp socket set in pppoe-commands module
-[2025-09-22T06:27:28.440Z] [INFO] WhatsApp socket set in genieacs-commands module
-[2025-09-22T06:27:28.441Z] [INFO] WhatsApp connected successfully
-[2025-09-22T06:27:28.444Z] [INFO] PPPoE monitoring started with interval 60000ms
-[2025-09-22T06:27:28.449Z] [INFO] Starting RX Power Warning monitoring (interval: 10 hours)
-[2025-09-22T06:27:28.452Z] [INFO] Starting RX Power Recap monitoring (interval: 6 hours)
-[2025-09-22T06:27:28.454Z] [INFO] Starting Offline Notification monitoring (interval: 12 hours)
-[2025-09-22T06:27:28.455Z] [INFO] IntervalManager initialized successfully
-[2025-09-22T06:27:28.455Z] [INFO] Interval Manager initialized with all monitoring systems
-[2025-09-22T06:27:28.456Z] [INFO] PPPoE monitoring auto-started on initialization
-[2025-09-22T06:27:28.457Z] [INFO] PPPoE monitoring initialized
-[2025-09-22T06:28:04.403Z] [INFO] Connected to Mikrotik at 192.168.3.1:8728
-[2025-09-22T06:28:04.409Z] [INFO] Connected to Mikrotik at 192.168.3.1:8728
-[2025-09-22T06:28:28.164Z] [INFO] PPPoE LOGIN:
+[2025-09-29T10:43:17.437Z] [INFO] 🚀 CacheManager initialized with default TTL: 5 minutes
+[2025-09-29T10:43:17.859Z] [INFO] Invoice scheduler initialized - will run on 1st of every month at 08:00
+[2025-09-29T10:43:17.860Z] [INFO] Daily invoice-by-billing_day scheduler is DISABLED (only monthly on the 1st)
+[2025-09-29T10:43:17.865Z] [INFO] Due date reminder scheduler initialized - will run daily at 09:00
+[2025-09-29T10:43:17.869Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
+[2025-09-29T10:43:17.874Z] [INFO] Monthly summary scheduler initialized - will run on 1st of every month at 23:59
+[2025-09-29T10:43:17.878Z] [INFO] Monthly reset scheduler initialized - will run on 1st of every month at 00:01
+[2025-09-29T10:43:17.885Z] [INFO] Service suspension/restoration scheduler initialized - will run daily at 10:00 and 11:00
+[2025-09-29T10:43:17.889Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
+[2025-09-29T10:43:19.826Z] [INFO] Direktori sesi WhatsApp dibuat: ./whatsapp-session
+[2025-09-29T10:43:20.157Z] [INFO] PPPoE monitoring started with interval 60000ms
+[2025-09-29T10:43:20.160Z] [INFO] Attempting to start server on configured port: 3003
+[2025-09-29T10:43:20.161Z] [INFO] Memulai server pada port yang dikonfigurasi: 3003
+[2025-09-29T10:43:20.164Z] [INFO] Port diambil dari settings.json - tidak ada fallback ke port alternatif
+[2025-09-29T10:43:20.184Z] [INFO] ✅ Server berhasil berjalan pada port 3003
+[2025-09-29T10:43:20.185Z] [INFO] 🌐 Web Portal tersedia di: http://localhost:3003
+[2025-09-29T10:43:20.186Z] [INFO] Environment: development
+[2025-09-29T10:43:20.984Z] [INFO] WhatsApp socket set in pppoe-notifications module
+[2025-09-29T10:43:20.986Z] [INFO] WhatsApp socket set in pppoe-commands module
+[2025-09-29T10:43:20.987Z] [INFO] WhatsApp socket set in genieacs-commands module
+[2025-09-29T10:43:20.989Z] [INFO] WhatsApp connected successfully
+[2025-09-29T10:43:20.994Z] [INFO] PPPoE monitoring started with interval 60000ms
+[2025-09-29T10:43:21.004Z] [INFO] Starting RX Power Warning monitoring (interval: 10 hours)
+[2025-09-29T10:43:21.006Z] [INFO] Starting RX Power Recap monitoring (interval: 6 hours)
+[2025-09-29T10:43:21.009Z] [INFO] Starting Offline Notification monitoring (interval: 12 hours)
+[2025-09-29T10:43:21.010Z] [INFO] IntervalManager initialized successfully
+[2025-09-29T10:43:21.011Z] [INFO] Interval Manager initialized with all monitoring systems
+[2025-09-29T10:43:21.012Z] [INFO] PPPoE monitoring auto-started on initialization
+[2025-09-29T10:43:21.017Z] [INFO] PPPoE monitoring initialized
+[2025-09-29T10:44:04.942Z] [INFO] 🚀 CacheManager initialized with default TTL: 5 minutes
+[2025-09-29T10:44:05.284Z] [INFO] Invoice scheduler initialized - will run on 1st of every month at 08:00
+[2025-09-29T10:44:05.285Z] [INFO] Daily invoice-by-billing_day scheduler is DISABLED (only monthly on the 1st)
+[2025-09-29T10:44:05.290Z] [INFO] Due date reminder scheduler initialized - will run daily at 09:00
+[2025-09-29T10:44:05.295Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
+[2025-09-29T10:44:05.298Z] [INFO] Monthly summary scheduler initialized - will run on 1st of every month at 23:59
+[2025-09-29T10:44:05.303Z] [INFO] Monthly reset scheduler initialized - will run on 1st of every month at 00:01
+[2025-09-29T10:44:05.311Z] [INFO] Service suspension/restoration scheduler initialized - will run daily at 10:00 and 11:00
+[2025-09-29T10:44:05.315Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
+[2025-09-29T10:44:07.141Z] [INFO] PPPoE monitoring started with interval 60000ms
+[2025-09-29T10:44:07.143Z] [INFO] Attempting to start server on configured port: 3003
+[2025-09-29T10:44:07.145Z] [INFO] Memulai server pada port yang dikonfigurasi: 3003
+[2025-09-29T10:44:07.146Z] [INFO] Port diambil dari settings.json - tidak ada fallback ke port alternatif
+[2025-09-29T10:44:07.162Z] [INFO] ✅ Server berhasil berjalan pada port 3003
+[2025-09-29T10:44:07.163Z] [INFO] 🌐 Web Portal tersedia di: http://localhost:3003
+[2025-09-29T10:44:07.164Z] [INFO] Environment: development
+[2025-09-29T10:44:07.614Z] [INFO] WhatsApp socket set in pppoe-notifications module
+[2025-09-29T10:44:07.615Z] [INFO] WhatsApp socket set in pppoe-commands module
+[2025-09-29T10:44:07.616Z] [INFO] WhatsApp socket set in genieacs-commands module
+[2025-09-29T10:44:07.617Z] [INFO] WhatsApp connected successfully
+[2025-09-29T10:44:07.620Z] [INFO] PPPoE monitoring started with interval 60000ms
+[2025-09-29T10:44:07.625Z] [INFO] Starting RX Power Warning monitoring (interval: 10 hours)
+[2025-09-29T10:44:07.627Z] [INFO] Starting RX Power Recap monitoring (interval: 6 hours)
+[2025-09-29T10:44:07.629Z] [INFO] Starting Offline Notification monitoring (interval: 12 hours)
+[2025-09-29T10:44:07.630Z] [INFO] IntervalManager initialized successfully
+[2025-09-29T10:44:07.631Z] [INFO] Interval Manager initialized with all monitoring systems
+[2025-09-29T10:44:07.632Z] [INFO] PPPoE monitoring auto-started on initialization
+[2025-09-29T10:44:07.633Z] [INFO] PPPoE monitoring initialized
+[2025-09-29T10:44:59.961Z] [INFO] 🚀 CacheManager initialized with default TTL: 5 minutes
+[2025-09-29T10:45:00.309Z] [INFO] Invoice scheduler initialized - will run on 1st of every month at 08:00
+[2025-09-29T10:45:00.310Z] [INFO] Daily invoice-by-billing_day scheduler is DISABLED (only monthly on the 1st)
+[2025-09-29T10:45:00.315Z] [INFO] Due date reminder scheduler initialized - will run daily at 09:00
+[2025-09-29T10:45:00.320Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
+[2025-09-29T10:45:00.324Z] [INFO] Monthly summary scheduler initialized - will run on 1st of every month at 23:59
+[2025-09-29T10:45:00.329Z] [INFO] Monthly reset scheduler initialized - will run on 1st of every month at 00:01
+[2025-09-29T10:45:00.336Z] [INFO] Service suspension/restoration scheduler initialized - will run daily at 10:00 and 11:00
+[2025-09-29T10:45:00.340Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
+[2025-09-29T10:45:02.591Z] [INFO] PPPoE monitoring started with interval 60000ms
+[2025-09-29T10:45:02.594Z] [INFO] Attempting to start server on configured port: 3003
+[2025-09-29T10:45:02.597Z] [INFO] Memulai server pada port yang dikonfigurasi: 3003
+[2025-09-29T10:45:02.598Z] [INFO] Port diambil dari settings.json - tidak ada fallback ke port alternatif
+[2025-09-29T10:45:02.661Z] [INFO] ✅ Server berhasil berjalan pada port 3003
+[2025-09-29T10:45:02.663Z] [INFO] 🌐 Web Portal tersedia di: http://localhost:3003
+[2025-09-29T10:45:02.673Z] [INFO] Environment: development
+[2025-09-29T10:45:03.353Z] [INFO] WhatsApp socket set in pppoe-notifications module
+[2025-09-29T10:45:03.355Z] [INFO] WhatsApp socket set in pppoe-commands module
+[2025-09-29T10:45:03.357Z] [INFO] WhatsApp socket set in genieacs-commands module
+[2025-09-29T10:45:03.360Z] [INFO] WhatsApp connected successfully
+[2025-09-29T10:45:03.364Z] [INFO] PPPoE monitoring started with interval 60000ms
+[2025-09-29T10:45:03.371Z] [INFO] Starting RX Power Warning monitoring (interval: 10 hours)
+[2025-09-29T10:45:03.375Z] [INFO] Starting RX Power Recap monitoring (interval: 6 hours)
+[2025-09-29T10:45:03.378Z] [INFO] Starting Offline Notification monitoring (interval: 12 hours)
+[2025-09-29T10:45:03.380Z] [INFO] IntervalManager initialized successfully
+[2025-09-29T10:45:03.381Z] [INFO] Interval Manager initialized with all monitoring systems
+[2025-09-29T10:45:03.383Z] [INFO] PPPoE monitoring auto-started on initialization
+[2025-09-29T10:45:03.386Z] [INFO] PPPoE monitoring initialized
+[2025-09-29T10:45:48.354Z] [INFO] Connected to Mikrotik at 192.168.3.1:8728
+[2025-09-29T10:46:03.123Z] [INFO] PPPoE LOGIN:
 [
-  "supri",
   "tembong",
-  "nurabidin",
-  "biyu",
-  "harno1",
-  "panjol",
-  "tuminah",
-  "fajar",
-  "vina",
-  "ogeh",
-  "ika",
-  "basuki",
-  "gunawan",
-  "sari",
-  "ariswarung",
-  "nasrudin",
-  "welas",
-  "linggar",
-  "rasiman",
-  "harno",
-  "anjar",
-  "panji",
-  "goyali",
-  "anik",
-  "wiwit",
-  "takim",
-  "mbakton",
-  "yani",
-  "badar",
-  "jarno",
-  "rangga",
   "tiwik",
-  "akmal",
-  "jodin",
-  "ikun",
-  "ambar",
-  "aan",
-  "nanda",
-  "ajeng",
-  "nisa",
-  "imam",
-  "anang",
-  "yogi",
-  "tumini",
-  "eka",
-  "ida",
-  "deva",
-  "ngadiyanto",
-  "sodik",
-  "tokrek",
-  "erin",
-  "ginah",
-  "yoga",
-  "dewi",
-  "bombom",
-  "diwah",
-  "suranto",
-  "badi",
-  "masyus",
-  "yani2",
-  "cinta",
-  "lina",
-  "opak",
-  "eva",
-  "fauzan",
-  "muhtadi",
-  "daroji",
-  "tonnangto",
-  "mamat",
-  "kento",
-  "gimen",
-  "alan",
-  "sulis",
-  "norma",
-  "kiki",
-  "rido",
-  "arum",
-  "suprijamur",
-  "arisferi",
-  "mbakfatim",
-  "triyono",
-  "adiimam",
-  "qoriroh",
-  "lisrt6",
-  "heri",
-  "musanto",
-  "toyib",
-  "ade",
-  "rohani",
-  "sory",
-  "toge",
-  "gondrong",
-  "yamroji",
-  "feri",
-  "faozi",
-  "angga"
-]
-[2025-09-22T06:28:28.165Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T06:28:28.604Z] [INFO] PPPoE LOGIN detected: supri, tembong, nurabidin, biyu, harno1, panjol, tuminah, fajar, vina, ogeh, ika, basuki, gunawan, sari, ariswarung, nasrudin, welas, linggar, rasiman, harno, anjar, panji, goyali, anik, wiwit, takim, mbakton, yani, badar, jarno, rangga, tiwik, akmal, jodin, ikun, ambar, aan, nanda, ajeng, nisa, imam, anang, yogi, tumini, eka, ida, deva, ngadiyanto, sodik, tokrek, erin, ginah, yoga, dewi, bombom, diwah, suranto, badi, masyus, yani2, cinta, lina, opak, eva, fauzan, muhtadi, daroji, tonnangto, mamat, kento, gimen, alan, sulis, norma, kiki, rido, arum, suprijamur, arisferi, mbakfatim, triyono, adiimam, qoriroh, lisrt6, heri, musanto, toyib, ade, rohani, sory, toge, gondrong, yamroji, feri, faozi, angga
-[2025-09-22T06:28:28.722Z] [INFO] Found 6 active technicians in database
-[2025-09-22T06:28:29.415Z] [INFO] PPPoE notification sent to 6285800541752
-[2025-09-22T06:28:31.638Z] [INFO] PPPoE notification sent to 6283807665697
-[2025-09-22T06:28:33.609Z] [INFO] PPPoE notification sent to 6288232807394
-[2025-09-22T06:28:33.610Z] [INFO] PPPoE notification sent to 3/3 valid recipients (6 total)
-[2025-09-22T06:28:33.610Z] [INFO] PPPoE monitoring: 96 active connections, 96 login, 0 logout
-[2025-09-22T06:29:28.078Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T06:35:24.451Z] [INFO] 🚀 CacheManager initialized with default TTL: 5 minutes
-[2025-09-22T06:35:24.842Z] [INFO] Invoice scheduler initialized - will run on 1st of every month at 08:00
-[2025-09-22T06:35:24.843Z] [INFO] Daily invoice-by-billing_day scheduler is DISABLED (only monthly on the 1st)
-[2025-09-22T06:35:24.849Z] [INFO] Due date reminder scheduler initialized - will run daily at 09:00
-[2025-09-22T06:35:24.856Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
-[2025-09-22T06:35:24.861Z] [INFO] Monthly summary scheduler initialized - will run on 1st of every month at 23:59
-[2025-09-22T06:35:24.868Z] [INFO] Service suspension/restoration scheduler initialized - will run daily at 10:00 and 11:00
-[2025-09-22T06:35:24.873Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
-[2025-09-22T06:35:26.437Z] [INFO] PPPoE monitoring started with interval 60000ms
-[2025-09-22T06:35:26.439Z] [INFO] Attempting to start server on configured port: 3003
-[2025-09-22T06:35:26.441Z] [INFO] Memulai server pada port yang dikonfigurasi: 3003
-[2025-09-22T06:35:26.443Z] [INFO] Port diambil dari settings.json - tidak ada fallback ke port alternatif
-[2025-09-22T06:35:26.459Z] [INFO] ✅ Server berhasil berjalan pada port 3003
-[2025-09-22T06:35:26.461Z] [INFO] 🌐 Web Portal tersedia di: http://localhost:3003
-[2025-09-22T06:35:26.462Z] [INFO] Environment: development
-[2025-09-22T06:35:26.939Z] [INFO] WhatsApp socket set in pppoe-notifications module
-[2025-09-22T06:35:26.940Z] [INFO] WhatsApp socket set in pppoe-commands module
-[2025-09-22T06:35:26.941Z] [INFO] WhatsApp socket set in genieacs-commands module
-[2025-09-22T06:35:26.942Z] [INFO] WhatsApp connected successfully
-[2025-09-22T06:35:26.945Z] [INFO] PPPoE monitoring started with interval 60000ms
-[2025-09-22T06:35:26.950Z] [INFO] Starting RX Power Warning monitoring (interval: 10 hours)
-[2025-09-22T06:35:26.952Z] [INFO] Starting RX Power Recap monitoring (interval: 6 hours)
-[2025-09-22T06:35:26.954Z] [INFO] Starting Offline Notification monitoring (interval: 12 hours)
-[2025-09-22T06:35:26.955Z] [INFO] IntervalManager initialized successfully
-[2025-09-22T06:35:26.956Z] [INFO] Interval Manager initialized with all monitoring systems
-[2025-09-22T06:35:26.957Z] [INFO] PPPoE monitoring auto-started on initialization
-[2025-09-22T06:35:26.958Z] [INFO] PPPoE monitoring initialized
-[2025-09-22T06:36:00.481Z] [INFO] Connected to Mikrotik at 192.168.3.1:8728
-[2025-09-22T06:36:00.488Z] [INFO] Connected to Mikrotik at 192.168.3.1:8728
-[2025-09-22T06:36:26.667Z] [INFO] PPPoE LOGIN:
-[
   "supri",
-  "tembong",
-  "nurabidin",
-  "biyu",
-  "harno1",
-  "panjol",
-  "tuminah",
-  "fajar",
-  "vina",
-  "ogeh",
-  "ika",
-  "basuki",
-  "gunawan",
-  "sari",
-  "ariswarung",
-  "nasrudin",
-  "welas",
-  "linggar",
-  "rasiman",
-  "harno",
-  "anjar",
-  "panji",
-  "goyali",
-  "anik",
-  "wiwit",
-  "takim",
-  "mbakton",
-  "yani",
-  "badar",
-  "jarno",
-  "rangga",
-  "tiwik",
-  "akmal",
   "jodin",
-  "ikun",
-  "ambar",
-  "aan",
-  "nanda",
-  "ajeng",
-  "nisa",
-  "imam",
-  "anang",
-  "yogi",
-  "tumini",
-  "eka",
-  "ida",
-  "deva",
-  "ngadiyanto",
-  "sodik",
-  "tokrek",
-  "erin",
-  "ginah",
-  "yoga",
-  "dewi",
-  "bombom",
-  "diwah",
-  "suranto",
-  "badi",
-  "masyus",
-  "yani2",
-  "cinta",
-  "lina",
-  "opak",
-  "eva",
-  "fauzan",
-  "muhtadi",
-  "daroji",
-  "tonnangto",
   "mamat",
-  "kento",
-  "gimen",
-  "alan",
-  "sulis",
-  "norma",
-  "kiki",
-  "rido",
-  "arum",
-  "suprijamur",
-  "arisferi",
-  "mbakfatim",
-  "triyono",
-  "adiimam",
-  "qoriroh",
-  "lisrt6",
-  "heri",
-  "musanto",
-  "toyib",
-  "ade",
-  "rohani",
-  "sory",
-  "toge",
-  "gondrong",
-  "yamroji",
-  "feri",
-  "faozi",
-  "angga"
-]
-[2025-09-22T06:36:26.668Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T06:36:27.074Z] [INFO] PPPoE LOGIN detected: supri, tembong, nurabidin, biyu, harno1, panjol, tuminah, fajar, vina, ogeh, ika, basuki, gunawan, sari, ariswarung, nasrudin, welas, linggar, rasiman, harno, anjar, panji, goyali, anik, wiwit, takim, mbakton, yani, badar, jarno, rangga, tiwik, akmal, jodin, ikun, ambar, aan, nanda, ajeng, nisa, imam, anang, yogi, tumini, eka, ida, deva, ngadiyanto, sodik, tokrek, erin, ginah, yoga, dewi, bombom, diwah, suranto, badi, masyus, yani2, cinta, lina, opak, eva, fauzan, muhtadi, daroji, tonnangto, mamat, kento, gimen, alan, sulis, norma, kiki, rido, arum, suprijamur, arisferi, mbakfatim, triyono, adiimam, qoriroh, lisrt6, heri, musanto, toyib, ade, rohani, sory, toge, gondrong, yamroji, feri, faozi, angga
-[2025-09-22T06:36:27.233Z] [INFO] Found 6 active technicians in database
-[2025-09-22T06:36:27.841Z] [INFO] PPPoE notification sent to 6285800541752
-[2025-09-22T06:36:28.386Z] [INFO] 🧹 Cache CLEARED: 3 entries removed
-[2025-09-22T06:36:29.991Z] [INFO] PPPoE notification sent to 6283807665697
-[2025-09-22T06:36:31.872Z] [INFO] PPPoE notification sent to 6288232807394
-[2025-09-22T06:36:31.874Z] [INFO] PPPoE notification sent to 3/3 valid recipients (6 total)
-[2025-09-22T06:36:31.874Z] [INFO] PPPoE monitoring: 96 active connections, 96 login, 0 logout
-[2025-09-22T06:37:26.568Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T06:38:26.441Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T06:38:52.406Z] [INFO] Technician 469 hard deleted (no related jobs)
-[2025-09-22T06:39:03.231Z] [INFO] Technician 470 hard deleted (no related jobs)
-[2025-09-22T06:39:07.943Z] [INFO] Technician 322 hard deleted (no related jobs)
-[2025-09-22T06:39:11.331Z] [INFO] Technician 321 hard deleted (no related jobs)
-[2025-09-22T06:39:26.554Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T06:40:26.441Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T06:41:26.445Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T06:42:26.574Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T06:43:26.442Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T06:44:26.563Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T06:45:26.442Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T06:46:26.580Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T06:47:26.442Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T06:48:26.582Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T06:49:26.441Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T06:50:26.596Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T06:51:26.445Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T06:52:26.592Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T06:53:26.446Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T06:54:26.568Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T06:55:26.445Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T06:55:45.631Z] [INFO] 🚀 CacheManager initialized with default TTL: 5 minutes
-[2025-09-22T06:55:46.041Z] [INFO] Invoice scheduler initialized - will run on 1st of every month at 08:00
-[2025-09-22T06:55:46.042Z] [INFO] Daily invoice-by-billing_day scheduler is DISABLED (only monthly on the 1st)
-[2025-09-22T06:55:46.047Z] [INFO] Due date reminder scheduler initialized - will run daily at 09:00
-[2025-09-22T06:55:46.052Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
-[2025-09-22T06:55:46.057Z] [INFO] Monthly summary scheduler initialized - will run on 1st of every month at 23:59
-[2025-09-22T06:55:46.064Z] [INFO] Service suspension/restoration scheduler initialized - will run daily at 10:00 and 11:00
-[2025-09-22T06:55:46.068Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
-[2025-09-22T06:55:47.642Z] [INFO] PPPoE monitoring started with interval 60000ms
-[2025-09-22T06:55:47.644Z] [INFO] Attempting to start server on configured port: 3003
-[2025-09-22T06:55:47.646Z] [INFO] Memulai server pada port yang dikonfigurasi: 3003
-[2025-09-22T06:55:47.647Z] [INFO] Port diambil dari settings.json - tidak ada fallback ke port alternatif
-[2025-09-22T06:55:47.663Z] [INFO] ✅ Server berhasil berjalan pada port 3003
-[2025-09-22T06:55:47.665Z] [INFO] 🌐 Web Portal tersedia di: http://localhost:3003
-[2025-09-22T06:55:47.666Z] [INFO] Environment: development
-[2025-09-22T06:55:48.154Z] [INFO] WhatsApp socket set in pppoe-notifications module
-[2025-09-22T06:55:48.155Z] [INFO] WhatsApp socket set in pppoe-commands module
-[2025-09-22T06:55:48.156Z] [INFO] WhatsApp socket set in genieacs-commands module
-[2025-09-22T06:55:48.158Z] [INFO] WhatsApp connected successfully
-[2025-09-22T06:55:48.161Z] [INFO] PPPoE monitoring started with interval 60000ms
-[2025-09-22T06:55:48.168Z] [INFO] Starting RX Power Warning monitoring (interval: 10 hours)
-[2025-09-22T06:55:48.170Z] [INFO] Starting RX Power Recap monitoring (interval: 6 hours)
-[2025-09-22T06:55:48.172Z] [INFO] Starting Offline Notification monitoring (interval: 12 hours)
-[2025-09-22T06:55:48.174Z] [INFO] IntervalManager initialized successfully
-[2025-09-22T06:55:48.174Z] [INFO] Interval Manager initialized with all monitoring systems
-[2025-09-22T06:55:48.175Z] [INFO] PPPoE monitoring auto-started on initialization
-[2025-09-22T06:55:48.177Z] [INFO] PPPoE monitoring initialized
-[2025-09-22T06:56:15.199Z] [INFO] Connected to Mikrotik at 192.168.3.1:8728
-[2025-09-22T06:56:34.837Z] [INFO] Package updated: BRONZE with tax_rate: 0
-[2025-09-22T06:56:47.977Z] [INFO] PPPoE LOGIN:
-[
-  "supri",
-  "tembong",
-  "nurabidin",
-  "biyu",
-  "harno1",
-  "panjol",
-  "tuminah",
-  "fajar",
-  "vina",
-  "ogeh",
-  "ika",
-  "basuki",
-  "gunawan",
-  "sari",
-  "ariswarung",
-  "nasrudin",
-  "welas",
-  "linggar",
-  "rasiman",
-  "harno",
-  "anjar",
-  "panji",
-  "goyali",
-  "anik",
-  "wiwit",
-  "takim",
-  "mbakton",
-  "yani",
-  "badar",
-  "jarno",
-  "rangga",
-  "tiwik",
-  "akmal",
-  "jodin",
-  "ikun",
-  "ambar",
-  "aan",
-  "nanda",
-  "ajeng",
-  "nisa",
-  "imam",
-  "anang",
-  "yogi",
-  "tumini",
-  "eka",
-  "ida",
-  "deva",
-  "ngadiyanto",
-  "sodik",
-  "tokrek",
-  "erin",
-  "ginah",
-  "yoga",
-  "dewi",
-  "bombom",
-  "diwah",
-  "suranto",
-  "badi",
-  "masyus",
-  "yani2",
-  "cinta",
-  "lina",
-  "opak",
-  "eva",
   "fauzan",
-  "muhtadi",
-  "daroji",
-  "tonnangto",
-  "mamat",
-  "kento",
-  "gimen",
-  "alan",
   "sulis",
-  "norma",
-  "kiki",
-  "rido",
-  "arum",
-  "suprijamur",
-  "arisferi",
-  "mbakfatim",
-  "triyono",
-  "adiimam",
-  "qoriroh",
-  "lisrt6",
-  "heri",
-  "musanto",
-  "toyib",
-  "ade",
-  "rohani",
-  "sory",
-  "toge",
-  "gondrong",
-  "yamroji",
-  "feri",
-  "faozi",
-  "angga"
-]
-[2025-09-22T06:56:47.978Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T06:56:48.251Z] [INFO] PPPoE LOGIN detected: supri, tembong, nurabidin, biyu, harno1, panjol, tuminah, fajar, vina, ogeh, ika, basuki, gunawan, sari, ariswarung, nasrudin, welas, linggar, rasiman, harno, anjar, panji, goyali, anik, wiwit, takim, mbakton, yani, badar, jarno, rangga, tiwik, akmal, jodin, ikun, ambar, aan, nanda, ajeng, nisa, imam, anang, yogi, tumini, eka, ida, deva, ngadiyanto, sodik, tokrek, erin, ginah, yoga, dewi, bombom, diwah, suranto, badi, masyus, yani2, cinta, lina, opak, eva, fauzan, muhtadi, daroji, tonnangto, mamat, kento, gimen, alan, sulis, norma, kiki, rido, arum, suprijamur, arisferi, mbakfatim, triyono, adiimam, qoriroh, lisrt6, heri, musanto, toyib, ade, rohani, sory, toge, gondrong, yamroji, feri, faozi, angga
-[2025-09-22T06:56:48.376Z] [INFO] Found 2 active technicians in database
-[2025-09-22T06:56:49.024Z] [INFO] PPPoE notification sent to 6285800541752
-[2025-09-22T06:56:50.640Z] [INFO] PPPoE notification sent to 6288232807394
-[2025-09-22T06:56:50.642Z] [INFO] PPPoE notification sent to 2/2 valid recipients (2 total)
-[2025-09-22T06:56:50.643Z] [INFO] PPPoE monitoring: 96 active connections, 96 login, 0 logout
-[2025-09-22T06:56:57.829Z] [INFO] Package updated: SILVER with tax_rate: 0
-[2025-09-22T06:57:28.869Z] [INFO] Package updated: SOSIAL with tax_rate: 0
-[2025-09-22T06:57:47.644Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T06:57:49.799Z] [INFO] Package updated: GOLD with tax_rate: 11
-[2025-09-22T06:58:35.616Z] [INFO] Created customer: Aan (08885673266) with ID: 1049
-[2025-09-22T06:58:35.707Z] [INFO] Created customer: Ajeng (081225481353) with ID: 1050
-[2025-09-22T06:58:35.816Z] [INFO] Created customer: Akmal (082136026697) with ID: 1051
-[2025-09-22T06:58:35.949Z] [INFO] Created customer: Ambar (085877754935) with ID: 1052
-[2025-09-22T06:58:36.083Z] [INFO] Created customer: Anang (083829389279) with ID: 1053
-[2025-09-22T06:58:36.174Z] [INFO] Created customer: Angga (082133873692) with ID: 1054
-[2025-09-22T06:58:36.268Z] [INFO] Created customer: Anik (082133489533) with ID: 1055
-[2025-09-22T06:58:36.375Z] [INFO] Created customer: Anjar (085741249498) with ID: 1056
-[2025-09-22T06:58:36.495Z] [INFO] Created customer: Aris Feri (089630074393) with ID: 1057
-[2025-09-22T06:58:36.587Z] [INFO] Created customer: Arum (081225465253) with ID: 1058
-[2025-09-22T06:58:36.685Z] [INFO] Created customer: Basuki (081329096182) with ID: 1059
-[2025-09-22T06:58:36.782Z] [INFO] Created customer: Biyu (082226295057) with ID: 1060
-[2025-09-22T06:58:36.873Z] [INFO] Created customer: Cinta (08213451814) with ID: 1061
-[2025-09-22T06:58:36.957Z] [INFO] Created customer: Deva (088220145187) with ID: 1062
-[2025-09-22T06:58:37.041Z] [INFO] Created customer: Dewi (0889880772937) with ID: 1063
-[2025-09-22T06:58:37.137Z] [INFO] Created customer: Diwah (085725432090) with ID: 1064
-[2025-09-22T06:58:37.212Z] [INFO] Created customer: Drafael (085800514322) with ID: 1065
-[2025-09-22T06:58:37.302Z] [INFO] Created customer: Eka (087873578838) with ID: 1066
-[2025-09-22T06:58:37.427Z] [INFO] Created customer: Fajar (085292734922) with ID: 1067
-[2025-09-22T06:58:37.512Z] [INFO] Created customer: Faouzi (082226203504) with ID: 1068
-[2025-09-22T06:58:37.604Z] [INFO] Created customer: Fatim (085712208207) with ID: 1069
-[2025-09-22T06:58:37.716Z] [INFO] Created customer: Fauzan (085226050488) with ID: 1070
-[2025-09-22T06:58:37.835Z] [INFO] Created customer: Feri (08817624113) with ID: 1071
-[2025-09-22T06:58:37.967Z] [INFO] Created customer: Gimen (081390908507) with ID: 1072
-[2025-09-22T06:58:38.087Z] [INFO] Created customer: Gondrong (085726617254) with ID: 1073
-[2025-09-22T06:58:38.230Z] [INFO] Created customer: Gozali (085728133019) with ID: 1074
-[2025-09-22T06:58:38.375Z] [INFO] Created customer: Gunawan (0895363614176) with ID: 1075
-[2025-09-22T06:58:38.484Z] [INFO] Created customer: Heri (08562668801) with ID: 1076
-[2025-09-22T06:58:38.616Z] [INFO] Created customer: Ida (089634662600) with ID: 1077
-[2025-09-22T06:58:38.753Z] [INFO] Created customer: Ika (081236284668) with ID: 1078
-[2025-09-22T06:58:38.887Z] [INFO] Created customer: Imam (082134497802) with ID: 1079
-[2025-09-22T06:58:39.009Z] [INFO] Created customer: Kiki (085642567079) with ID: 1080
-[2025-09-22T06:58:39.133Z] [INFO] Created customer: Lina (0895365213615) with ID: 1081
-[2025-09-22T06:58:39.261Z] [INFO] Created customer: Linggar (085727261370) with ID: 1082
-[2025-09-22T06:58:39.396Z] [INFO] Created customer: Lis (082247874457) with ID: 1083
-[2025-09-22T06:58:39.491Z] [INFO] Created customer: Listiyani (0882003007820) with ID: 1084
-[2025-09-22T06:58:39.600Z] [INFO] Created customer: Mamat (085640004637) with ID: 1085
-[2025-09-22T06:58:39.670Z] [INFO] Created customer: Musanto (088983085690) with ID: 1086
-[2025-09-22T06:58:39.765Z] [INFO] Created customer: Nasrudin (0895424082121) with ID: 1087
-[2025-09-22T06:58:39.870Z] [INFO] Created customer: Ngadiyanto (085713200150) with ID: 1088
-[2025-09-22T06:58:39.960Z] [INFO] Created customer: Nisa (085802748375) with ID: 1089
-[2025-09-22T06:58:40.054Z] [INFO] Created customer: Norma (083162274127) with ID: 1090
-[2025-09-22T06:58:40.164Z] [INFO] Created customer: Nugroho (0882005497051) with ID: 1091
-[2025-09-22T06:58:40.278Z] [INFO] Created customer: Ogeh (081225036383) with ID: 1092
-[2025-09-22T06:58:40.416Z] [INFO] Created customer: Panji (085159984301) with ID: 1093
-[2025-09-22T06:58:40.500Z] [INFO] Created customer: Panjul (081227220754) with ID: 1094
-[2025-09-22T06:58:40.598Z] [INFO] Created customer: Qoiroh (082230471818) with ID: 1095
-[2025-09-22T06:58:40.682Z] [INFO] Created customer: Rasiman (089698050070) with ID: 1096
-[2025-09-22T06:58:40.773Z] [INFO] Created customer: Sari (0882006597086) with ID: 1097
-[2025-09-22T06:58:40.864Z] [INFO] Created customer: Sodik (083162170506) with ID: 1098
-[2025-09-22T06:58:40.979Z] [INFO] Created customer: Sory (085881103352) with ID: 1099
-[2025-09-22T06:58:41.070Z] [INFO] Created customer: Suharno (085878364221) with ID: 1100
-[2025-09-22T06:58:41.166Z] [INFO] Created customer: Sulis (085740002256) with ID: 1101
-[2025-09-22T06:58:41.322Z] [INFO] Created customer: Supri (083163032969) with ID: 1102
-[2025-09-22T06:58:41.438Z] [INFO] Created customer: Supri Jamur (083178553673) with ID: 1103
-[2025-09-22T06:58:41.596Z] [INFO] Created customer: Suranto (085773168910) with ID: 1104
-[2025-09-22T06:58:41.716Z] [INFO] Created customer: TON (082328669310) with ID: 1105
-[2025-09-22T06:58:41.812Z] [INFO] Created customer: Takim (082220104220) with ID: 1106
-[2025-09-22T06:58:41.936Z] [INFO] Created customer: Tembong (089659127200) with ID: 1107
-[2025-09-22T06:58:42.051Z] [INFO] Created customer: Tofik (082136875658) with ID: 1108
-[2025-09-22T06:58:42.206Z] [INFO] Updated customer: Toge (085642567079)
-[2025-09-22T06:58:42.285Z] [INFO] Created customer: Tokrek (081226480540) with ID: 1109
-[2025-09-22T06:58:42.360Z] [INFO] Created customer: Toyib (083186793300) with ID: 1110
-[2025-09-22T06:58:42.440Z] [INFO] Created customer: Triyono (085161900185) with ID: 1111
-[2025-09-22T06:58:42.518Z] [INFO] Created customer: Tuminah (085743841404) with ID: 1112
-[2025-09-22T06:58:42.597Z] [INFO] Created customer: Tumini (0895422148080) with ID: 1113
-[2025-09-22T06:58:42.689Z] [INFO] Created customer: Wiwit (082138380343) with ID: 1114
-[2025-09-22T06:58:42.762Z] [INFO] Created customer: Yamroji (085641541693) with ID: 1115
-[2025-09-22T06:58:42.833Z] [INFO] Created customer: Yani (085728122991) with ID: 1116
-[2025-09-22T06:58:42.950Z] [INFO] Updated customer: Yani Sodik (0895365213615)
-[2025-09-22T06:58:43.032Z] [INFO] Created customer: Yogi (083104483845) with ID: 1117
-[2025-09-22T06:58:43.120Z] [INFO] Created customer: Yus (081234062720) with ID: 1118
-[2025-09-22T06:58:47.644Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T06:59:47.781Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:00:47.644Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:01:47.801Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:02:47.647Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:03:04.293Z] [INFO] ODP connection created: ODP-MJ (ODP-MJ01) -> ODP-GINAH (ODP-MJ02)
-[2025-09-22T07:03:47.821Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:04:47.647Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:05:47.804Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:06:38.071Z] [INFO] ODP connection created: ODP-MJ (ODP-MJ01) -> ODP-ANGGA (ODP-MJ03)
-[2025-09-22T07:06:47.649Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:07:47.795Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:07:56.250Z] [INFO] ODP connection created: ODP-MJ (ODP-MJ01) -> ODP-YANI (ODP-MJ04)
-[2025-09-22T07:08:47.649Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:09:42.251Z] [INFO] ODP connection created: ODP-YANI (ODP-MJ04) -> ODP-TAKIM (ODP-MJ05)
-[2025-09-22T07:09:47.799Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:10:47.649Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:11:20.319Z] [INFO] ODP connection created: ODP-YANI (ODP-MJ04) -> ODP-OGEH (ODP-MJ06)
-[2025-09-22T07:11:47.798Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:12:47.649Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:12:55.040Z] [INFO] ODP connection created: ODP-YANI (ODP-MJ04) -> ODP-SODIK (ODP-MJ07)
-[2025-09-22T07:13:47.800Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:14:47.650Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:15:38.855Z] [INFO] ODP connection created: ODP-SODIK (ODP-MJ07) -> ODP-ANANG (ODP-MJ08)
-[2025-09-22T07:15:47.796Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:16:34.666Z] [INFO] ODP connection created: ODP-ANANG (ODP-MJ08) -> Lina (ODP-MJ09)
-[2025-09-22T07:16:47.653Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:17:47.803Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:18:24.455Z] [INFO] ODP connection created: ODP-ANANG (ODP-MJ08) -> ODP-NASRUDIN (ODP-MJ10)
-[2025-09-22T07:18:47.653Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:19:47.814Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:20:26.918Z] [INFO] ODP connection created: ODP-ANANG (ODP-MJ08) -> ODP-PANJI (ODP-MJ11)
-[2025-09-22T07:20:47.656Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:21:47.778Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:22:03.946Z] [INFO] ODP connection created: ODP-ANANG (ODP-MJ08) -> ODP-TOYIB (ODP-MJ12)
-[2025-09-22T07:22:47.658Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:23:47.805Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:24:47.659Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:25:47.782Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:26:41.176Z] [INFO] ODP connection created: ODP-ANANG (ODP-MJ08) -> ODP-YAMROJI (ODP-MJ13)
-[2025-09-22T07:26:47.660Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:27:39.165Z] [INFO] ODP connection created: ODP-YAMROJI (ODP-MJ13) -> ODP-GOYALI (ODP-MJ14)
-[2025-09-22T07:27:47.809Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:28:47.660Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:29:05.739Z] [INFO] ODP connection created: ODP-GOYALI (ODP-MJ14) -> ODP-RASIMAN (ODP-MJ15)
-[2025-09-22T07:29:47.810Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:30:21.177Z] [INFO] ODP connection created: ODP-RASIMAN (ODP-MJ15) -> ODP-COMENG (ODP-MJ16)
-[2025-09-22T07:30:47.665Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:31:14.921Z] [INFO] API: Loading customer data for editing phone: 08885673266
-[2025-09-22T07:31:47.667Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:32:47.829Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:33:37.153Z] [INFO] API: Loading customer data for editing phone: 08885673266
-[2025-09-22T07:33:47.666Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:34:47.825Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:35:39.670Z] [INFO] API: Loading customer data for editing phone: 081225481353
-[2025-09-22T07:35:47.668Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:36:47.802Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:37:10.752Z] [INFO] API: Loading customer data for editing phone: 082136026697
-[2025-09-22T07:37:47.670Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:38:47.817Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:38:58.809Z] [INFO] API: Loading customer data for editing phone: 085877754935
-[2025-09-22T07:39:47.670Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:40:47.822Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:41:36.041Z] [INFO] API: Loading customer data for editing phone: 083829389279
-[2025-09-22T07:41:47.671Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:42:47.862Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:43:13.073Z] [INFO] API: Loading customer data for editing phone: 082133873692
-[2025-09-22T07:43:47.674Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:44:25.604Z] [INFO] API: Loading customer data for editing phone: 082133489533
-[2025-09-22T07:44:47.674Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:45:47.807Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:45:48.760Z] [INFO] API: Loading customer data for editing phone: 085741249498
-[2025-09-22T07:46:47.673Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:47:19.294Z] [INFO] API: Loading customer data for editing phone: 089630074393
-[2025-09-22T07:47:47.675Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:48:47.807Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:48:54.128Z] [INFO] API: Loading customer data for editing phone: 081225465253
-[2025-09-22T07:49:47.675Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:50:47.812Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:50:50.721Z] [INFO] API: Loading customer data for editing phone: 081329096182
-[2025-09-22T07:51:47.676Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:52:40.538Z] [INFO] API: Loading customer data for editing phone: 082226295057
-[2025-09-22T07:52:47.677Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:53:47.835Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:54:38.604Z] [INFO] API: Loading customer data for editing phone: 08213451814
-[2025-09-22T07:54:47.678Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:55:47.834Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:56:25.636Z] [INFO] API: Loading customer data for editing phone: 088220145187
-[2025-09-22T07:56:47.679Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:57:47.831Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:58:24.770Z] [INFO] API: Loading customer data for editing phone: 0889880772937
-[2025-09-22T07:58:47.680Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T07:59:47.845Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:00:13.841Z] [INFO] API: Loading customer data for editing phone: 085725432090
-[2025-09-22T08:00:47.681Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:01:36.043Z] [INFO] API: Loading customer data for editing phone: 085800514322
-[2025-09-22T08:01:47.953Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:02:48.116Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:03:38.034Z] [INFO] API: Loading customer data for editing phone: 087873578838
-[2025-09-22T08:03:47.956Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:04:48.136Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:05:41.676Z] [INFO] API: Loading customer data for editing phone: 085292734922
-[2025-09-22T08:05:47.956Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:06:48.117Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:07:40.551Z] [INFO] API: Loading customer data for editing phone: 082226203504
-[2025-09-22T08:07:47.956Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:08:48.128Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:09:03.119Z] [INFO] API: Loading customer data for editing phone: 085712208207
-[2025-09-22T08:09:47.958Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:10:48.109Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:11:01.684Z] [INFO] API: Loading customer data for editing phone: 085226050488
-[2025-09-22T08:11:47.958Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:12:48.111Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:13:30.582Z] [INFO] API: Loading customer data for editing phone: 085292734922
-[2025-09-22T08:13:47.959Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:14:48.128Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:15:18.557Z] [INFO] API: Loading customer data for editing phone: 08817624113
-[2025-09-22T08:15:47.959Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:16:20.733Z] [INFO] API: Loading customer data for editing phone: 081390908507
-[2025-09-22T08:16:47.959Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:17:37.803Z] [INFO] API: Loading customer data for editing phone: 085726617254
-[2025-09-22T08:17:48.026Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:18:48.211Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:19:07.615Z] [INFO] API: Loading customer data for editing phone: 085728133019
-[2025-09-22T08:19:48.027Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:20:29.951Z] [INFO] API: Loading customer data for editing phone: 0895363614176
-[2025-09-22T08:20:48.026Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:21:38.864Z] [INFO] API: Loading customer data for editing phone: 08562668801
-[2025-09-22T08:21:48.027Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:22:48.193Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:23:14.067Z] [INFO] API: Loading customer data for editing phone: 089634662600
-[2025-09-22T08:23:48.030Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:24:48.193Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:25:16.314Z] [INFO] API: Loading customer data for editing phone: 081236284668
-[2025-09-22T08:25:48.028Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:26:45.632Z] [INFO] API: Loading customer data for editing phone: 082134497802
-[2025-09-22T08:26:48.033Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:27:48.187Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:28:07.022Z] [INFO] API: Loading customer data for editing phone: 085727261370
-[2025-09-22T08:28:48.031Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:29:46.562Z] [INFO] API: Loading customer data for editing phone: 082247874457
-[2025-09-22T08:29:48.030Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:30:48.185Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:31:27.104Z] [INFO] API: Loading customer data for editing phone: 0882003007820
-[2025-09-22T08:31:48.794Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:32:48.527Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:33:40.786Z] [INFO] API: Loading customer data for editing phone: 085640004637
-[2025-09-22T08:33:48.726Z] [INFO] PPPoE LOGOUT detected: eva
-[2025-09-22T08:33:48.746Z] [INFO] PPPoE LOGOUT:
-[
-  "eva"
-]
-[2025-09-22T08:33:48.746Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T08:33:48.860Z] [INFO] Found 2 active technicians in database
-[2025-09-22T08:33:49.579Z] [INFO] PPPoE notification sent to 6285800541752
-[2025-09-22T08:33:51.365Z] [INFO] PPPoE notification sent to 6288232807394
-[2025-09-22T08:33:51.366Z] [INFO] PPPoE notification sent to 2/2 valid recipients (2 total)
-[2025-09-22T08:33:51.367Z] [INFO] PPPoE monitoring: 95 active connections, 0 login, 1 logout
-[2025-09-22T08:34:48.824Z] [INFO] PPPoE LOGIN detected: eva
-[2025-09-22T08:34:49.028Z] [INFO] PPPoE LOGIN:
-[
-  "eva"
-]
-[2025-09-22T08:34:49.029Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:34:49.039Z] [INFO] Found 2 active technicians in database
-[2025-09-22T08:34:49.633Z] [INFO] PPPoE notification sent to 6285800541752
-[2025-09-22T08:34:51.218Z] [INFO] PPPoE notification sent to 6288232807394
-[2025-09-22T08:34:51.218Z] [INFO] PPPoE notification sent to 2/2 valid recipients (2 total)
-[2025-09-22T08:34:51.219Z] [INFO] PPPoE monitoring: 96 active connections, 1 login, 0 logout
-[2025-09-22T08:35:48.527Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:35:48.906Z] [INFO] API: Loading customer data for editing phone: 088983085690
-[2025-09-22T08:36:48.529Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:37:48.779Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:37:51.502Z] [INFO] API: Loading customer data for editing phone: 088983085690
-[2025-09-22T08:38:18.354Z] [INFO] API: Loading customer data for editing phone: 0895424082121
-[2025-09-22T08:38:48.530Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:39:40.233Z] [INFO] API: Loading customer data for editing phone: 085713200150
-[2025-09-22T08:39:48.531Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:40:48.771Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:41:37.374Z] [INFO] API: Loading customer data for editing phone: 085226050488
-[2025-09-22T08:41:48.533Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:42:16.992Z] [INFO] API: Loading customer data for editing phone: 085802748375
-[2025-09-22T08:42:48.534Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:43:48.754Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:44:11.583Z] [INFO] API: Loading customer data for editing phone: 083162274127
-[2025-09-22T08:44:48.533Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:45:48.747Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:46:00.326Z] [INFO] API: Loading customer data for editing phone: 0882005497051
-[2025-09-22T08:46:48.535Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:47:48.823Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:47:57.229Z] [INFO] API: Loading customer data for editing phone: 081225036383
-[2025-09-22T08:48:48.533Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:49:02.932Z] [INFO] API: Loading customer data for editing phone: 085159984301
-[2025-09-22T08:49:48.535Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:50:17.621Z] [INFO] API: Loading customer data for editing phone: 081227220754
-[2025-09-22T08:50:48.536Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:51:43.288Z] [INFO] API: Loading customer data for editing phone: 082230471818
-[2025-09-22T08:51:48.537Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:52:48.778Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:53:31.971Z] [INFO] API: Loading customer data for editing phone: 089698050070
-[2025-09-22T08:53:48.539Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:54:36.526Z] [INFO] API: Loading customer data for editing phone: 0882006597086
-[2025-09-22T08:54:48.539Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:55:48.774Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:56:02.489Z] [INFO] API: Loading customer data for editing phone: 083162170506
-[2025-09-22T08:56:48.560Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:57:29.456Z] [INFO] API: Loading customer data for editing phone: 085881103352
-[2025-09-22T08:57:48.564Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:58:41.564Z] [INFO] API: Loading customer data for editing phone: 085878364221
-[2025-09-22T08:58:48.561Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T08:59:48.767Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:00:34.853Z] [INFO] API: Loading customer data for editing phone: 085740002256
-[2025-09-22T09:00:38.476Z] [INFO] API: Loading customer data for editing phone: 085740002256
-[2025-09-22T09:00:48.565Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:01:48.838Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:02:18.754Z] [INFO] API: Loading customer data for editing phone: 083163032969
-[2025-09-22T09:02:48.567Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:03:41.885Z] [INFO] API: Loading customer data for editing phone: 085878364221
-[2025-09-22T09:03:48.569Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:04:23.162Z] [INFO] API: Loading customer data for editing phone: 083178553673
-[2025-09-22T09:04:48.805Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:05:48.569Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:06:19.306Z] [INFO] API: Loading customer data for editing phone: 083178553673
-[2025-09-22T09:06:33.784Z] [INFO] API: Loading customer data for editing phone: 085773168910
-[2025-09-22T09:06:48.571Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:07:48.869Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:08:18.061Z] [INFO] API: Loading customer data for editing phone: 082328669310
-[2025-09-22T09:08:48.571Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:09:48.817Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:10:09.789Z] [INFO] API: Loading customer data for editing phone: 082220104220
-[2025-09-22T09:10:48.573Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:11:15.825Z] [INFO] API: Loading customer data for editing phone: 089659127200
-[2025-09-22T09:11:48.573Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:12:48.834Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:13:00.747Z] [INFO] API: Loading customer data for editing phone: 082136875658
-[2025-09-22T09:13:48.573Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:14:28.051Z] [INFO] API: Loading customer data for editing phone: 085642567079
-[2025-09-22T09:14:48.574Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:15:48.779Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:16:48.575Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:17:02.405Z] [INFO] API: Loading customer data for editing phone: 081226480540
-[2025-09-22T09:17:48.575Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:18:48.799Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:19:01.125Z] [INFO] API: Loading customer data for editing phone: 083186793300
-[2025-09-22T09:19:48.576Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:20:42.910Z] [INFO] API: Loading customer data for editing phone: 085161900185
-[2025-09-22T09:20:48.576Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:21:48.840Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:22:36.222Z] [INFO] API: Loading customer data for editing phone: 085743841404
-[2025-09-22T09:22:48.575Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:23:48.799Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:24:48.577Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:25:05.061Z] [INFO] API: Loading customer data for editing phone: 0895422148080
-[2025-09-22T09:25:48.576Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:26:29.110Z] [INFO] API: Loading customer data for editing phone: 082138380343
-[2025-09-22T09:26:48.577Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:27:48.763Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:28:48.576Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:28:57.531Z] [INFO] API: Loading customer data for editing phone: 085641541693
-[2025-09-22T09:29:48.578Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:30:13.391Z] [INFO] API: Loading customer data for editing phone: 085728122991
-[2025-09-22T09:30:48.577Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:31:33.252Z] [INFO] API: Loading customer data for editing phone: 0895365213615
-[2025-09-22T09:31:48.576Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:32:48.858Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:32:59.261Z] [INFO] API: Loading customer data for editing phone: 083104483845
-[2025-09-22T09:33:48.579Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:34:36.523Z] [INFO] API: Loading customer data for editing phone: 081234062720
-[2025-09-22T09:34:48.579Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:35:48.812Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:36:48.579Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:37:48.824Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:38:11.299Z] [INFO] API: Loading customer data for editing phone: 0895363614176
-[2025-09-22T09:38:48.579Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:39:48.855Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:40:48.582Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:41:48.836Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:42:48.585Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:43:48.809Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:44:48.585Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:45:48.791Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:46:48.597Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:47:48.853Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:48:48.597Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:49:48.857Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:50:48.599Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:51:48.827Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:52:48.599Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:53:48.840Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:54:48.601Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:55:48.811Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:56:48.601Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:57:48.831Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:58:48.602Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T09:59:48.838Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:00:48.605Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:01:48.826Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:02:48.606Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:03:48.766Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:04:48.609Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:05:48.811Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:06:48.609Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:07:48.786Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:08:48.610Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:09:48.807Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:10:48.613Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:11:48.862Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:12:48.614Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:13:48.836Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:14:48.614Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:15:48.846Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:16:48.616Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:17:48.821Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:18:48.618Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:19:48.838Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:20:48.619Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:21:48.855Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:22:48.619Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:22:48.740Z] [INFO] PPPoE LOGOUT detected: toge
-[2025-09-22T10:22:48.888Z] [INFO] Found 2 active technicians in database
-[2025-09-22T10:22:49.525Z] [INFO] PPPoE notification sent to 6285800541752
-[2025-09-22T10:22:51.108Z] [INFO] PPPoE notification sent to 6288232807394
-[2025-09-22T10:22:51.109Z] [INFO] PPPoE notification sent to 2/2 valid recipients (2 total)
-[2025-09-22T10:22:51.110Z] [INFO] PPPoE monitoring: 95 active connections, 0 login, 1 logout
-[2025-09-22T10:23:48.867Z] [INFO] PPPoE LOGIN detected: toge
-[2025-09-22T10:23:48.888Z] [INFO] PPPoE LOGOUT:
-[
-  "toge"
-]
-[2025-09-22T10:23:48.889Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T10:23:48.974Z] [INFO] Found 2 active technicians in database
-[2025-09-22T10:23:49.569Z] [INFO] PPPoE notification sent to 6285800541752
-[2025-09-22T10:23:51.164Z] [INFO] PPPoE notification sent to 6288232807394
-[2025-09-22T10:23:51.164Z] [INFO] PPPoE notification sent to 2/2 valid recipients (2 total)
-[2025-09-22T10:23:51.165Z] [INFO] PPPoE monitoring: 96 active connections, 1 login, 0 logout
-[2025-09-22T10:24:48.979Z] [INFO] PPPoE LOGIN:
-[
-  "toge"
-]
-[2025-09-22T10:24:48.979Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:25:48.621Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:26:48.863Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:27:48.621Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:28:48.807Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:29:48.621Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:30:48.621Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:31:48.866Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:32:48.622Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:33:48.833Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:34:48.627Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:35:48.852Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:36:48.626Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:37:48.890Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:38:48.627Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:39:48.892Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:40:48.628Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:41:48.879Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:42:48.629Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:43:48.843Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:44:48.630Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:45:48.820Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:46:48.630Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:47:48.877Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:48:48.630Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:49:48.915Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T10:50:48.632Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-22T19:10:56.985Z] [INFO] 🚀 CacheManager initialized with default TTL: 5 minutes
-[2025-09-22T19:10:57.834Z] [INFO] Invoice scheduler initialized - will run on 1st of every month at 08:00
-[2025-09-22T19:10:57.836Z] [INFO] Daily invoice-by-billing_day scheduler is DISABLED (only monthly on the 1st)
-[2025-09-22T19:10:57.847Z] [INFO] Due date reminder scheduler initialized - will run daily at 09:00
-[2025-09-22T19:10:57.857Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
-[2025-09-22T19:10:57.865Z] [INFO] Monthly summary scheduler initialized - will run on 1st of every month at 23:59
-[2025-09-22T19:10:57.873Z] [INFO] Service suspension/restoration scheduler initialized - will run daily at 10:00 and 11:00
-[2025-09-22T19:10:57.879Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
-[2025-09-22T19:11:00.107Z] [INFO] PPPoE monitoring started with interval 60000ms
-[2025-09-22T19:11:00.110Z] [INFO] Attempting to start server on configured port: 3003
-[2025-09-22T19:11:00.112Z] [INFO] Memulai server pada port yang dikonfigurasi: 3003
-[2025-09-22T19:11:00.113Z] [INFO] Port diambil dari settings.json - tidak ada fallback ke port alternatif
-[2025-09-22T19:11:00.129Z] [INFO] ✅ Server berhasil berjalan pada port 3003
-[2025-09-22T19:11:00.131Z] [INFO] 🌐 Web Portal tersedia di: http://localhost:3003
-[2025-09-22T19:11:00.132Z] [INFO] Environment: development
-[2025-09-22T19:11:00.680Z] [INFO] WhatsApp socket set in pppoe-notifications module
-[2025-09-22T19:11:00.682Z] [INFO] WhatsApp socket set in pppoe-commands module
-[2025-09-22T19:11:00.683Z] [INFO] WhatsApp socket set in genieacs-commands module
-[2025-09-22T19:11:00.685Z] [INFO] WhatsApp connected successfully
-[2025-09-22T19:11:00.688Z] [INFO] PPPoE monitoring started with interval 60000ms
-[2025-09-22T19:11:00.694Z] [INFO] Starting RX Power Warning monitoring (interval: 10 hours)
-[2025-09-22T19:11:00.698Z] [INFO] Starting RX Power Recap monitoring (interval: 6 hours)
-[2025-09-22T19:11:00.700Z] [INFO] Starting Offline Notification monitoring (interval: 12 hours)
-[2025-09-22T19:11:00.702Z] [INFO] IntervalManager initialized successfully
-[2025-09-22T19:11:00.702Z] [INFO] Interval Manager initialized with all monitoring systems
-[2025-09-22T19:11:00.703Z] [INFO] PPPoE monitoring auto-started on initialization
-[2025-09-22T19:11:00.704Z] [INFO] PPPoE monitoring initialized
-[2025-09-22T19:12:00.231Z] [INFO] Connected to Mikrotik at 192.168.3.1:8728
-[2025-09-22T19:12:00.655Z] [INFO] PPPoE LOGIN:
-[
-  "supri",
-  "tembong",
-  "nurabidin",
-  "biyu",
-  "harno1",
-  "panjol",
-  "tuminah",
-  "fajar",
-  "vina",
-  "ogeh",
-  "ika",
-  "basuki",
-  "gunawan",
-  "sari",
-  "ariswarung",
-  "nasrudin",
-  "welas",
-  "linggar",
-  "rasiman",
-  "harno",
-  "anjar",
-  "panji",
-  "goyali",
-  "anik",
-  "wiwit",
-  "takim",
-  "mbakton",
-  "yani",
-  "badar",
-  "jarno",
-  "rangga",
-  "tiwik",
-  "akmal",
-  "jodin",
-  "ikun",
-  "ambar",
-  "aan",
-  "nanda",
-  "ajeng",
-  "nisa",
-  "imam",
-  "anang",
-  "yogi",
-  "tumini",
-  "eka",
-  "ida",
-  "deva",
-  "ngadiyanto",
-  "sodik",
-  "tokrek",
-  "erin",
-  "ginah",
-  "yoga",
-  "dewi",
-  "bombom",
-  "diwah",
   "suranto",
-  "badi",
-  "masyus",
-  "yani2",
-  "cinta",
+  "ida",
+  "anang",
+  "deva",
   "lina",
-  "opak",
-  "fauzan",
-  "muhtadi",
-  "daroji",
-  "tonnangto",
-  "mamat",
-  "kento",
-  "gimen",
-  "alan",
-  "sulis",
-  "kiki",
-  "rido",
   "arum",
-  "suprijamur",
-  "arisferi",
-  "mbakfatim",
-  "triyono",
-  "adiimam",
-  "qoriroh",
-  "lisrt6",
-  "toyib",
-  "ade",
-  "rohani",
-  "sory",
-  "gondrong",
-  "feri",
+  "ngadiyanto",
   "angga",
-  "eva",
-  "norma",
-  "heri",
-  "yamroji",
-  "musanto",
-  "toge"
-]
-[2025-09-22T19:12:00.656Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:12:00.795Z] [INFO] PPPoE LOGIN detected: supri, tembong, nurabidin, biyu, harno1, panjol, tuminah, fajar, vina, ogeh, ika, basuki, gunawan, sari, ariswarung, nasrudin, welas, linggar, rasiman, harno, anjar, panji, goyali, anik, wiwit, takim, mbakton, yani, badar, jarno, rangga, tiwik, akmal, jodin, ikun, ambar, aan, nanda, ajeng, nisa, imam, anang, yogi, tumini, eka, ida, deva, ngadiyanto, sodik, tokrek, erin, ginah, yoga, dewi, bombom, diwah, suranto, badi, masyus, yani2, cinta, lina, opak, fauzan, muhtadi, daroji, tonnangto, mamat, kento, gimen, alan, sulis, kiki, rido, arum, suprijamur, arisferi, mbakfatim, triyono, adiimam, qoriroh, lisrt6, toyib, ade, rohani, sory, gondrong, feri, angga, eva, norma, heri, yamroji, musanto, toge
-[2025-09-22T19:12:00.969Z] [INFO] Found 2 active technicians in database
-[2025-09-22T19:12:01.711Z] [INFO] PPPoE notification sent to 6285800541752
-[2025-09-22T19:12:03.395Z] [INFO] PPPoE notification sent to 6288232807394
-[2025-09-22T19:12:03.396Z] [INFO] PPPoE notification sent to 2/2 valid recipients (2 total)
-[2025-09-22T19:12:03.397Z] [INFO] PPPoE monitoring: 95 active connections, 95 login, 0 logout
-[2025-09-22T19:13:00.111Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:14:00.110Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:15:00.254Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:16:00.109Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:17:00.108Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:18:00.219Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:19:00.110Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:20:00.334Z] [INFO] PPPoE LOGOUT:
-[
-  "dewi"
-]
-[2025-09-22T19:20:00.335Z] [INFO] Monitoring PPPoE connections: 94 active connections
-[2025-09-22T19:20:00.790Z] [INFO] PPPoE LOGOUT detected: dewi
-[2025-09-22T19:20:00.908Z] [INFO] Found 2 active technicians in database
-[2025-09-22T19:20:01.613Z] [INFO] PPPoE notification sent to 6285800541752
-[2025-09-22T19:20:03.290Z] [INFO] PPPoE notification sent to 6288232807394
-[2025-09-22T19:20:03.291Z] [INFO] PPPoE notification sent to 2/2 valid recipients (2 total)
-[2025-09-22T19:20:03.291Z] [INFO] PPPoE monitoring: 94 active connections, 0 login, 1 logout
-[2025-09-22T19:21:00.110Z] [INFO] Monitoring PPPoE connections: 94 active connections
-[2025-09-22T19:21:00.941Z] [INFO] PPPoE LOGIN detected: dewi
-[2025-09-22T19:21:01.186Z] [INFO] Found 2 active technicians in database
-[2025-09-22T19:21:01.937Z] [INFO] PPPoE notification sent to 6285800541752
-[2025-09-22T19:21:03.634Z] [INFO] PPPoE notification sent to 6288232807394
-[2025-09-22T19:21:03.635Z] [INFO] PPPoE notification sent to 2/2 valid recipients (2 total)
-[2025-09-22T19:21:03.635Z] [INFO] PPPoE monitoring: 95 active connections, 1 login, 0 logout
-[2025-09-22T19:22:00.353Z] [INFO] PPPoE LOGIN:
-[
-  "dewi"
-]
-[2025-09-22T19:22:00.354Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:23:00.110Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:24:00.110Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:25:00.244Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:26:00.112Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:27:00.113Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:28:00.256Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:29:00.112Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:30:00.264Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:31:00.113Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:32:00.280Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:33:00.114Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:34:00.235Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:35:00.115Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:36:00.287Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:37:00.115Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:38:00.115Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:39:00.275Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:40:00.116Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:41:00.247Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:42:00.118Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:43:00.119Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:44:00.286Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:45:00.119Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:46:00.119Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:47:00.279Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:48:00.120Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:49:00.243Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:50:00.119Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:51:00.230Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:52:00.120Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:52:10.548Z] [INFO] API: Loading customer data for editing phone: 081326388582
-[2025-09-22T19:53:00.121Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:54:00.255Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:55:00.121Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:55:28.814Z] [INFO] Loading customer detail for phone: 081227220754
-[2025-09-22T19:55:28.824Z] [INFO] Customer found:
-{
-  "id": 1094,
-  "username": "cust_0754_320421_7r9q",
-  "name": "Panjul",
-  "phone": "081227220754",
-  "email": "panjul@gembok.com",
-  "address": "Sruwen RT8",
-  "package_id": 5,
-  "status": "active",
-  "join_date": "2025-09-22 06:58:40",
-  "pppoe_username": "panjul",
-  "pppoe_profile": "P-100",
-  "auto_suspension": 1,
-  "billing_day": 15,
-  "latitude": -7.20054148,
-  "longitude": 110.40498673,
-  "created_by_technician_id": null,
-  "static_ip": null,
-  "mac_address": null,
-  "assigned_ip": null,
-  "odp_id": 37,
-  "cable_type": "fiber",
-  "cable_notes": "",
-  "port_number": 2,
-  "cable_status": "connected",
-  "cable_length": 15,
-  "package_name": "BRONZE",
-  "package_price": 100000,
-  "package_speed": "Upto 10Mbps",
-  "payment_status": "no_invoice"
-}
-[2025-09-22T19:55:28.840Z] [INFO] Rendering customer detail page for: 081227220754
-[2025-09-22T19:55:33.224Z] [INFO] API: Loading customer data for editing phone: 081227220754
-[2025-09-22T19:56:00.122Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:57:00.253Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:57:10.672Z] [INFO] Customer deleted: 081227220754
-[2025-09-22T19:58:00.124Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:59:00.240Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T19:59:41.505Z] [INFO] API: Loading customer data for editing phone: 085712208207
-[2025-09-22T20:00:00.126Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:01:00.125Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:02:00.126Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:03:00.261Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:04:00.127Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:05:00.239Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:06:00.126Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:07:00.262Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:08:00.128Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:08:00.559Z] [INFO] API: Loading customer data for editing phone: 082226203504
-[2025-09-22T20:09:00.128Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:10:00.281Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:11:00.128Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:12:00.130Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:13:00.131Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:14:00.302Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:15:00.133Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:16:00.275Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:17:00.133Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:18:00.239Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:19:00.135Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:20:00.262Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:21:00.136Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:22:00.267Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:23:00.135Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:24:00.281Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:25:00.136Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:26:00.270Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:27:00.137Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:28:00.281Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:29:00.138Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:30:00.271Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:31:00.138Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:32:00.254Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:33:00.139Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:34:00.281Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:35:00.141Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:36:00.142Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:37:00.255Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:38:00.144Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:39:00.262Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:40:00.143Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:41:00.253Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:42:00.144Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:43:00.244Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:44:00.145Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:45:00.248Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:46:00.145Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:47:00.244Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:48:00.145Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:49:00.249Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:50:00.145Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:51:00.248Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:52:00.147Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:53:00.248Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:54:00.148Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:55:00.258Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-22T20:56:00.148Z] [INFO] Monitoring PPPoE connections: 95 active connections
-[2025-09-23T08:19:50.977Z] [INFO] 🚀 CacheManager initialized with default TTL: 5 minutes
-[2025-09-23T08:19:51.787Z] [INFO] Invoice scheduler initialized - will run on 1st of every month at 08:00
-[2025-09-23T08:19:51.788Z] [INFO] Daily invoice-by-billing_day scheduler is DISABLED (only monthly on the 1st)
-[2025-09-23T08:19:51.797Z] [INFO] Due date reminder scheduler initialized - will run daily at 09:00
-[2025-09-23T08:19:51.805Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
-[2025-09-23T08:19:51.811Z] [INFO] Monthly summary scheduler initialized - will run on 1st of every month at 23:59
-[2025-09-23T08:19:51.820Z] [INFO] Service suspension/restoration scheduler initialized - will run daily at 10:00 and 11:00
-[2025-09-23T08:19:51.826Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
-[2025-09-23T08:19:53.985Z] [INFO] PPPoE monitoring started with interval 60000ms
-[2025-09-23T08:19:53.988Z] [INFO] Attempting to start server on configured port: 3003
-[2025-09-23T08:19:53.990Z] [INFO] Memulai server pada port yang dikonfigurasi: 3003
-[2025-09-23T08:19:53.992Z] [INFO] Port diambil dari settings.json - tidak ada fallback ke port alternatif
-[2025-09-23T08:19:54.009Z] [INFO] ✅ Server berhasil berjalan pada port 3003
-[2025-09-23T08:19:54.011Z] [INFO] 🌐 Web Portal tersedia di: http://localhost:3003
-[2025-09-23T08:19:54.013Z] [INFO] Environment: development
-[2025-09-23T08:19:54.542Z] [INFO] WhatsApp socket set in pppoe-notifications module
-[2025-09-23T08:19:54.543Z] [INFO] WhatsApp socket set in pppoe-commands module
-[2025-09-23T08:19:54.544Z] [INFO] WhatsApp socket set in genieacs-commands module
-[2025-09-23T08:19:54.546Z] [INFO] WhatsApp connected successfully
-[2025-09-23T08:19:54.550Z] [INFO] PPPoE monitoring started with interval 60000ms
-[2025-09-23T08:19:54.556Z] [INFO] Starting RX Power Warning monitoring (interval: 10 hours)
-[2025-09-23T08:19:54.560Z] [INFO] Starting RX Power Recap monitoring (interval: 6 hours)
-[2025-09-23T08:19:54.563Z] [INFO] Starting Offline Notification monitoring (interval: 12 hours)
-[2025-09-23T08:19:54.564Z] [INFO] IntervalManager initialized successfully
-[2025-09-23T08:19:54.565Z] [INFO] Interval Manager initialized with all monitoring systems
-[2025-09-23T08:19:54.566Z] [INFO] PPPoE monitoring auto-started on initialization
-[2025-09-23T08:19:54.567Z] [INFO] PPPoE monitoring initialized
-[2025-09-23T08:20:43.564Z] [INFO] Connected to Mikrotik at 192.168.3.1:8728
-[2025-09-23T08:20:43.594Z] [INFO] Connected to Mikrotik at 192.168.3.1:8728
-[2025-09-23T08:20:54.192Z] [INFO] PPPoE LOGIN:
-[
-  "supri",
-  "tembong",
-  "nurabidin",
-  "biyu",
-  "harno1",
-  "panjol",
-  "tuminah",
-  "fajar",
-  "vina",
-  "ogeh",
-  "ika",
   "basuki",
-  "gunawan",
-  "sari",
-  "ariswarung",
-  "nasrudin",
-  "welas",
-  "linggar",
-  "rasiman",
-  "harno",
-  "anjar",
-  "panji",
-  "goyali",
-  "anik",
-  "wiwit",
-  "takim",
-  "mbakton",
-  "yani",
-  "badar",
-  "jarno",
-  "rangga",
-  "tiwik",
-  "akmal",
-  "jodin",
-  "ikun",
-  "ambar",
-  "aan",
-  "nanda",
-  "ajeng",
-  "nisa",
-  "imam",
-  "anang",
-  "yogi",
-  "tumini",
-  "eka",
-  "ida",
-  "deva",
-  "ngadiyanto",
-  "sodik",
-  "tokrek",
   "erin",
+  "bombom",
+  "dewi",
   "ginah",
-  "yoga",
-  "diwah",
-  "masyus",
-  "yani2",
-  "cinta",
-  "opak",
-  "fauzan",
-  "muhtadi",
-  "daroji",
-  "tonnangto",
-  "mamat",
+  "rohani",
+  "sari",
+  "toge",
+  "gunawan",
+  "welas",
+  "anjar",
+  "suprijamur",
+  "rido",
+  "tuminah",
+  "eka",
+  "badi",
+  "norma",
+  "kento",
+  "toyib",
+  "fajar",
+  "rangga",
+  "yamroji",
+  "lisrt6",
+  "ambar",
   "gimen",
-  "alan",
-  "sulis",
-  "arisferi",
-  "mbakfatim",
+  "tokrek",
+  "harno",
+  "sodik",
+  "anik",
+  "mbakton",
   "triyono",
+  "gondrong",
+  "tonnangto",
+  "yani2",
+  "arisferi",
+  "aan",
+  "cinta",
+  "muhtadi",
+  "vina",
+  "nanda",
+  "rasiman",
+  "harno1",
   "adiimam",
   "qoriroh",
-  "lisrt6",
-  "toyib",
+  "tumini",
+  "ariswarung",
+  "nurabidin",
+  "mbakfatim",
+  "jarno",
+  "nasrudin",
+  "ika",
+  "badar",
+  "ogeh",
+  "yogi",
+  "linggar",
+  "biyu",
+  "masyus",
+  "daroji",
+  "opak",
+  "akmal",
+  "panjol",
+  "nisa",
+  "wiwit",
+  "ajeng",
+  "imam",
   "ade",
-  "rohani",
+  "takim",
+  "ikun",
   "sory",
-  "gondrong",
-  "feri",
   "eva",
-  "norma",
+  "yani",
+  "yoga",
+  "goyali",
+  "panji",
   "heri",
-  "yamroji",
   "musanto",
-  "dewi",
-  "arum",
-  "suprijamur",
-  "badi",
-  "bombom",
+  "faozi",
+  "alan",
   "kiki",
-  "angga",
-  "toge",
-  "rido",
-  "lina",
-  "suranto",
-  "kento",
-  "faozi"
+  "feri",
+  "diwah"
 ]
-[2025-09-23T08:20:54.193Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-23T08:20:54.699Z] [INFO] PPPoE LOGIN detected: supri, tembong, nurabidin, biyu, harno1, panjol, tuminah, fajar, vina, ogeh, ika, basuki, gunawan, sari, ariswarung, nasrudin, welas, linggar, rasiman, harno, anjar, panji, goyali, anik, wiwit, takim, mbakton, yani, badar, jarno, rangga, tiwik, akmal, jodin, ikun, ambar, aan, nanda, ajeng, nisa, imam, anang, yogi, tumini, eka, ida, deva, ngadiyanto, sodik, tokrek, erin, ginah, yoga, diwah, masyus, yani2, cinta, opak, fauzan, muhtadi, daroji, tonnangto, mamat, gimen, alan, sulis, arisferi, mbakfatim, triyono, adiimam, qoriroh, lisrt6, toyib, ade, rohani, sory, gondrong, feri, eva, norma, heri, yamroji, musanto, dewi, arum, suprijamur, badi, bombom, kiki, angga, toge, rido, lina, suranto, kento, faozi
-[2025-09-23T08:20:54.848Z] [INFO] Found 2 active technicians in database
-[2025-09-23T08:20:55.440Z] [INFO] PPPoE notification sent to 6285800541752
-[2025-09-23T08:20:56.895Z] [INFO] PPPoE notification sent to 6288232807394
-[2025-09-23T08:20:56.896Z] [INFO] PPPoE notification sent to 2/2 valid recipients (2 total)
-[2025-09-23T08:20:56.898Z] [INFO] PPPoE monitoring: 96 active connections, 96 login, 0 logout
-[2025-09-23T08:20:57.994Z] [INFO] Database backup created: /root/gembok-bill/data/backup/billing_backup_2025-09-23T08-20-57-957Z.db
-[2025-09-23T08:21:54.186Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-23T08:22:53.988Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-23T08:23:53.990Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-23T08:24:54.137Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-23T08:25:53.992Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-23T08:26:54.147Z] [INFO] Monitoring PPPoE connections: 96 active connections
-[2025-09-23T08:27:53.993Z] [INFO] Monitoring PPPoE connections: 96 active connections
+[2025-09-29T10:46:03.124Z] [INFO] Monitoring PPPoE connections: 96 active connections
+[2025-09-29T10:46:03.498Z] [INFO] PPPoE LOGIN detected: tembong, tiwik, supri, jodin, mamat, fauzan, sulis, suranto, ida, anang, deva, lina, arum, ngadiyanto, angga, basuki, erin, bombom, dewi, ginah, rohani, sari, toge, gunawan, welas, anjar, suprijamur, rido, tuminah, eka, badi, norma, kento, toyib, fajar, rangga, yamroji, lisrt6, ambar, gimen, tokrek, harno, sodik, anik, mbakton, triyono, gondrong, tonnangto, yani2, arisferi, aan, cinta, muhtadi, vina, nanda, rasiman, harno1, adiimam, qoriroh, tumini, ariswarung, nurabidin, mbakfatim, jarno, nasrudin, ika, badar, ogeh, yogi, linggar, biyu, masyus, daroji, opak, akmal, panjol, nisa, wiwit, ajeng, imam, ade, takim, ikun, sory, eva, yani, yoga, goyali, panji, heri, musanto, faozi, alan, kiki, feri, diwah
+[2025-09-29T10:46:03.709Z] [INFO] Found 5 active technicians in database
+[2025-09-29T10:46:04.313Z] [INFO] PPPoE notification sent to 6285800541752
+[2025-09-29T10:46:06.698Z] [INFO] PPPoE notification sent to 6288232807394
+[2025-09-29T10:46:06.700Z] [INFO] PPPoE notification sent to 2/2 valid recipients (5 total)
+[2025-09-29T10:46:06.701Z] [INFO] PPPoE monitoring: 96 active connections, 96 login, 0 logout
+[2025-09-29T10:47:02.593Z] [INFO] Monitoring PPPoE connections: 96 active connections
+[2025-09-29T10:48:02.592Z] [INFO] Monitoring PPPoE connections: 96 active connections
+[2025-09-29T10:49:02.791Z] [INFO] Monitoring PPPoE connections: 96 active connections
+[2025-09-29T10:50:02.594Z] [INFO] Monitoring PPPoE connections: 96 active connections
+[2025-09-29T10:51:02.593Z] [INFO] Monitoring PPPoE connections: 96 active connections
+[2025-09-29T10:52:02.731Z] [INFO] Monitoring PPPoE connections: 96 active connections
+[2025-09-29T12:12:32.159Z] [INFO] 🚀 CacheManager initialized with default TTL: 5 minutes
+[2025-09-29T12:12:32.878Z] [INFO] Invoice scheduler initialized - will run on 1st of every month at 08:00
+[2025-09-29T12:12:32.879Z] [INFO] Daily invoice-by-billing_day scheduler is DISABLED (only monthly on the 1st)
+[2025-09-29T12:12:32.886Z] [INFO] Due date reminder scheduler initialized - will run daily at 09:00
+[2025-09-29T12:12:32.893Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
+[2025-09-29T12:12:32.900Z] [INFO] Monthly summary scheduler initialized - will run on 1st of every month at 23:59
+[2025-09-29T12:12:32.906Z] [INFO] Monthly reset scheduler initialized - will run on 1st of every month at 00:01
+[2025-09-29T12:12:32.915Z] [INFO] Service suspension/restoration scheduler initialized - will run daily at 10:00 and 11:00
+[2025-09-29T12:12:32.920Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
+[2025-09-29T12:12:35.265Z] [INFO] PPPoE monitoring started with interval 60000ms
+[2025-09-29T12:12:35.267Z] [INFO] Attempting to start server on configured port: 3003
+[2025-09-29T12:12:35.270Z] [INFO] Memulai server pada port yang dikonfigurasi: 3003
+[2025-09-29T12:12:35.271Z] [INFO] Port diambil dari settings.json - tidak ada fallback ke port alternatif
+[2025-09-29T12:12:35.290Z] [INFO] ✅ Server berhasil berjalan pada port 3003
+[2025-09-29T12:12:35.292Z] [INFO] 🌐 Web Portal tersedia di: http://localhost:3003
+[2025-09-29T12:12:35.293Z] [INFO] Environment: development
+[2025-09-29T12:12:35.858Z] [INFO] WhatsApp socket set in pppoe-notifications module
+[2025-09-29T12:12:35.859Z] [INFO] WhatsApp socket set in pppoe-commands module
+[2025-09-29T12:12:35.860Z] [INFO] WhatsApp socket set in genieacs-commands module
+[2025-09-29T12:12:35.863Z] [INFO] WhatsApp connected successfully
+[2025-09-29T12:12:35.865Z] [INFO] PPPoE monitoring started with interval 60000ms
+[2025-09-29T12:12:35.870Z] [INFO] Starting RX Power Warning monitoring (interval: 10 hours)
+[2025-09-29T12:12:35.873Z] [INFO] Starting RX Power Recap monitoring (interval: 6 hours)
+[2025-09-29T12:12:35.874Z] [INFO] Starting Offline Notification monitoring (interval: 12 hours)
+[2025-09-29T12:12:35.875Z] [INFO] IntervalManager initialized successfully
+[2025-09-29T12:12:35.876Z] [INFO] Interval Manager initialized with all monitoring systems
+[2025-09-29T12:12:35.877Z] [INFO] PPPoE monitoring auto-started on initialization
+[2025-09-29T12:12:35.878Z] [INFO] PPPoE monitoring initialized
+[2025-09-29T12:12:36.079Z] [INFO] Connected to Mikrotik at 192.168.3.1:8728
+[2025-09-29T12:13:35.457Z] [INFO] PPPoE LOGIN:
+[
+  "tembong",
+  "tiwik",
+  "supri",
+  "jodin",
+  "mamat",
+  "fauzan",
+  "sulis",
+  "suranto",
+  "ida",
+  "anang",
+  "deva",
+  "lina",
+  "arum",
+  "ngadiyanto",
+  "angga",
+  "basuki",
+  "erin",
+  "bombom",
+  "dewi",
+  "ginah",
+  "rohani",
+  "sari",
+  "toge",
+  "gunawan",
+  "welas",
+  "anjar",
+  "suprijamur",
+  "rido",
+  "tuminah",
+  "eka",
+  "badi",
+  "norma",
+  "kento",
+  "toyib",
+  "fajar",
+  "rangga",
+  "yamroji",
+  "lisrt6",
+  "ambar",
+  "gimen",
+  "tokrek",
+  "harno",
+  "sodik",
+  "anik",
+  "mbakton",
+  "triyono",
+  "gondrong",
+  "tonnangto",
+  "yani2",
+  "arisferi",
+  "aan",
+  "cinta",
+  "muhtadi",
+  "vina",
+  "nanda",
+  "rasiman",
+  "harno1",
+  "adiimam",
+  "qoriroh",
+  "tumini",
+  "ariswarung",
+  "nurabidin",
+  "mbakfatim",
+  "jarno",
+  "nasrudin",
+  "ika",
+  "badar",
+  "ogeh",
+  "yogi",
+  "linggar",
+  "biyu",
+  "masyus",
+  "daroji",
+  "opak",
+  "akmal",
+  "panjol",
+  "nisa",
+  "wiwit",
+  "ajeng",
+  "imam",
+  "ade",
+  "takim",
+  "ikun",
+  "sory",
+  "eva",
+  "yani",
+  "yoga",
+  "goyali",
+  "panji",
+  "heri",
+  "musanto",
+  "faozi",
+  "alan",
+  "kiki",
+  "feri",
+  "diwah"
+]
+[2025-09-29T12:13:35.458Z] [INFO] Monitoring PPPoE connections: 96 active connections
+[2025-09-29T12:13:35.980Z] [INFO] PPPoE LOGIN detected: tembong, tiwik, supri, jodin, mamat, fauzan, sulis, suranto, ida, anang, deva, lina, arum, ngadiyanto, angga, basuki, erin, bombom, dewi, ginah, rohani, sari, toge, gunawan, welas, anjar, suprijamur, rido, tuminah, eka, badi, norma, kento, toyib, fajar, rangga, yamroji, lisrt6, ambar, gimen, tokrek, harno, sodik, anik, mbakton, triyono, gondrong, tonnangto, yani2, arisferi, aan, cinta, muhtadi, vina, nanda, rasiman, harno1, adiimam, qoriroh, tumini, ariswarung, nurabidin, mbakfatim, jarno, nasrudin, ika, badar, ogeh, yogi, linggar, biyu, masyus, daroji, opak, akmal, panjol, nisa, wiwit, ajeng, imam, ade, takim, ikun, sory, eva, yani, yoga, goyali, panji, heri, musanto, faozi, alan, kiki, feri, diwah
+[2025-09-29T12:13:36.121Z] [INFO] Found 5 active technicians in database
+[2025-09-29T12:13:36.750Z] [INFO] PPPoE notification sent to 6285800541752
+[2025-09-29T12:13:39.189Z] [INFO] PPPoE notification sent to 6288232807394
+[2025-09-29T12:13:39.190Z] [INFO] PPPoE notification sent to 2/2 valid recipients (5 total)
+[2025-09-29T12:13:39.191Z] [INFO] PPPoE monitoring: 96 active connections, 96 login, 0 logout
+[2025-09-29T12:13:54.058Z] [INFO] Loading customer detail for phone: 081321960111
+[2025-09-29T12:13:54.068Z] [INFO] Customer found:
+[2025-09-29T12:14:35.456Z] [INFO] Monitoring PPPoE connections: 96 active connections
+[2025-09-29T12:15:35.265Z] [INFO] Monitoring PPPoE connections: 96 active connections
+[2025-09-29T12:16:35.266Z] [INFO] Monitoring PPPoE connections: 96 active connections
+[2025-09-29T12:24:43.565Z] [INFO] 🚀 CacheManager initialized with default TTL: 5 minutes
+[2025-09-29T12:24:43.970Z] [INFO] Invoice scheduler initialized - will run on 1st of every month at 08:00
+[2025-09-29T12:24:43.971Z] [INFO] Daily invoice-by-billing_day scheduler is DISABLED (only monthly on the 1st)
+[2025-09-29T12:24:43.977Z] [INFO] Due date reminder scheduler initialized - will run daily at 09:00
+[2025-09-29T12:24:43.981Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
+[2025-09-29T12:24:43.985Z] [INFO] Monthly summary scheduler initialized - will run on 1st of every month at 23:59
+[2025-09-29T12:24:43.990Z] [INFO] Monthly reset scheduler initialized - will run on 1st of every month at 00:01
+[2025-09-29T12:24:43.997Z] [INFO] Service suspension/restoration scheduler initialized - will run daily at 10:00 and 11:00
+[2025-09-29T12:24:44.001Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
+[2025-09-29T12:24:46.665Z] [INFO] PPPoE monitoring started with interval 60000ms
+[2025-09-29T12:24:46.667Z] [INFO] Attempting to start server on configured port: 3003
+[2025-09-29T12:24:46.670Z] [INFO] Memulai server pada port yang dikonfigurasi: 3003
+[2025-09-29T12:24:46.671Z] [INFO] Port diambil dari settings.json - tidak ada fallback ke port alternatif
+[2025-09-29T12:24:46.691Z] [INFO] ✅ Server berhasil berjalan pada port 3003
+[2025-09-29T12:24:46.693Z] [INFO] 🌐 Web Portal tersedia di: http://localhost:3003
+[2025-09-29T12:24:46.694Z] [INFO] Environment: development
+[2025-09-29T12:24:47.156Z] [INFO] WhatsApp socket set in pppoe-notifications module
+[2025-09-29T12:24:47.157Z] [INFO] WhatsApp socket set in pppoe-commands module
+[2025-09-29T12:24:47.158Z] [INFO] WhatsApp socket set in genieacs-commands module
+[2025-09-29T12:24:47.160Z] [INFO] WhatsApp connected successfully
+[2025-09-29T12:24:47.163Z] [INFO] PPPoE monitoring started with interval 60000ms
+[2025-09-29T12:24:47.169Z] [INFO] Starting RX Power Warning monitoring (interval: 10 hours)
+[2025-09-29T12:24:47.171Z] [INFO] Starting RX Power Recap monitoring (interval: 6 hours)
+[2025-09-29T12:24:47.173Z] [INFO] Starting Offline Notification monitoring (interval: 12 hours)
+[2025-09-29T12:24:47.174Z] [INFO] IntervalManager initialized successfully
+[2025-09-29T12:24:47.175Z] [INFO] Interval Manager initialized with all monitoring systems
+[2025-09-29T12:24:47.175Z] [INFO] PPPoE monitoring auto-started on initialization
+[2025-09-29T12:24:47.177Z] [INFO] PPPoE monitoring initialized
+[2025-09-29T12:25:07.313Z] [INFO] Connected to Mikrotik at 192.168.3.1:8728
+[2025-09-29T12:25:07.361Z] [INFO] Connected to Mikrotik at 192.168.3.1:8728
+[2025-09-29T12:25:46.880Z] [INFO] PPPoE LOGIN:
+[
+  "tembong",
+  "tiwik",
+  "supri",
+  "jodin",
+  "mamat",
+  "fauzan",
+  "sulis",
+  "suranto",
+  "ida",
+  "anang",
+  "deva",
+  "lina",
+  "arum",
+  "ngadiyanto",
+  "angga",
+  "basuki",
+  "erin",
+  "bombom",
+  "dewi",
+  "ginah",
+  "rohani",
+  "sari",
+  "toge",
+  "gunawan",
+  "welas",
+  "anjar",
+  "suprijamur",
+  "rido",
+  "tuminah",
+  "eka",
+  "badi",
+  "norma",
+  "kento",
+  "toyib",
+  "fajar",
+  "rangga",
+  "yamroji",
+  "lisrt6",
+  "ambar",
+  "gimen",
+  "tokrek",
+  "harno",
+  "sodik",
+  "anik",
+  "mbakton",
+  "triyono",
+  "gondrong",
+  "tonnangto",
+  "yani2",
+  "arisferi",
+  "aan",
+  "cinta",
+  "muhtadi",
+  "vina",
+  "nanda",
+  "rasiman",
+  "harno1",
+  "adiimam",
+  "qoriroh",
+  "tumini",
+  "ariswarung",
+  "nurabidin",
+  "mbakfatim",
+  "jarno",
+  "nasrudin",
+  "ika",
+  "badar",
+  "ogeh",
+  "yogi",
+  "linggar",
+  "biyu",
+  "masyus",
+  "daroji",
+  "opak",
+  "akmal",
+  "panjol",
+  "nisa",
+  "wiwit",
+  "ajeng",
+  "imam",
+  "ade",
+  "takim",
+  "ikun",
+  "sory",
+  "eva",
+  "yani",
+  "yoga",
+  "goyali",
+  "panji",
+  "heri",
+  "musanto",
+  "faozi",
+  "alan",
+  "kiki",
+  "feri",
+  "diwah"
+]
+[2025-09-29T12:25:46.882Z] [INFO] Monitoring PPPoE connections: 96 active connections
+[2025-09-29T12:25:47.336Z] [INFO] PPPoE LOGIN detected: tembong, tiwik, supri, jodin, mamat, fauzan, sulis, suranto, ida, anang, deva, lina, arum, ngadiyanto, angga, basuki, erin, bombom, dewi, ginah, rohani, sari, toge, gunawan, welas, anjar, suprijamur, rido, tuminah, eka, badi, norma, kento, toyib, fajar, rangga, yamroji, lisrt6, ambar, gimen, tokrek, harno, sodik, anik, mbakton, triyono, gondrong, tonnangto, yani2, arisferi, aan, cinta, muhtadi, vina, nanda, rasiman, harno1, adiimam, qoriroh, tumini, ariswarung, nurabidin, mbakfatim, jarno, nasrudin, ika, badar, ogeh, yogi, linggar, biyu, masyus, daroji, opak, akmal, panjol, nisa, wiwit, ajeng, imam, ade, takim, ikun, sory, eva, yani, yoga, goyali, panji, heri, musanto, faozi, alan, kiki, feri, diwah
+[2025-09-29T12:25:47.486Z] [INFO] Found 5 active technicians in database
+[2025-09-29T12:25:48.102Z] [INFO] PPPoE notification sent to 6285800541752
+[2025-09-29T12:25:50.570Z] [INFO] PPPoE notification sent to 6288232807394
+[2025-09-29T12:25:50.571Z] [INFO] PPPoE notification sent to 2/2 valid recipients (5 total)
+[2025-09-29T12:25:50.572Z] [INFO] PPPoE monitoring: 96 active connections, 96 login, 0 logout
+[2025-09-29T12:28:44.734Z] [INFO] 🚀 CacheManager initialized with default TTL: 5 minutes
+[2025-09-29T12:28:45.121Z] [INFO] Invoice scheduler initialized - will run on 1st of every month at 08:00
+[2025-09-29T12:28:45.122Z] [INFO] Daily invoice-by-billing_day scheduler is DISABLED (only monthly on the 1st)
+[2025-09-29T12:28:45.127Z] [INFO] Due date reminder scheduler initialized - will run daily at 09:00
+[2025-09-29T12:28:45.132Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
+[2025-09-29T12:28:45.136Z] [INFO] Monthly summary scheduler initialized - will run on 1st of every month at 23:59
+[2025-09-29T12:28:45.141Z] [INFO] Monthly reset scheduler initialized - will run on 1st of every month at 00:01
+[2025-09-29T12:28:45.149Z] [INFO] Service suspension/restoration scheduler initialized - will run daily at 10:00 and 11:00
+[2025-09-29T12:28:45.153Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
+[2025-09-29T12:28:47.009Z] [INFO] PPPoE monitoring started with interval 60000ms
+[2025-09-29T12:28:47.011Z] [INFO] Attempting to start server on configured port: 3003
+[2025-09-29T12:28:47.014Z] [INFO] Memulai server pada port yang dikonfigurasi: 3003
+[2025-09-29T12:28:47.015Z] [INFO] Port diambil dari settings.json - tidak ada fallback ke port alternatif
+[2025-09-29T12:28:47.032Z] [INFO] ✅ Server berhasil berjalan pada port 3003
+[2025-09-29T12:28:47.033Z] [INFO] 🌐 Web Portal tersedia di: http://localhost:3003
+[2025-09-29T12:28:47.034Z] [INFO] Environment: development
+[2025-09-29T12:28:47.519Z] [INFO] WhatsApp socket set in pppoe-notifications module
+[2025-09-29T12:28:47.520Z] [INFO] WhatsApp socket set in pppoe-commands module
+[2025-09-29T12:28:47.521Z] [INFO] WhatsApp socket set in genieacs-commands module
+[2025-09-29T12:28:47.522Z] [INFO] WhatsApp connected successfully
+[2025-09-29T12:28:47.525Z] [INFO] PPPoE monitoring started with interval 60000ms
+[2025-09-29T12:28:47.531Z] [INFO] Starting RX Power Warning monitoring (interval: 10 hours)
+[2025-09-29T12:28:47.533Z] [INFO] Starting RX Power Recap monitoring (interval: 6 hours)
+[2025-09-29T12:28:47.535Z] [INFO] Starting Offline Notification monitoring (interval: 12 hours)
+[2025-09-29T12:28:47.536Z] [INFO] IntervalManager initialized successfully
+[2025-09-29T12:28:47.537Z] [INFO] Interval Manager initialized with all monitoring systems
+[2025-09-29T12:28:47.538Z] [INFO] PPPoE monitoring auto-started on initialization
+[2025-09-29T12:28:47.539Z] [INFO] PPPoE monitoring initialized
+[2025-09-29T12:28:47.982Z] [INFO] Connected to Mikrotik at 192.168.3.1:8728
+[2025-09-29T12:53:20.565Z] [INFO] 🚀 CacheManager initialized with default TTL: 5 minutes
+[2025-09-29T12:53:20.912Z] [INFO] Invoice scheduler initialized - will run on 1st of every month at 08:00
+[2025-09-29T12:53:20.913Z] [INFO] Daily invoice-by-billing_day scheduler is DISABLED (only monthly on the 1st)
+[2025-09-29T12:53:20.918Z] [INFO] Due date reminder scheduler initialized - will run daily at 09:00
+[2025-09-29T12:53:20.923Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
+[2025-09-29T12:53:20.928Z] [INFO] Monthly summary scheduler initialized - will run on 1st of every month at 23:59
+[2025-09-29T12:53:20.932Z] [INFO] Monthly reset scheduler initialized - will run on 1st of every month at 00:01
+[2025-09-29T12:53:20.940Z] [INFO] Service suspension/restoration scheduler initialized - will run daily at 10:00 and 11:00
+[2025-09-29T12:53:20.944Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
+[2025-09-29T12:53:22.661Z] [INFO] PPPoE monitoring started with interval 60000ms
+[2025-09-29T12:53:22.663Z] [INFO] Attempting to start server on configured port: 3003
+[2025-09-29T12:53:22.666Z] [INFO] Memulai server pada port yang dikonfigurasi: 3003
+[2025-09-29T12:53:22.667Z] [INFO] Port diambil dari settings.json - tidak ada fallback ke port alternatif
+[2025-09-29T12:53:22.687Z] [INFO] ✅ Server berhasil berjalan pada port 3003
+[2025-09-29T12:53:22.690Z] [INFO] 🌐 Web Portal tersedia di: http://localhost:3003
+[2025-09-29T12:53:22.691Z] [INFO] Environment: development
+[2025-09-29T12:53:23.218Z] [INFO] WhatsApp socket set in pppoe-notifications module
+[2025-09-29T12:53:23.219Z] [INFO] WhatsApp socket set in pppoe-commands module
+[2025-09-29T12:53:23.220Z] [INFO] WhatsApp socket set in genieacs-commands module
+[2025-09-29T12:53:23.222Z] [INFO] WhatsApp connected successfully
+[2025-09-29T12:53:23.225Z] [INFO] PPPoE monitoring started with interval 60000ms
+[2025-09-29T12:53:23.231Z] [INFO] Starting RX Power Warning monitoring (interval: 10 hours)
+[2025-09-29T12:53:23.233Z] [INFO] Starting RX Power Recap monitoring (interval: 6 hours)
+[2025-09-29T12:53:23.235Z] [INFO] Starting Offline Notification monitoring (interval: 12 hours)
+[2025-09-29T12:53:23.236Z] [INFO] IntervalManager initialized successfully
+[2025-09-29T12:53:23.237Z] [INFO] Interval Manager initialized with all monitoring systems
+[2025-09-29T12:53:23.237Z] [INFO] PPPoE monitoring auto-started on initialization
+[2025-09-29T12:53:23.239Z] [INFO] PPPoE monitoring initialized
+[2025-09-29T12:53:23.440Z] [INFO] Connected to Mikrotik at 192.168.3.1:8728
+[2025-09-29T13:03:38.458Z] [INFO] 🚀 CacheManager initialized with default TTL: 5 minutes
+[2025-09-29T13:03:38.847Z] [INFO] Invoice scheduler initialized - will run on 1st of every month at 08:00
+[2025-09-29T13:03:38.848Z] [INFO] Daily invoice-by-billing_day scheduler is DISABLED (only monthly on the 1st)
+[2025-09-29T13:03:38.854Z] [INFO] Due date reminder scheduler initialized - will run daily at 09:00
+[2025-09-29T13:03:38.859Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
+[2025-09-29T13:03:38.864Z] [INFO] Monthly summary scheduler initialized - will run on 1st of every month at 23:59
+[2025-09-29T13:03:38.869Z] [INFO] Monthly reset scheduler initialized - will run on 1st of every month at 00:01
+[2025-09-29T13:03:38.877Z] [INFO] Service suspension/restoration scheduler initialized - will run daily at 10:00 and 11:00
+[2025-09-29T13:03:38.881Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
+[2025-09-29T13:03:40.821Z] [INFO] PPPoE monitoring started with interval 60000ms
+[2025-09-29T13:03:40.823Z] [INFO] Attempting to start server on configured port: 3003
+[2025-09-29T13:03:40.826Z] [INFO] Memulai server pada port yang dikonfigurasi: 3003
+[2025-09-29T13:03:40.827Z] [INFO] Port diambil dari settings.json - tidak ada fallback ke port alternatif
+[2025-09-29T13:03:40.847Z] [INFO] ? Server berhasil berjalan pada port 3003
+[2025-09-29T13:03:40.849Z] [INFO] ?? Web Portal tersedia di: http://localhost:3003
+[2025-09-29T13:03:40.850Z] [INFO] Environment: development
+[2025-09-29T13:03:41.395Z] [INFO] WhatsApp socket set in pppoe-notifications module
+[2025-09-29T13:03:41.396Z] [INFO] WhatsApp socket set in pppoe-commands module
+[2025-09-29T13:03:41.397Z] [INFO] WhatsApp socket set in genieacs-commands module
+[2025-09-29T13:03:41.399Z] [INFO] WhatsApp connected successfully
+[2025-09-29T13:03:41.403Z] [INFO] PPPoE monitoring started with interval 60000ms
+[2025-09-29T13:03:41.409Z] [INFO] Starting RX Power Warning monitoring (interval: 10 hours)
+[2025-09-29T13:03:41.411Z] [INFO] Starting RX Power Recap monitoring (interval: 6 hours)
+[2025-09-29T13:03:41.413Z] [INFO] Starting Offline Notification monitoring (interval: 12 hours)
+[2025-09-29T13:03:41.414Z] [INFO] IntervalManager initialized successfully
+[2025-09-29T13:03:41.415Z] [INFO] Interval Manager initialized with all monitoring systems
+[2025-09-29T13:03:41.416Z] [INFO] PPPoE monitoring auto-started on initialization
+[2025-09-29T13:03:41.418Z] [INFO] PPPoE monitoring initialized
+[2025-09-29T13:04:02.231Z] [INFO] Connected to Mikrotik at 192.168.3.1:8728
+[2025-09-29T13:04:41.026Z] [INFO] PPPoE LOGIN:
+[
+  "tembong",
+  "tiwik",
+  "supri",
+  "jodin",
+  "mamat",
+  "fauzan",
+  "sulis",
+  "suranto",
+  "ida",
+  "anang",
+  "deva",
+  "lina",
+  "arum",
+  "ngadiyanto",
+  "angga",
+  "basuki",
+  "erin",
+  "bombom",
+  "dewi",
+  "ginah",
+  "rohani",
+  "sari",
+  "toge",
+  "gunawan",
+  "welas",
+  "anjar",
+  "suprijamur",
+  "rido",
+  "tuminah",
+  "eka",
+  "badi",
+  "norma",
+  "kento",
+  "toyib",
+  "fajar",
+  "rangga",
+  "yamroji",
+  "lisrt6",
+  "ambar",
+  "gimen",
+  "tokrek",
+  "harno",
+  "sodik",
+  "anik",
+  "mbakton",
+  "triyono",
+  "gondrong",
+  "tonnangto",
+  "yani2",
+  "arisferi",
+  "aan",
+  "cinta",
+  "muhtadi",
+  "vina",
+  "nanda",
+  "rasiman",
+  "harno1",
+  "adiimam",
+  "qoriroh",
+  "tumini",
+  "ariswarung",
+  "nurabidin",
+  "mbakfatim",
+  "jarno",
+  "nasrudin",
+  "ika",
+  "badar",
+  "ogeh",
+  "yogi",
+  "linggar",
+  "biyu",
+  "masyus",
+  "daroji",
+  "opak",
+  "akmal",
+  "panjol",
+  "nisa",
+  "wiwit",
+  "ajeng",
+  "imam",
+  "ade",
+  "takim",
+  "ikun",
+  "sory",
+  "eva",
+  "yani",
+  "yoga",
+  "goyali",
+  "panji",
+  "heri",
+  "musanto",
+  "faozi",
+  "alan",
+  "kiki",
+  "feri",
+  "diwah"
+]
+[2025-09-29T13:04:41.027Z] [INFO] Monitoring PPPoE connections: 96 active connections
+[2025-09-29T13:04:41.510Z] [INFO] PPPoE LOGIN detected: tembong, tiwik, supri, jodin, mamat, fauzan, sulis, suranto, ida, anang, deva, lina, arum, ngadiyanto, angga, basuki, erin, bombom, dewi, ginah, rohani, sari, toge, gunawan, welas, anjar, suprijamur, rido, tuminah, eka, badi, norma, kento, toyib, fajar, rangga, yamroji, lisrt6, ambar, gimen, tokrek, harno, sodik, anik, mbakton, triyono, gondrong, tonnangto, yani2, arisferi, aan, cinta, muhtadi, vina, nanda, rasiman, harno1, adiimam, qoriroh, tumini, ariswarung, nurabidin, mbakfatim, jarno, nasrudin, ika, badar, ogeh, yogi, linggar, biyu, masyus, daroji, opak, akmal, panjol, nisa, wiwit, ajeng, imam, ade, takim, ikun, sory, eva, yani, yoga, goyali, panji, heri, musanto, faozi, alan, kiki, feri, diwah
+[2025-09-29T13:04:41.657Z] [INFO] Found 5 active technicians in database
+[2025-09-29T13:04:42.331Z] [INFO] PPPoE notification sent to 6285800541752
+[2025-09-29T13:04:44.696Z] [INFO] PPPoE notification sent to 6288232807394
+[2025-09-29T13:04:44.697Z] [INFO] PPPoE notification sent to 2/2 valid recipients (5 total)
+[2025-09-29T13:04:44.698Z] [INFO] PPPoE monitoring: 96 active connections, 96 login, 0 logout
+[2025-09-29T13:11:34.127Z] [INFO] 🚀 CacheManager initialized with default TTL: 5 minutes
+[2025-09-29T13:11:34.485Z] [INFO] Invoice scheduler initialized - will run on 1st of every month at 08:00
+[2025-09-29T13:11:34.486Z] [INFO] Daily invoice-by-billing_day scheduler is DISABLED (only monthly on the 1st)
+[2025-09-29T13:11:34.492Z] [INFO] Due date reminder scheduler initialized - will run daily at 09:00
+[2025-09-29T13:11:34.497Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
+[2025-09-29T13:11:34.501Z] [INFO] Monthly summary scheduler initialized - will run on 1st of every month at 23:59
+[2025-09-29T13:11:34.506Z] [INFO] Monthly reset scheduler initialized - will run on 1st of every month at 00:01
+[2025-09-29T13:11:34.514Z] [INFO] Service suspension/restoration scheduler initialized - will run daily at 10:00 and 11:00
+[2025-09-29T13:11:34.518Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
+[2025-09-29T13:11:36.308Z] [INFO] PPPoE monitoring started with interval 60000ms
+[2025-09-29T13:11:36.311Z] [INFO] Attempting to start server on configured port: 3003
+[2025-09-29T13:11:36.313Z] [INFO] Memulai server pada port yang dikonfigurasi: 3003
+[2025-09-29T13:11:36.314Z] [INFO] Port diambil dari settings.json - tidak ada fallback ke port alternatif
+[2025-09-29T13:11:36.330Z] [INFO] ? Server berhasil berjalan pada port 3003
+[2025-09-29T13:11:36.331Z] [INFO] ?? Web Portal tersedia di: http://localhost:3003
+[2025-09-29T13:11:36.332Z] [INFO] Environment: development
+[2025-09-29T13:11:36.815Z] [INFO] WhatsApp socket set in pppoe-notifications module
+[2025-09-29T13:11:36.816Z] [INFO] WhatsApp socket set in pppoe-commands module
+[2025-09-29T13:11:36.817Z] [INFO] WhatsApp socket set in genieacs-commands module
+[2025-09-29T13:11:36.819Z] [INFO] WhatsApp connected successfully
+[2025-09-29T13:11:36.822Z] [INFO] PPPoE monitoring started with interval 60000ms
+[2025-09-29T13:11:36.827Z] [INFO] Starting RX Power Warning monitoring (interval: 10 hours)
+[2025-09-29T13:11:36.829Z] [INFO] Starting RX Power Recap monitoring (interval: 6 hours)
+[2025-09-29T13:11:36.831Z] [INFO] Starting Offline Notification monitoring (interval: 12 hours)
+[2025-09-29T13:11:36.832Z] [INFO] IntervalManager initialized successfully
+[2025-09-29T13:11:36.833Z] [INFO] Interval Manager initialized with all monitoring systems
+[2025-09-29T13:11:36.833Z] [INFO] PPPoE monitoring auto-started on initialization
+[2025-09-29T13:11:36.835Z] [INFO] PPPoE monitoring initialized
+[2025-09-29T13:11:38.913Z] [INFO] Connected to Mikrotik at 192.168.3.1:8728
+[2025-09-29T13:12:36.519Z] [INFO] PPPoE LOGIN:
+[
+  "tembong",
+  "tiwik",
+  "supri",
+  "jodin",
+  "mamat",
+  "fauzan",
+  "sulis",
+  "suranto",
+  "ida",
+  "anang",
+  "deva",
+  "lina",
+  "arum",
+  "ngadiyanto",
+  "angga",
+  "basuki",
+  "erin",
+  "bombom",
+  "dewi",
+  "ginah",
+  "rohani",
+  "sari",
+  "toge",
+  "gunawan",
+  "welas",
+  "anjar",
+  "suprijamur",
+  "rido",
+  "tuminah",
+  "eka",
+  "badi",
+  "norma",
+  "kento",
+  "toyib",
+  "fajar",
+  "rangga",
+  "yamroji",
+  "lisrt6",
+  "ambar",
+  "gimen",
+  "tokrek",
+  "harno",
+  "sodik",
+  "anik",
+  "mbakton",
+  "triyono",
+  "gondrong",
+  "tonnangto",
+  "yani2",
+  "arisferi",
+  "aan",
+  "cinta",
+  "muhtadi",
+  "vina",
+  "nanda",
+  "rasiman",
+  "harno1",
+  "adiimam",
+  "qoriroh",
+  "tumini",
+  "ariswarung",
+  "nurabidin",
+  "mbakfatim",
+  "jarno",
+  "nasrudin",
+  "ika",
+  "badar",
+  "ogeh",
+  "yogi",
+  "linggar",
+  "biyu",
+  "masyus",
+  "daroji",
+  "opak",
+  "akmal",
+  "panjol",
+  "nisa",
+  "wiwit",
+  "ajeng",
+  "imam",
+  "ade",
+  "takim",
+  "ikun",
+  "sory",
+  "eva",
+  "yani",
+  "yoga",
+  "goyali",
+  "panji",
+  "heri",
+  "musanto",
+  "faozi",
+  "alan",
+  "kiki",
+  "feri",
+  "diwah"
+]
+[2025-09-29T13:12:36.520Z] [INFO] Monitoring PPPoE connections: 96 active connections
+[2025-09-29T13:12:36.947Z] [INFO] PPPoE LOGIN detected: tembong, tiwik, supri, jodin, mamat, fauzan, sulis, suranto, ida, anang, deva, lina, arum, ngadiyanto, angga, basuki, erin, bombom, dewi, ginah, rohani, sari, toge, gunawan, welas, anjar, suprijamur, rido, tuminah, eka, badi, norma, kento, toyib, fajar, rangga, yamroji, lisrt6, ambar, gimen, tokrek, harno, sodik, anik, mbakton, triyono, gondrong, tonnangto, yani2, arisferi, aan, cinta, muhtadi, vina, nanda, rasiman, harno1, adiimam, qoriroh, tumini, ariswarung, nurabidin, mbakfatim, jarno, nasrudin, ika, badar, ogeh, yogi, linggar, biyu, masyus, daroji, opak, akmal, panjol, nisa, wiwit, ajeng, imam, ade, takim, ikun, sory, eva, yani, yoga, goyali, panji, heri, musanto, faozi, alan, kiki, feri, diwah
+[2025-09-29T13:12:37.087Z] [INFO] Found 5 active technicians in database
+[2025-09-29T13:12:37.704Z] [INFO] PPPoE notification sent to 6285800541752
+[2025-09-29T13:12:40.169Z] [INFO] PPPoE notification sent to 6288232807394
+[2025-09-29T13:12:40.171Z] [INFO] PPPoE notification sent to 2/2 valid recipients (5 total)
+[2025-09-29T13:12:40.172Z] [INFO] PPPoE monitoring: 96 active connections, 96 login, 0 logout
+[2025-09-29T13:13:36.457Z] [INFO] Monitoring PPPoE connections: 96 active connections
+[2025-09-29T13:14:19.414Z] [INFO] 🚀 CacheManager initialized with default TTL: 5 minutes
+[2025-09-29T13:14:19.769Z] [INFO] Invoice scheduler initialized - will run on 1st of every month at 08:00
+[2025-09-29T13:14:19.770Z] [INFO] Daily invoice-by-billing_day scheduler is DISABLED (only monthly on the 1st)
+[2025-09-29T13:14:19.775Z] [INFO] Due date reminder scheduler initialized - will run daily at 09:00
+[2025-09-29T13:14:19.780Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
+[2025-09-29T13:14:19.784Z] [INFO] Monthly summary scheduler initialized - will run on 1st of every month at 23:59
+[2025-09-29T13:14:19.788Z] [INFO] Monthly reset scheduler initialized - will run on 1st of every month at 00:01
+[2025-09-29T13:14:19.795Z] [INFO] Service suspension/restoration scheduler initialized - will run daily at 10:00 and 11:00
+[2025-09-29T13:14:19.799Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
+[2025-09-29T13:14:21.501Z] [INFO] PPPoE monitoring started with interval 60000ms
+[2025-09-29T13:14:21.503Z] [INFO] Attempting to start server on configured port: 3003
+[2025-09-29T13:14:21.506Z] [INFO] Memulai server pada port yang dikonfigurasi: 3003
+[2025-09-29T13:14:21.507Z] [INFO] Port diambil dari settings.json - tidak ada fallback ke port alternatif
+[2025-09-29T13:14:21.523Z] [INFO] ? Server berhasil berjalan pada port 3003
+[2025-09-29T13:14:21.525Z] [INFO] ?? Web Portal tersedia di: http://localhost:3003
+[2025-09-29T13:14:21.526Z] [INFO] Environment: development
+[2025-09-29T13:14:22.041Z] [INFO] WhatsApp socket set in pppoe-notifications module
+[2025-09-29T13:14:22.043Z] [INFO] WhatsApp socket set in pppoe-commands module
+[2025-09-29T13:14:22.044Z] [INFO] WhatsApp socket set in genieacs-commands module
+[2025-09-29T13:14:22.045Z] [INFO] WhatsApp connected successfully
+[2025-09-29T13:14:22.048Z] [INFO] PPPoE monitoring started with interval 60000ms
+[2025-09-29T13:14:22.053Z] [INFO] Starting RX Power Warning monitoring (interval: 10 hours)
+[2025-09-29T13:14:22.055Z] [INFO] Starting RX Power Recap monitoring (interval: 6 hours)
+[2025-09-29T13:14:22.057Z] [INFO] Starting Offline Notification monitoring (interval: 12 hours)
+[2025-09-29T13:14:22.058Z] [INFO] IntervalManager initialized successfully
+[2025-09-29T13:14:22.059Z] [INFO] Interval Manager initialized with all monitoring systems
+[2025-09-29T13:14:22.059Z] [INFO] PPPoE monitoring auto-started on initialization
+[2025-09-29T13:14:22.060Z] [INFO] PPPoE monitoring initialized
+[2025-09-29T13:14:22.264Z] [INFO] Connected to Mikrotik at 192.168.3.1:8728
+[2025-09-29T13:14:22.269Z] [INFO] Connected to Mikrotik at 192.168.3.1:8728
+[2025-09-29T13:25:49.459Z] [INFO] 🚀 CacheManager initialized with default TTL: 5 minutes
+[2025-09-29T13:25:49.908Z] [INFO] Invoice scheduler initialized - will run on 1st of every month at 08:00
+[2025-09-29T13:25:49.909Z] [INFO] Daily invoice-by-billing_day scheduler is DISABLED (only monthly on the 1st)
+[2025-09-29T13:25:49.916Z] [INFO] Due date reminder scheduler initialized - will run daily at 09:00
+[2025-09-29T13:25:49.922Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
+[2025-09-29T13:25:49.928Z] [INFO] Monthly summary scheduler initialized - will run on 1st of every month at 23:59
+[2025-09-29T13:25:49.934Z] [INFO] Monthly reset scheduler initialized - will run on 1st of every month at 00:01
+[2025-09-29T13:25:49.944Z] [INFO] Service suspension/restoration scheduler initialized - will run daily at 10:00 and 11:00
+[2025-09-29T13:25:49.948Z] [INFO] Voucher cleanup scheduler initialized - will run every 6 hours
+[2025-09-29T13:25:52.261Z] [INFO] PPPoE monitoring started with interval 60000ms
+[2025-09-29T13:25:52.263Z] [INFO] Attempting to start server on configured port: 3003
+[2025-09-29T13:25:52.266Z] [INFO] Memulai server pada port yang dikonfigurasi: 3003
+[2025-09-29T13:25:52.267Z] [INFO] Port diambil dari settings.json - tidak ada fallback ke port alternatif
+[2025-09-29T13:25:52.288Z] [INFO] ? Server berhasil berjalan pada port 3003
+[2025-09-29T13:25:52.290Z] [INFO] ?? Web Portal tersedia di: http://localhost:3003
+[2025-09-29T13:25:52.291Z] [INFO] Environment: development
+[2025-09-29T13:25:52.908Z] [INFO] WhatsApp socket set in pppoe-notifications module
+[2025-09-29T13:25:52.909Z] [INFO] WhatsApp socket set in pppoe-commands module
+[2025-09-29T13:25:52.910Z] [INFO] WhatsApp socket set in genieacs-commands module
+[2025-09-29T13:25:52.912Z] [INFO] WhatsApp connected successfully
+[2025-09-29T13:25:52.915Z] [INFO] PPPoE monitoring started with interval 60000ms
+[2025-09-29T13:25:52.920Z] [INFO] Starting RX Power Warning monitoring (interval: 10 hours)
+[2025-09-29T13:25:52.923Z] [INFO] Starting RX Power Recap monitoring (interval: 6 hours)
+[2025-09-29T13:25:52.925Z] [INFO] Starting Offline Notification monitoring (interval: 12 hours)
+[2025-09-29T13:25:52.926Z] [INFO] IntervalManager initialized successfully
+[2025-09-29T13:25:52.926Z] [INFO] Interval Manager initialized with all monitoring systems
+[2025-09-29T13:25:52.927Z] [INFO] PPPoE monitoring auto-started on initialization
+[2025-09-29T13:25:52.929Z] [INFO] PPPoE monitoring initialized
+[2025-09-29T13:25:53.261Z] [INFO] Connected to Mikrotik at 192.168.3.1:8728
+[2025-09-29T13:26:52.459Z] [INFO] PPPoE LOGIN:
+[
+  "tembong",
+  "tiwik",
+  "supri",
+  "jodin",
+  "mamat",
+  "fauzan",
+  "sulis",
+  "suranto",
+  "ida",
+  "anang",
+  "deva",
+  "lina",
+  "arum",
+  "ngadiyanto",
+  "angga",
+  "basuki",
+  "erin",
+  "bombom",
+  "dewi",
+  "ginah",
+  "rohani",
+  "sari",
+  "toge",
+  "gunawan",
+  "welas",
+  "anjar",
+  "suprijamur",
+  "rido",
+  "tuminah",
+  "eka",
+  "badi",
+  "norma",
+  "kento",
+  "toyib",
+  "fajar",
+  "rangga",
+  "yamroji",
+  "lisrt6",
+  "ambar",
+  "gimen",
+  "tokrek",
+  "harno",
+  "sodik",
+  "anik",
+  "mbakton",
+  "triyono",
+  "gondrong",
+  "tonnangto",
+  "yani2",
+  "arisferi",
+  "aan",
+  "cinta",
+  "muhtadi",
+  "vina",
+  "nanda",
+  "rasiman",
+  "harno1",
+  "adiimam",
+  "qoriroh",
+  "tumini",
+  "ariswarung",
+  "nurabidin",
+  "mbakfatim",
+  "jarno",
+  "nasrudin",
+  "ika",
+  "badar",
+  "ogeh",
+  "yogi",
+  "linggar",
+  "biyu",
+  "masyus",
+  "daroji",
+  "opak",
+  "akmal",
+  "panjol",
+  "nisa",
+  "wiwit",
+  "ajeng",
+  "imam",
+  "ade",
+  "takim",
+  "ikun",
+  "sory",
+  "eva",
+  "yani",
+  "yoga",
+  "goyali",
+  "panji",
+  "heri",
+  "musanto",
+  "faozi",
+  "alan",
+  "kiki",
+  "feri",
+  "diwah"
+]
+[2025-09-29T13:26:52.461Z] [INFO] Monitoring PPPoE connections: 96 active connections
+[2025-09-29T13:26:53.001Z] [INFO] PPPoE LOGIN detected: tembong, tiwik, supri, jodin, mamat, fauzan, sulis, suranto, ida, anang, deva, lina, arum, ngadiyanto, angga, basuki, erin, bombom, dewi, ginah, rohani, sari, toge, gunawan, welas, anjar, suprijamur, rido, tuminah, eka, badi, norma, kento, toyib, fajar, rangga, yamroji, lisrt6, ambar, gimen, tokrek, harno, sodik, anik, mbakton, triyono, gondrong, tonnangto, yani2, arisferi, aan, cinta, muhtadi, vina, nanda, rasiman, harno1, adiimam, qoriroh, tumini, ariswarung, nurabidin, mbakfatim, jarno, nasrudin, ika, badar, ogeh, yogi, linggar, biyu, masyus, daroji, opak, akmal, panjol, nisa, wiwit, ajeng, imam, ade, takim, ikun, sory, eva, yani, yoga, goyali, panji, heri, musanto, faozi, alan, kiki, feri, diwah
+[2025-09-29T13:26:53.143Z] [INFO] Found 5 active technicians in database
+[2025-09-29T13:26:54.326Z] [INFO] PPPoE notification sent to 6285800541752
+[2025-09-29T13:26:57.474Z] [INFO] PPPoE notification sent to 6288232807394
+[2025-09-29T13:26:57.475Z] [INFO] PPPoE notification sent to 2/2 valid recipients (5 total)
+[2025-09-29T13:26:57.476Z] [INFO] PPPoE monitoring: 96 active connections, 96 login, 0 logout

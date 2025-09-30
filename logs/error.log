@@ -1653,21 +1653,3 @@
 [2025-09-04T04:18:23.398Z] [ERROR] Failed to send PPPoE notification to 6283807665111 after 2 retries
 [2025-09-04T04:18:26.422Z] [ERROR] Failed to send PPPoE notification to 6282218094111 after 2 retries
 [2025-09-04T04:18:29.487Z] [ERROR] Failed to send PPPoE notification to 6281234567890 after 2 retries
-[2025-09-22T07:04:42.210Z] [ERROR] Error adding ODP:
-{
-  "name": "Error",
-  "message": "SQLITE_CONSTRAINT: UNIQUE constraint failed: odps.name",
-  "stack": "Error: SQLITE_CONSTRAINT: UNIQUE constraint failed: odps.name"
-}
-[2025-09-22T07:05:04.601Z] [ERROR] Error adding ODP:
-{
-  "name": "Error",
-  "message": "SQLITE_CONSTRAINT: UNIQUE constraint failed: odps.name",
-  "stack": "Error: SQLITE_CONSTRAINT: UNIQUE constraint failed: odps.name"
-}
-[2025-09-22T07:05:22.770Z] [ERROR] Error adding ODP:
-{
-  "name": "Error",
-  "message": "SQLITE_CONSTRAINT: UNIQUE constraint failed: odps.name",
-  "stack": "Error: SQLITE_CONSTRAINT: UNIQUE constraint failed: odps.name"
-}
