@@ -5,9 +5,9 @@
             <button class="btn btn-link text-white p-0 me-3" type="button" id="sidebarToggle">
                 <i class="bi bi-list" style="font-size: 1.5rem;"></i>
             </button>
-            <img src="/img/<%= typeof settings !== 'undefined' && settings.logo_filename ? settings.logo_filename : 'logo.png' %>?ts=<%= Date.now() %>" alt="Logo" style="height: 35px; border-radius: 4px;">
+            <img src="/img/<%= typeof settings !== 'undefined' && settings.logo_filename ? settings.logo_filename : 'logo1.png' %>?ts=<%= Date.now() %>" alt="Logo" style="height: 35px; border-radius: 4px;">
             <div class="d-flex flex-column ms-2">
-                <span class="navbar-brand mb-0">BILLINGKU Admin</span>
+                <span class="navbar-brand mb-0">MJBill Admin</span>
                 <small class="text-light opacity-75">
                     <%= typeof versionInfo !== 'undefined' ? versionInfo.version : 'v1.0.0' %>
                 </small>
@@ -30,10 +30,10 @@
     
     <!-- Logo Section -->
     <div class="sidebar-header mb-4 text-center">
-        <img id="logoImage" src="/img/<%= typeof settings !== 'undefined' && settings.logo_filename ? settings.logo_filename : 'logo.png' %>?v=<%= new Date().getTime() %>" alt="Logo" style="max-width:120px;max-height:60px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <img id="logoImage" src="/img/<%= typeof settings !== 'undefined' && settings.logo_filename ? settings.logo_filename : 'logo1.png' %>?v=<%= new Date().getTime() %>" alt="Logo" style="max-width:120px;max-height:60px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
         <div class="company-info mt-2">
             <h6 class="company-name mb-1">
-                <%= typeof versionInfo !== 'undefined' ? versionInfo.companyHeader : 'BILLINGKU' %>
+                <%= typeof versionInfo !== 'undefined' ? versionInfo.companyHeader : 'MJBill' %>
             </h6>
             <div class="version-badge-small">
                 <span class="badge <%= typeof versionBadge !== 'undefined' ? versionBadge.class : 'badge-secondary' %>">
