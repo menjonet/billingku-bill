@@ -76,8 +76,8 @@
 apt install git curl -y
 
 # Clone repository
-git clone https://github.com/menjonet/billingku-bill
-cd billingku-bill
+git clone https://github.com/menjonet/mj-bill
+cd mj-bill
 ```
 
 ### 2. Install Dependencies
