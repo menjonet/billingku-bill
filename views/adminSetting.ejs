@@ -136,7 +136,7 @@
         <!-- Include Responsive Admin Sidebar -->
         <%- include('partials/admin-responsive-sidebar', { page: 'setting', settings: settings }) %>
         
-        <main class="col-md-10 main-content ms-sm-auto">
+        <main class="col-md-10 ms-sm-auto col-lg-10 px-md-4 main-content">
             <h3 class="mb-4">Pengaturan Sistem</h3>
             
             <div class="row">
@@ -221,7 +221,7 @@
                             <div class="d-flex align-items-start">
                                 <i class="bi bi-exclamation-triangle-fill me-2 mt-1"></i>
                                 <div>
-                                    <strong>⚠️ PENTING!</strong>
+                                    <strong>?? PENTING!</strong>
                                     <br>
                                     <small>
                                         Gunakan nomor WhatsApp <strong>BUKAN nomor admin</strong> untuk scan QR code ini. 
@@ -454,7 +454,7 @@
                         </form>
                         <div class="logo-preview mt-3">
                             <label class="form-label">Logo Saat Ini:</label>
-                            <img id="logoPreview" src="/img/<%= typeof settings !== 'undefined' && settings.logo_filename ? settings.logo_filename : 'logo.png' %>?ts=<%= Date.now() %>" alt="Logo" style="max-width:200px;max-height:120px;">
+                            <img id="logoPreview" src="/img/<%= typeof settings !== 'undefined' && settings.logo_filename ? settings.logo_filename : 'logo1.png' %>?ts=<%= Date.now() %>" alt="Logo" style="max-width:200px;max-height:120px;">
                         </div>
                         <!-- Keterangan Donasi Masjid (di dalam section logo) -->
                         <div class="alert alert-info mt-3" style="border-radius: 10px;">
@@ -465,6 +465,91 @@
                                     <a href="/admin/settings/donation-qr" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary">
                                         Buka QR ukuran penuh
                                     </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Script Generator Menu Isolir Mikrotik -->
+                        <div class="mt-4">
+                            <h5 class="mb-3"><i class="bi bi-router"></i> Script Generator Menu Isolir Mikrotik</h5>
+                            <p class="small text-muted mb-3">Generate script untuk mengatur menu isolir di Mikrotik. Pelanggan yang diisolir akan langsung diarahkan ke halaman isolir.</p>
+                            
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold">IP PPPoE Aktif</label>
+                                    <input type="text" class="form-control form-control-sm" id="activeIp" placeholder="192.168.10.1" value="192.168.10.1">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold">IP PPPoE Isolir</label>
+                                    <input type="text" class="form-control form-control-sm" id="isolirIp" placeholder="192.168.200.1" value="192.168.200.1">
+                                </div>
+                            </div>
+                            
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold">Domain/IP Aplikasi</label>
+                                    <input type="text" class="form-control form-control-sm" id="isolirDomain" placeholder="192.168.8.89" value="192.168.8.89">
+                                    <small class="text-muted">IP atau domain aplikasi (contoh: 192.168.8.89 atau bl.mjpro.site)</small>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold">Path Halaman Isolir</label>
+                                    <input type="text" class="form-control form-control-sm" id="isolirPath" placeholder="/isolir" value="/isolir">
+                                </div>
+                            </div>
+                            
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold">Port Aplikasi</label>
+                                    <input type="text" class="form-control form-control-sm" id="isolirPort" placeholder="3003" value="3003">
+                                    <small class="text-muted">Port aplikasi (contoh: 3003 untuk aplikasi lokal)</small>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold">Jenis Akses</label>
+                                    <select class="form-select form-select-sm" id="accessType">
+                                        <option value="port">Port Langsung (Recommended)</option>
+                                        <option value="tunneling">Tunneling (Domain + Path)</option>
+                                    </select>
+                                    <small class="text-muted">Port Langsung untuk aplikasi lokal, Tunneling untuk domain</small>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="generateIsolirScript()">
+                                    <i class="bi bi-gear"></i> Generate Script
+                                </button>
+                                <button type="button" class="btn btn-success btn-sm ms-2" onclick="generateLocalIsolirScript()">
+                                    <i class="bi bi-house"></i> Generate Script Lokal
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm ms-2" onclick="copyIsolirScript()">
+                                    <i class="bi bi-clipboard"></i> Copy Script
+                                </button>
+                            </div>
+                            
+                            <div class="command-card" id="isolirScriptCard" style="display: none;">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h6 class="mb-0"><i class="bi bi-terminal"></i> Script Mikrotik</h6>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="copyIsolirScript()">
+                                        <i class="bi bi-clipboard"></i> Copy
+                                    </button>
+                                </div>
+                                <pre id="isolirScript" class="mb-0" style="background: #2d3748; color: #e2e8f0; padding: 15px; border-radius: 6px; font-size: 12px; max-height: 400px; overflow-y: auto;"></pre>
+                            </div>
+                            
+                            <div class="alert alert-info mt-3" id="isolirInfo">
+                                <h6><i class="bi bi-info-circle"></i> Cara Penggunaan:</h6>
+                                <ol class="mb-0">
+                                    <li>Masukkan IP PPPoE aktif dan isolir</li>
+                                    <li>Masukkan IP/domain aplikasi dan path halaman isolir</li>
+                                    <li>Masukkan port aplikasi (contoh: 3003 untuk aplikasi lokal)</li>
+                                    <li>Pilih jenis akses: <strong>Port Langsung</strong> (recommended) atau <strong>Tunneling</strong></li>
+                                    <li>Klik "Generate Script"</li>
+                                    <li>Copy script dan jalankan di terminal Mikrotik</li>
+                                    <li>Script akan membuat redirect yang mengarahkan ke halaman isolir</li>
+                                </ol>
+                                <div class="mt-2">
+                                    <strong>Contoh Aplikasi Lokal:</strong> 192.168.8.89:3003/isolir<br>
+                                    <strong>Contoh Domain:</strong> bl.mjpro.site/isolir<br>
+                                    <strong>Keuntungan:</strong> Tidak perlu web proxy, performa lebih baik
                                 </div>
                             </div>
                         </div>
@@ -538,6 +623,124 @@
                                 <button class="btn btn-primary btn-sm w-100" type="button" id="generateBurstLimit">
                                     <i class="bi bi-lightning-charge"></i> Generate
                                 </button>
+                            </div>
+                        </div>
+
+                        <!-- DNS Management Section -->
+                        <div class="mt-4">
+                            <h5 class="mb-3"><i class="bi bi-globe"></i> DNS Management GenieACS</h5>
+                            <p class="small text-muted mb-3">Konfigurasi DNS Server untuk ONUs melalui GenieACS. Menggunakan console script untuk keandalan maksimal.</p>
+                            
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label small fw-bold" for="dnsServerIp">DNS Server IP</label>
+                                        <input type="text" class="form-control form-control-sm" id="dnsServerIp" value="192.168.8.89" placeholder="192.168.8.89">
+                                        <small class="form-text text-muted">IP server GenieACS yang akan dijadikan DNS</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label small fw-bold" for="deviceIdInput">Device ID (Opsional)</label>
+                                        <input type="text" class="form-control form-control-sm" id="deviceIdInput" placeholder="C0FD84-F663NV3A-ZTEGCB8BB94C">
+                                        <small class="form-text text-muted">Kosongkan untuk konfigurasi semua device online</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid gap-2 d-md-flex mb-3">
+                                <button type="button" class="btn btn-outline-primary btn-sm" onclick="testGenieACSConnection()">
+                                    <i class="bi bi-plug"></i> Test Koneksi
+                                </button>
+                                <button type="button" class="btn btn-outline-info btn-sm" onclick="loadOnlineDevices()">
+                                    <i class="bi bi-arrow-clockwise"></i> Refresh Device
+                                </button>
+                                <button type="button" class="btn btn-success btn-sm" onclick="configureDNS()">
+                                    <i class="bi bi-gear"></i> Konfigurasi DNS
+                                </button>
+                                <button type="button" class="btn btn-warning btn-sm" onclick="configureAllOnline()">
+                                    <i class="bi bi-broadcast-tower"></i> Konfigurasi Semua Online
+                                </button>
+                            </div>
+                            
+                            <div id="connectionStatus" class="mb-3"></div>
+                            
+                            <!-- Device List -->
+                            <div id="deviceList" class="mt-4" style="display: none;">
+                                <h6>Device Online (Last 24 hours):</h6>
+                                <div id="deviceListContent" class="row"></div>
+                            </div>
+                            
+                            <!-- Activity Log -->
+                            <div class="mt-4">
+                                <h6>Activity Log:</h6>
+                                <div id="logContainer" class="log-container" style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 0.375rem; height: 200px; overflow-y: auto; padding: 1rem; font-family: 'Courier New', monospace; font-size: 0.875rem;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Mikrotik DNS GenieACS Script Generator -->
+                        <div class="mt-4">
+                            <h5 class="mb-3"><i class="bi bi-router"></i> Generator Script Mikrotik DNS GenieACS</h5>
+                            <p class="small text-muted mb-3">Generate script Mikrotik untuk konfigurasi DNS dan TR069 GenieACS. Script siap copy-paste ke terminal Mikrotik.</p>
+                            
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label small fw-bold" for="genieacsServerIp">IP Server GenieACS</label>
+                                        <input type="text" class="form-control form-control-sm" id="genieacsServerIp" value="192.168.8.89" placeholder="192.168.8.89">
+                                        <small class="form-text text-muted">IP server GenieACS yang akan dijadikan DNS</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label small fw-bold" for="genieacsPort">Port GenieACS</label>
+                                        <input type="number" class="form-control form-control-sm" id="genieacsPort" value="7547" placeholder="7547">
+                                        <small class="form-text text-muted">Port TR069 GenieACS (default: 7547)</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label small fw-bold" for="pppoeRange">Range PPPoE</label>
+                                        <input type="text" class="form-control form-control-sm" id="pppoeRange" value="192.168.10.0/24" placeholder="192.168.10.0/24">
+                                        <small class="form-text text-muted">Range IP PPPoE yang akan dikonfigurasi</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label small fw-bold" for="dnsBackup">DNS Backup</label>
+                                        <input type="text" class="form-control form-control-sm" id="dnsBackup" value="8.8.8.8" placeholder="8.8.8.8">
+                                        <small class="form-text text-muted">DNS server backup (opsional)</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid gap-2 d-md-flex mb-3">
+                                <button type="button" class="btn btn-primary btn-sm" onclick="generateMikrotikDNSGenieACSScript()">
+                                    <i class="bi bi-file-earmark-code"></i> Generate Script
+                                </button>
+                                <button type="button" class="btn btn-success btn-sm" onclick="copyMikrotikDNSGenieACSScript()" id="copyMikrotikDNSGenieACSBtn" disabled>
+                                    <i class="bi bi-clipboard"></i> Copy Script
+                                </button>
+                                <button type="button" class="btn btn-info btn-sm" onclick="downloadMikrotikDNSGenieACSScript()" id="downloadMikrotikDNSGenieACSBtn" disabled>
+                                    <i class="bi bi-download"></i> Download Script
+                                </button>
+                            </div>
+                            
+                            <!-- Script Output -->
+                            <div id="mikrotikDNSGenieACSScriptOutput" class="mt-3" style="display: none;">
+                                <h6>Generated Mikrotik Script:</h6>
+                                <div class="card">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <span><i class="bi bi-code-slash"></i> Mikrotik DNS GenieACS Script</span>
+                                        <small class="text-muted">Siap untuk copy-paste ke terminal Mikrotik</small>
+                                    </div>
+                                    <div class="card-body">
+                                        <pre id="mikrotikDNSGenieACSScriptContent" class="mb-0" style="background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 0.375rem; padding: 1rem; font-family: 'Courier New', monospace; font-size: 0.875rem; max-height: 400px; overflow-y: auto;"></pre>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -711,7 +914,7 @@ Pilih opsi di atas untuk men-generate skrip...
     <div class="alert alert-info small p-2 mb-0">
         <i class="bi bi-info-circle"></i> 
         <strong>Cara menggunakan:</strong> 
-        1. Klik "Generate Script" → 2. Copy script → 3. Paste di terminal Mikrotik → 4. Jalankan script
+        1. Klik "Generate Script" ? 2. Copy script ? 3. Paste di terminal Mikrotik ? 4. Jalankan script
     </div>
 </div>
 
@@ -827,7 +1030,6 @@ $(function() {
         const fieldLabels = {
             'auto_suspension_enabled': 'Auto Suspension (Isolir Otomatis)',
             'suspension_grace_period_days': 'Grace Period Suspension (Hari)',
-            'default_pppoe_profile': 'Profile PPPoE Default',
             'admins.0': 'Nomor Admin Utama',
             'admins.1': 'Nomor Admin Tambahan 1',
             'admins.2': 'Nomor Admin Tambahan 2',
@@ -895,7 +1097,6 @@ $(function() {
         const descriptions = {
             'auto_suspension_enabled': 'Aktifkan isolir otomatis untuk pelanggan yang tidak membayar',
             'suspension_grace_period_days': 'Jumlah hari sebelum layanan disuspend setelah jatuh tempo',
-            'default_pppoe_profile': 'Profile PPPoE yang akan digunakan untuk pelanggan baru',
             'isolir_profile': 'Profile PPPoE untuk pelanggan yang diisolir',
             'static_ip_suspension_method': 'Metode untuk suspend IP statis (address_list atau disable)',
             'suspension_bandwidth_limit': 'Batas bandwidth untuk pelanggan yang diisolir (contoh: 1k/1k)',
@@ -1039,7 +1240,7 @@ $(function() {
                     } else if (key.includes('password') || key.includes('Password')) {
                         // Field password - gunakan input type="password"
                         html += '<input type="password" class="form-control" name="'+key+'" value="'+val+'" placeholder="Masukkan password">';
-                        html += '<div class="form-text text-warning">⚠️ Hati-hati saat mengubah password. Pastikan password benar untuk menghindari error koneksi.</div>';
+                        html += '<div class="form-text text-warning">?? Hati-hati saat mengubah password. Pastikan password benar untuk menghindari error koneksi.</div>';
                     } else {
                         html += '<input type="text" class="form-control" name="'+key+'" value="'+val+'">';
                     }
@@ -1660,7 +1861,7 @@ $(document).ready(function() {
             return;
         }
         
-        if (!confirm('⚠️ PERHATIAN!\n\nRestore database akan mengganti semua data saat ini dengan data dari backup.\n\nData yang ada saat ini akan hilang!\n\nLanjutkan restore?')) {
+        if (!confirm('?? PERHATIAN!\n\nRestore database akan mengganti semua data saat ini dengan data dari backup.\n\nData yang ada saat ini akan hilang!\n\nLanjutkan restore?')) {
             return;
         }
         
@@ -2105,7 +2306,7 @@ $(document).ready(function() {
     
     // Clear old logs
     $('#clearLogsBtn').on('click', function() {
-        if (!confirm('⚠️ PERHATIAN!\n\nIni akan menghapus semua activity logs yang lebih dari 30 hari.\n\nLanjutkan?')) {
+        if (!confirm('?? PERHATIAN!\n\nIni akan menghapus semua activity logs yang lebih dari 30 hari.\n\nLanjutkan?')) {
             return;
         }
         
@@ -2226,7 +2427,7 @@ $(document).ready(function() {
         try {
             $('#btnLoadGroups, #btnRefreshGroups').prop('disabled', true).html('<i class="bi bi-hourglass-split"></i> Loading...');
 
-            console.log('🔄 Loading WhatsApp groups...');
+            console.log('?? Loading WhatsApp groups...');
 
             const response = await fetch('/admin/settings/whatsapp-groups', {
                 method: 'GET',
@@ -2251,7 +2452,7 @@ $(document).ready(function() {
             }
 
             const data = await response.json();
-            console.log('📊 API Response:', data);
+            console.log('?? API Response:', data);
 
             if (data.success) {
                 currentGroups = data.groups;
@@ -2263,7 +2464,7 @@ $(document).ready(function() {
                 $('#waGroupsList').hide();
             }
         } catch (error) {
-            console.error('❌ Error loading WhatsApp groups:', error);
+            console.error('? Error loading WhatsApp groups:', error);
 
             let errorMessage = error.message;
             if (error.message.includes('Unexpected token')) {
@@ -2288,7 +2489,7 @@ $(document).ready(function() {
         const container = $('#groupsContainer');
         const countBadge = $('#groupsCount');
 
-        console.log('📱 Displaying', groups.length, 'groups');
+        console.log('?? Displaying', groups.length, 'groups');
 
         countBadge.text(groups.length);
 
@@ -2341,14 +2542,14 @@ $(document).ready(function() {
     }
 
     function attachGroupButtonListeners() {
-        console.log('🔧 Attaching group button listeners...');
+        console.log('?? Attaching group button listeners...');
 
         // View Group Detail buttons
         $('.view-group-btn').on('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
             const groupId = $(this).data('group-id');
-            console.log('👁️ View button clicked for group:', groupId);
+            console.log('??? View button clicked for group:', groupId);
             if (groupId) {
                 viewGroupDetail(groupId);
             }
@@ -2359,13 +2560,13 @@ $(document).ready(function() {
             e.preventDefault();
             e.stopPropagation();
             const groupId = $(this).data('group-id');
-            console.log('📋 Copy button clicked for group:', groupId);
+            console.log('?? Copy button clicked for group:', groupId);
             if (groupId) {
                 copyGroupId(groupId);
             }
         });
 
-        console.log('✅ Group button listeners attached');
+        console.log('? Group button listeners attached');
     }
 
     // View Group Detail
@@ -2446,10 +2647,10 @@ $(document).ready(function() {
 
     // Copy Group ID
     function copyGroupId(groupId) {
-        console.log('📋 Copying Group ID:', groupId);
+        console.log('?? Copying Group ID:', groupId);
 
         if (!groupId || groupId.trim() === '') {
-            console.error('❌ Group ID is empty');
+            console.error('? Group ID is empty');
             showNotification('danger', 'Group ID tidak valid!');
             return;
         }
@@ -2457,14 +2658,14 @@ $(document).ready(function() {
         // Try modern clipboard API first
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(groupId).then(() => {
-                console.log('✅ Copied to clipboard using modern API');
+                console.log('? Copied to clipboard using modern API');
                 showNotification('success', `Group ID berhasil disalin: ${groupId.substring(0, 20)}...`);
             }).catch(err => {
-                console.error('❌ Failed to copy with modern API:', err);
+                console.error('? Failed to copy with modern API:', err);
                 fallbackCopyTextToClipboard(groupId);
             });
         } else {
-            console.log('⚠️ Modern clipboard API not available, using fallback');
+            console.log('?? Modern clipboard API not available, using fallback');
             fallbackCopyTextToClipboard(groupId);
         }
     }
@@ -2486,14 +2687,14 @@ $(document).ready(function() {
         try {
             const successful = document.execCommand('copy');
             if (successful) {
-                console.log('✅ Copied to clipboard using fallback method');
+                console.log('? Copied to clipboard using fallback method');
                 showNotification('success', `Group ID berhasil disalin: ${text.substring(0, 20)}...`);
             } else {
-                console.error('❌ Fallback copy failed');
+                console.error('? Fallback copy failed');
                 showNotification('danger', 'Gagal menyalin Group ID!');
             }
         } catch (err) {
-            console.error('❌ Fallback copy error:', err);
+            console.error('? Fallback copy error:', err);
             showNotification('danger', 'Gagal menyalin Group ID!');
         }
 
@@ -2518,16 +2719,16 @@ $(document).ready(function() {
                     const summary = response.data.summary;
                     
                     if (results && results.overall && results.overall.isValid) {
-                        showNotification('success', '✅ Semua koneksi berhasil! Konfigurasi sistem valid.');
+                        showNotification('success', '? Semua koneksi berhasil! Konfigurasi sistem valid.');
                     } else {
-                        let errorMsg = '⚠️ Ditemukan masalah koneksi:\n';
+                        let errorMsg = '?? Ditemukan masalah koneksi:\n';
                         
                         if (results && results.genieacs && !results.genieacs.isValid) {
-                            errorMsg += '• GenieACS: ' + results.genieacs.errors.join(', ') + '\n';
+                            errorMsg += '� GenieACS: ' + results.genieacs.errors.join(', ') + '\n';
                         }
                         
                         if (results && results.mikrotik && !results.mikrotik.isValid) {
-                            errorMsg += '• Mikrotik: ' + results.mikrotik.errors.join(', ') + '\n';
+                            errorMsg += '� Mikrotik: ' + results.mikrotik.errors.join(', ') + '\n';
                         }
                         
                         errorMsg += '\nSilakan perbaiki konfigurasi dan test kembali.';
@@ -2549,6 +2750,841 @@ $(document).ready(function() {
         });
     });
 });
+
+// ===== DNS MANAGEMENT FUNCTIONS =====
+
+// Test koneksi GenieACS menggunakan console script
+async function testGenieACSConnection() {
+    const button = event.target.closest('button');
+    setButtonLoading(button, true);
+    addLog('Testing koneksi ke GenieACS...', 'info');
+
+    try {
+        // Gunakan fetch untuk memanggil endpoint yang menjalankan console script
+        const response = await fetch('/admin/settings/api/test-genieacs-connection', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            addLog(`? Koneksi berhasil! ${result.message}`, 'success');
+            document.getElementById('connectionStatus').innerHTML = 
+                `<div class="alert alert-success">? Koneksi GenieACS berhasil</div>`;
+        } else {
+            addLog(`? Koneksi gagal: ${result.message}`, 'error');
+            document.getElementById('connectionStatus').innerHTML = 
+                `<div class="alert alert-danger">? Koneksi gagal: ${result.message}</div>`;
+        }
+        
+    } catch (error) {
+        addLog(`? Error testing koneksi: ${error.message}`, 'error');
+        document.getElementById('connectionStatus').innerHTML = 
+            `<div class="alert alert-danger">? Error: ${error.message}</div>`;
+    } finally {
+        setButtonLoading(button, false);
+    }
+}
+
+// Load device online menggunakan console script
+async function loadOnlineDevices() {
+    const button = event.target.closest('button');
+    setButtonLoading(button, true);
+    addLog('Memuat daftar device online...', 'info');
+
+    try {
+        // Gunakan fetch untuk memanggil endpoint yang menjalankan console script
+        const response = await fetch('/admin/settings/api/get-genieacs-devices', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            addLog(`? Device loaded: ${result.message}`, 'success');
+            displayDevicesFromOutput(result.output);
+            document.getElementById('deviceList').style.display = 'block';
+        } else {
+            addLog(`? Gagal memuat device: ${result.message}`, 'error');
+        }
+        
+    } catch (error) {
+        addLog(`? Error memuat device: ${error.message}`, 'error');
+    } finally {
+        setButtonLoading(button, false);
+    }
+}
+
+// Konfigurasi DNS untuk device tertentu
+async function configureDNS() {
+    const deviceId = document.getElementById('deviceIdInput').value;
+    const dnsServer = document.getElementById('dnsServerIp').value || '192.168.8.89';
+    
+    if (!deviceId) {
+        addLog('? Device ID harus diisi!', 'error');
+        return;
+    }
+    
+    addLog(`Mengkonfigurasi DNS untuk device ${deviceId}...`, 'info');
+
+    try {
+        // Gunakan fetch untuk memanggil endpoint yang menjalankan console script
+        const response = await fetch('/admin/settings/api/configure-genieacs-dns', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                deviceId,
+                dnsServer
+            })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            addLog(`? DNS berhasil dikonfigurasi untuk device ${deviceId}`, 'success');
+        } else {
+            addLog(`? Gagal konfigurasi DNS: ${result.message}`, 'error');
+        }
+        
+    } catch (error) {
+        addLog(`? Error konfigurasi DNS: ${error.message}`, 'error');
+    }
+}
+
+// Konfigurasi DNS untuk semua device online
+async function configureAllOnline() {
+    const button = event.target.closest('button');
+    setButtonLoading(button, true);
+    addLog('Memulai konfigurasi DNS untuk semua device online...', 'info');
+
+    try {
+        // Gunakan fetch untuk memanggil endpoint yang menjalankan console script
+        const response = await fetch('/admin/settings/api/configure-all-genieacs-dns', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            addLog(`? ${result.message}`, 'success');
+        } else {
+            addLog(`? Gagal memulai konfigurasi: ${result.message}`, 'error');
+        }
+        
+    } catch (error) {
+        addLog(`? Error memulai konfigurasi: ${error.message}`, 'error');
+    } finally {
+        setButtonLoading(button, false);
+    }
+}
+
+// Display devices from console output
+function displayDevicesFromOutput(output) {
+    const container = document.getElementById('deviceListContent');
+    container.innerHTML = '';
+    
+    // Parse output untuk extract device info
+    const lines = output.split('\n');
+    let deviceCount = 0;
+    
+    lines.forEach(line => {
+        if (line.includes('Device ID:') || line.includes('Serial:')) {
+            const deviceCard = document.createElement('div');
+            deviceCard.className = 'col-md-6 col-lg-4 mb-3';
+            deviceCard.innerHTML = `
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-title">Device ${++deviceCount}</h6>
+                        <p class="card-text small">${line}</p>
+                        <button class="btn btn-sm btn-outline-primary" onclick="configureDeviceDNS('${line.split(':')[1]?.trim()}')">
+                            <i class="bi bi-gear"></i> Konfigurasi DNS
+                        </button>
+                    </div>
+                </div>
+            `;
+            container.appendChild(deviceCard);
+        }
+    });
+}
+
+// Configure DNS for specific device
+async function configureDeviceDNS(deviceId) {
+    const dnsServer = document.getElementById('dnsServerIp').value || '192.168.8.89';
+    addLog(`Mengkonfigurasi DNS untuk device ${deviceId}...`, 'info');
+
+    try {
+        // Gunakan fetch untuk memanggil endpoint yang menjalankan console script
+        const response = await fetch('/admin/settings/api/configure-genieacs-dns', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                deviceId,
+                dnsServer
+            })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            addLog(`? DNS berhasil dikonfigurasi untuk device ${deviceId}`, 'success');
+        } else {
+            addLog(`? Gagal konfigurasi DNS: ${result.message}`, 'error');
+        }
+        
+    } catch (error) {
+        addLog(`? Error konfigurasi DNS: ${error.message}`, 'error');
+    }
+}
+
+// Utility functions
+function setButtonLoading(button, loading) {
+    if (loading) {
+        button.disabled = true;
+        button.innerHTML = '<i class="bi bi-hourglass-split"></i> Loading...';
+    } else {
+        button.disabled = false;
+        // Restore original text based on button class
+        if (button.classList.contains('btn-outline-primary')) {
+            button.innerHTML = '<i class="bi bi-plug"></i> Test Koneksi';
+        } else if (button.classList.contains('btn-outline-info')) {
+            button.innerHTML = '<i class="bi bi-arrow-clockwise"></i> Refresh Device';
+        } else if (button.classList.contains('btn-success')) {
+            button.innerHTML = '<i class="bi bi-gear"></i> Konfigurasi DNS';
+        } else if (button.classList.contains('btn-warning')) {
+            button.innerHTML = '<i class="bi bi-broadcast-tower"></i> Konfigurasi Semua Online';
+        }
+    }
+}
+
+function addLog(message, type = 'info') {
+    const logContainer = document.getElementById('logContainer');
+    const timestamp = new Date().toLocaleTimeString();
+    const logEntry = document.createElement('div');
+    
+    let icon = '??';
+    if (type === 'success') icon = '?';
+    else if (type === 'error') icon = '?';
+    else if (type === 'warning') icon = '??';
+    
+    logEntry.innerHTML = `<span class="text-muted">[${timestamp}]</span> ${icon} ${message}`;
+    logContainer.appendChild(logEntry);
+    logContainer.scrollTop = logContainer.scrollHeight;
+}
+
+// ===== MIKROTIK DNS GENIEACS SCRIPT GENERATOR FUNCTIONS =====
+
+// Generate Mikrotik DNS GenieACS Script
+function generateMikrotikDNSGenieACSScript() {
+    const genieacsServerIp = document.getElementById('genieacsServerIp').value.trim();
+    const genieacsPort = document.getElementById('genieacsPort').value.trim() || '7547';
+    const pppoeRange = document.getElementById('pppoeRange').value.trim() || '192.168.10.0/24';
+    const dnsBackup = document.getElementById('dnsBackup').value.trim() || '8.8.8.8';
+    
+    if (!genieacsServerIp) {
+        showNotification('warning', 'Masukkan IP Server GenieACS terlebih dahulu');
+        return;
+    }
+    
+    const script = generateMikrotikDNSGenieACSScriptContent(genieacsServerIp, genieacsPort, pppoeRange, dnsBackup);
+    
+    // Tampilkan script
+    document.getElementById('mikrotikDNSGenieACSScriptContent').textContent = script;
+    document.getElementById('mikrotikDNSGenieACSScriptOutput').style.display = 'block';
+    
+    // Enable tombol copy dan download
+    document.getElementById('copyMikrotikDNSGenieACSBtn').disabled = false;
+    document.getElementById('downloadMikrotikDNSGenieACSBtn').disabled = false;
+    
+    showNotification('success', 'Script Mikrotik DNS GenieACS berhasil digenerate!');
+}
+
+// Generate script content
+function generateMikrotikDNSGenieACSScriptContent(genieacsServerIp, genieacsPort, pppoeRange, dnsBackup) {
+    const script = `# ===========================================
+# MIKROTIK DNS GENIEACS CONFIGURATION SCRIPT
+# ===========================================
+# Generated: ${new Date().toLocaleString('id-ID')}
+# GenieACS Server: ${genieacsServerIp}:${genieacsPort}
+# PPPoE Range: ${pppoeRange}
+# DNS Backup: ${dnsBackup}
+# ===========================================
+
+# ===========================================
+# 1. SETUP DNS STATIC - Arahkan domain ke GenieACS
+# ===========================================
+
+# Hapus DNS static lama (jika ada)
+/ip dns static remove [find where name="genieacs.local" and address="${genieacsServerIp}"]
+/ip dns static remove [find where name="tr069.local" and address="${genieacsServerIp}"]
+
+# Tambahkan DNS static untuk GenieACS
+/ip dns static add name="genieacs.local" address="${genieacsServerIp}" ttl=300 comment="GenieACS Server"
+/ip dns static add name="tr069.local" address="${genieacsServerIp}" ttl=300 comment="TR069 Server"
+
+# ===========================================
+# 2. SETUP DHCP SERVER DNS
+# ===========================================
+
+# Update DHCP server untuk memberikan DNS GenieACS
+/ip dhcp-server network set [find address="${pppoeRange}"] dns-server="${genieacsServerIp},${dnsBackup}" comment="GenieACS DNS Configuration"
+
+# ===========================================
+# 3. SETUP NAT RULES - Redirect TR069 ke GenieACS
+# ===========================================
+
+# Hapus NAT rules lama (jika ada)
+/ip firewall nat remove [find comment="genieacs-tr069-redirect"]
+/ip firewall nat remove [find comment="genieacs-tr069-redirect-https"]
+
+# Redirect TR069 HTTP ke GenieACS
+/ip firewall nat add chain=dstnat dst-port=7547 protocol=tcp action=dst-nat to-addresses=${genieacsServerIp} to-ports=${genieacsPort} comment="genieacs-tr069-redirect"
+
+# Redirect TR069 HTTPS ke GenieACS (jika menggunakan HTTPS)
+/ip firewall nat add chain=dstnat dst-port=7548 protocol=tcp action=dst-nat to-addresses=${genieacsServerIp} to-ports=7548 comment="genieacs-tr069-redirect-https"
+
+# ===========================================
+# 4. SETUP FIREWALL RULES - Allow TR069 Communication
+# ===========================================
+
+# Hapus firewall rules lama (jika ada)
+/ip firewall filter remove [find comment="genieacs-allow-tr069"]
+/ip firewall filter remove [find comment="genieacs-allow-dns"]
+
+# Allow TR069 communication dari PPPoE range ke GenieACS
+/ip firewall filter add chain=forward src-address=${pppoeRange} dst-address=${genieacsServerIp} dst-port=${genieacsPort} protocol=tcp action=accept comment="genieacs-allow-tr069"
+
+# Allow DNS queries ke GenieACS
+/ip firewall filter add chain=forward src-address=${pppoeRange} dst-address=${genieacsServerIp} dst-port=53 protocol=udp action=accept comment="genieacs-allow-dns"
+
+# Allow HTTPS TR069 (jika menggunakan HTTPS)
+/ip firewall filter add chain=forward src-address=${pppoeRange} dst-address=${genieacsServerIp} dst-port=7548 protocol=tcp action=accept comment="genieacs-allow-tr069-https"
+
+# ===========================================
+# 5. SETUP PPP PROFILE - Update DNS untuk PPPoE
+# ===========================================
+
+# Update PPP profile untuk memberikan DNS GenieACS
+/ppp profile set [find name="default"] dns-server="${genieacsServerIp},${dnsBackup}" comment="GenieACS DNS Configuration"
+
+# ===========================================
+# 6. SETUP ADDRESS LIST - Untuk monitoring
+# ===========================================
+
+# Hapus address list lama (jika ada)
+/ip firewall address-list remove [find list="genieacs-clients"]
+
+# Tambahkan address list untuk monitoring
+/ip firewall address-list add list="genieacs-clients" address=${pppoeRange} comment="PPPoE Clients for GenieACS"
+
+# ===========================================
+# 7. SETUP LOGGING - Monitor TR069 Activity
+# ===========================================
+
+# Hapus logging rules lama (jika ada)
+/system logging remove [find topics="genieacs"]
+
+# Tambahkan logging untuk TR069 activity
+/system logging add topics=genieacs action=memory comment="GenieACS TR069 Activity"
+
+# ===========================================
+# 8. VERIFIKASI KONFIGURASI
+# ===========================================
+
+:put ""
+:put "=== VERIFIKASI KONFIGURASI ==="
+:put "GenieACS Server: ${genieacsServerIp}:${genieacsPort}"
+:put "PPPoE Range: ${pppoeRange}"
+:put "DNS Backup: ${dnsBackup}"
+:put ""
+:put "=== DNS STATIC ==="
+/ip dns static print where name~"genieacs|tr069"
+:put ""
+:put "=== DHCP SERVER DNS ==="
+/ip dhcp-server network print where address="${pppoeRange}"
+:put ""
+:put "=== NAT RULES ==="
+/ip firewall nat print where comment~"genieacs"
+:put ""
+:put "=== FIREWALL RULES ==="
+/ip firewall filter print where comment~"genieacs"
+:put ""
+:put "=== PPP PROFILE ==="
+/ppp profile print where name="default"
+:put ""
+:put "=== ADDRESS LIST ==="
+/ip firewall address-list print where list="genieacs-clients"
+:put ""
+:put "=== KONFIGURASI SELESAI ==="
+:put "Script berhasil dijalankan!"
+:put "ONUs sekarang akan menggunakan GenieACS sebagai DNS server"
+:put "Port TR069: ${genieacsPort} (HTTP), 7548 (HTTPS)"
+:put "==========================================="`;
+
+    return script;
+}
+
+// Copy script to clipboard
+function copyMikrotikDNSGenieACSScript() {
+    const scriptContent = document.getElementById('mikrotikDNSGenieACSScriptContent').textContent;
+    
+    navigator.clipboard.writeText(scriptContent).then(() => {
+        showNotification('success', 'Script berhasil dicopy ke clipboard!');
+    }).catch(err => {
+        showNotification('error', 'Gagal copy script: ' + err.message);
+    });
+}
+
+// Download script as file
+function downloadMikrotikDNSGenieACSScript() {
+    const scriptContent = document.getElementById('mikrotikDNSGenieACSScriptContent').textContent;
+    const genieacsServerIp = document.getElementById('genieacsServerIp').value.trim();
+    const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
+    const filename = `mikrotik-dns-genieacs-${genieacsServerIp.replace(/\./g, '-')}-${timestamp}.rsc`;
+    
+    const blob = new Blob([scriptContent], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+    
+    showNotification('success', `Script berhasil didownload: ${filename}`);
+}
+
+// Functions untuk Script Generator Menu Isolir Mikrotik
+function generateIsolirScript() {
+    const activeIp = document.getElementById('activeIp').value.trim();
+    const isolirIp = document.getElementById('isolirIp').value.trim();
+    const isolirDomain = document.getElementById('isolirDomain').value.trim();
+    const isolirPath = document.getElementById('isolirPath').value.trim();
+    const isolirPort = document.getElementById('isolirPort').value.trim();
+    const accessType = document.getElementById('accessType').value;
+    
+    // Validasi input
+    if (!activeIp || !isolirIp || !isolirDomain || !isolirPath) {
+        showNotification('warning', 'Mohon lengkapi field yang wajib!');
+        return;
+    }
+    
+    // Validasi port untuk akses langsung
+    if (accessType === 'port' && !isolirPort) {
+        showNotification('warning', 'Port wajib diisi untuk akses langsung!');
+        return;
+    }
+    
+    // Validasi format IP
+    const ipRegex = /^(\d{1,3}\.){3}\d{1,3}$/;
+    if (!ipRegex.test(activeIp) || !ipRegex.test(isolirIp)) {
+        showNotification('warning', 'Format IP tidak valid!');
+        return;
+    }
+    
+    // Generate script Mikrotik
+    const isolirUrl = accessType === 'tunneling' 
+        ? isolirDomain + isolirPath 
+        : isolirDomain + ':' + isolirPort + isolirPath;
+    
+    const script = [
+        '# Script Menu Isolir Mikrotik - Enhanced Version',
+        '# Generated on: ' + new Date().toLocaleString('id-ID'),
+        '# IP PPPoE Aktif: ' + activeIp,
+        '# IP PPPoE Isolir: ' + isolirIp,
+        '# URL Halaman Isolir: ' + isolirUrl,
+        '# Jenis Akses: ' + (accessType === 'tunneling' ? 'Tunneling' : 'Port Langsung'),
+        '',
+        '# ===========================================',
+        '# 1. SETUP DNS STATIC - Arahkan semua domain ke aplikasi',
+        '# ===========================================',
+        '',
+        '# Hapus DNS static lama (jika ada)',
+        '/ip dns static remove [find where name="' + isolirDomain + '" and address="' + isolirIp + '"]',
+        '',
+        '# Tambahkan DNS static untuk domain aplikasi',
+        '/ip dns static add name="' + isolirDomain + '" address="' + isolirIp + '" ttl=300',
+        '',
+        '# Arahkan domain populer ke aplikasi (opsional)',
+        '/ip dns static add name="google.com" address="' + isolirIp + '" ttl=300',
+        '/ip dns static add name="facebook.com" address="' + isolirIp + '" ttl=300',
+        '/ip dns static add name="youtube.com" address="' + isolirIp + '" ttl=300',
+        '/ip dns static add name="instagram.com" address="' + isolirIp + '" ttl=300',
+        '',
+        '# ===========================================',
+        '# 2. SETUP NAT RULES - Redirect HTTP/HTTPS ke aplikasi',
+        '# ===========================================',
+        '',
+        '# Hapus NAT rules lama (jika ada)',
+        '/ip firewall nat remove [find where comment~"isolir-redirect"]',
+        '',
+        '# ===========================================',
+        '# 3. SETUP FIREWALL RULES - Block semua kecuali aplikasi',
+        '# ===========================================',
+        '',
+        '# Hapus firewall rules lama (jika ada)',
+        '/ip firewall filter remove [find where comment~"isolir"]',
+        '',
+        '# ===========================================',
+        '# 4. SETUP PPP PROFILE ISOLIR',
+        '# ===========================================',
+        '',
+        '# Buat profile isolir jika belum ada',
+        '/ppp profile add name="isolir" local-address=' + isolirIp + ' remote-address=' + isolirIp + ' \\',
+        '    rate-limit="0/0" comment="Profile untuk pelanggan yang diisolir"',
+        '',
+        '# ===========================================',
+        '# 5. SETUP ADDRESS LIST - Untuk kemudahan management',
+        '# ===========================================',
+        '',
+        '# Hapus address list lama (jika ada)',
+        '/ip firewall address-list remove [find where list="isolir-users"]',
+        '',
+        '# Tambahkan IP range isolir ke address list',
+        '/ip firewall address-list add address=' + isolirIp + '/32 list="isolir-users" comment="PPPoE Isolir Users"'
+    ];
+    
+    if (accessType === 'tunneling') {
+        // Untuk tunneling, redirect ke domain + path
+        script.push(
+            '# Redirect HTTP traffic ke aplikasi',
+            '/ip firewall nat add chain=dstnat src-address=' + isolirIp + '/32 dst-port=80 protocol=tcp \\',
+            '    action=dst-nat to-addresses=' + isolirDomain + ' to-ports=80 \\',
+            '    comment="isolir-redirect-http"',
+            '',
+            '# Redirect HTTPS traffic ke aplikasi',
+            '/ip firewall nat add chain=dstnat src-address=' + isolirIp + '/32 dst-port=443 protocol=tcp \\',
+            '    action=dst-nat to-addresses=' + isolirDomain + ' to-ports=443 \\',
+            '    comment="isolir-redirect-https"',
+            '',
+            '# Allow DNS queries ke aplikasi',
+            '/ip firewall filter add chain=forward src-address=' + isolirIp + '/32 \\',
+            '    dst-address=' + isolirDomain + ' dst-port=53 protocol=udp \\',
+            '    action=accept comment="isolir-allow-dns"',
+            '',
+            '# Allow HTTP/HTTPS ke aplikasi',
+            '/ip firewall filter add chain=forward src-address=' + isolirIp + '/32 \\',
+            '    dst-address=' + isolirDomain + ' dst-port=80,443 protocol=tcp \\',
+            '    action=accept comment="isolir-allow-app"',
+            '',
+            '# Block semua traffic lainnya',
+            '/ip firewall filter add chain=forward src-address=' + isolirIp + '/32 \\',
+            '    action=drop comment="isolir-block-all"'
+        );
+    } else {
+        // Untuk port langsung
+        script.push(
+            '# Redirect HTTP traffic ke aplikasi lokal',
+            '/ip firewall nat add chain=dstnat src-address=' + isolirIp + '/32 dst-port=80 protocol=tcp \\',
+            '    action=dst-nat to-addresses=' + isolirDomain + ' to-ports=' + isolirPort + ' \\',
+            '    comment="isolir-redirect-http"',
+            '',
+            '# Redirect HTTPS traffic ke aplikasi lokal',
+            '/ip firewall nat add chain=dstnat src-address=' + isolirIp + '/32 dst-port=443 protocol=tcp \\',
+            '    action=dst-nat to-addresses=' + isolirDomain + ' to-ports=' + isolirPort + ' \\',
+            '    comment="isolir-redirect-https"',
+            '',
+            '# Allow DNS queries ke aplikasi lokal',
+            '/ip firewall filter add chain=forward src-address=' + isolirIp + '/32 \\',
+            '    dst-address=' + isolirDomain + ' dst-port=53 protocol=udp \\',
+            '    action=accept comment="isolir-allow-dns"',
+            '',
+            '# Allow HTTP/HTTPS ke aplikasi lokal',
+            '/ip firewall filter add chain=forward src-address=' + isolirIp + '/32 \\',
+            '    dst-address=' + isolirDomain + ' dst-port=' + isolirPort + ' protocol=tcp \\',
+            '    action=accept comment="isolir-allow-app"',
+            '',
+            '# Block semua traffic lainnya',
+            '/ip firewall filter add chain=forward src-address=' + isolirIp + '/32 \\',
+            '    action=drop comment="isolir-block-all"'
+        );
+    }
+    
+    script.push(
+        '',
+        '# ===========================================',
+        '# 6. SCRIPT MANAGEMENT - Isolir & Restore',
+        '# ===========================================',
+        '',
+        '# Script untuk isolir pelanggan',
+        '# Gunakan script ini untuk mengisolir pelanggan:',
+        '# :local username "nama_pelanggan"',
+        '# /ppp secret set [find name=$username] profile=isolir',
+        '# :log info "Pelanggan $username telah diisolir"',
+        '',
+        '# Script untuk restore pelanggan',
+        '# Gunakan script ini untuk restore pelanggan:',
+        '# :local username "nama_pelanggan"',
+        '# /ppp secret set [find name=$username] profile=default',
+        '# :log info "Pelanggan $username telah direstore"',
+        '',
+        '# ===========================================',
+        '# 7. VERIFIKASI KONFIGURASI',
+        '# ===========================================',
+        '',
+        ':put "=== KONFIGURASI ISOLIR SELESAI ==="',
+        ':put "User PPPoE di ' + isolirIp + ' akan diarahkan ke aplikasi"',
+        ':put "Aplikasi: ' + isolirUrl + '"',
+        ':put ""',
+        ':put "=== VERIFIKASI ==="',
+        '',
+        '# Cek DNS static',
+        ':put "DNS Static Rules:"',
+        '/ip dns static print where name~"' + isolirDomain + '"',
+        '',
+        '# Cek NAT rules',
+        ':put "NAT Rules:"',
+        '/ip firewall nat print where comment~"isolir"',
+        '',
+        '# Cek Firewall rules',
+        ':put "Firewall Rules:"',
+        '/ip firewall filter print where comment~"isolir"',
+        '',
+        '# Cek Address List',
+        ':put "Address List:"',
+        '/ip firewall address-list print where list="isolir-users"',
+        '',
+        ':put ""',
+        ':put "=== CARA KERJA ==="',
+        ':put "1. User PPPoE terisolir mendapat IP: ' + isolirIp + '"',
+        ':put "2. DNS query untuk domain apapun diarahkan ke: ' + isolirDomain + '"',
+        ':put "3. HTTP/HTTPS request di-redirect ke: ' + isolirUrl + '"',
+        ':put "4. Aplikasi menampilkan halaman isolir"',
+        ':put "5. Traffic lainnya di-block"',
+        ':put ""',
+        ':put "=== SELESAI ==="',
+        '',
+        'echo "Script menu isolir Mikrotik telah dibuat!"',
+        'echo "Pastikan halaman isolir dapat diakses dari IP: ' + isolirIp + '"',
+        'echo "URL halaman isolir: ' + isolirUrl + '"'
+    );
+    
+    const finalScript = script.join('\n');
+
+    // Tampilkan script
+    document.getElementById('isolirScript').textContent = finalScript;
+    document.getElementById('isolirScriptCard').style.display = 'block';
+    
+    showNotification('success', 'Script berhasil di-generate!');
+}
+
+function generateLocalIsolirScript() {
+    const activeIp = document.getElementById('activeIp').value.trim();
+    const isolirIp = document.getElementById('isolirIp').value.trim();
+    const isolirDomain = document.getElementById('isolirDomain').value.trim();
+    const isolirPath = document.getElementById('isolirPath').value.trim();
+    const isolirPort = document.getElementById('isolirPort').value.trim();
+    
+    // Validasi input
+    if (!activeIp || !isolirIp || !isolirDomain || !isolirPath || !isolirPort) {
+        showNotification('warning', 'Mohon lengkapi semua field!');
+        return;
+    }
+    
+    // Validasi format IP
+    const ipRegex = /^(\d{1,3}\.){3}\d{1,3}$/;
+    if (!ipRegex.test(activeIp) || !ipRegex.test(isolirIp)) {
+        showNotification('warning', 'Format IP tidak valid!');
+        return;
+    }
+    
+    // Generate script Mikrotik untuk aplikasi lokal
+    const script = [
+        '# Script Mikrotik untuk User PPPoE Terisolir - Aplikasi Lokal',
+        '# Generated on: ' + new Date().toLocaleString('id-ID'),
+        '# IP PPPoE Aktif: ' + activeIp,
+        '# IP PPPoE Isolir: ' + isolirIp,
+        '# Aplikasi Lokal: ' + isolirDomain + ':' + isolirPort + isolirPath,
+        '',
+        '# ===========================================',
+        '# 1. DNS STATIC - Arahkan semua domain ke aplikasi lokal',
+        '# ===========================================',
+        '',
+        '# Hapus DNS static lama (jika ada)',
+        '/ip dns static remove [find where name="' + isolirDomain + '" and address="' + isolirDomain + '"]',
+        '',
+        '# Tambahkan DNS static untuk domain aplikasi',
+        '/ip dns static add name="' + isolirDomain + '" address="' + isolirDomain + '" ttl=300',
+        '',
+        '# Arahkan domain populer ke aplikasi lokal',
+        '/ip dns static add name="google.com" address="' + isolirDomain + '" ttl=300',
+        '/ip dns static add name="facebook.com" address="' + isolirDomain + '" ttl=300',
+        '/ip dns static add name="youtube.com" address="' + isolirDomain + '" ttl=300',
+        '/ip dns static add name="instagram.com" address="' + isolirDomain + '" ttl=300',
+        '/ip dns static add name="twitter.com" address="' + isolirDomain + '" ttl=300',
+        '/ip dns static add name="tiktok.com" address="' + isolirDomain + '" ttl=300',
+        '/ip dns static add name="whatsapp.com" address="' + isolirDomain + '" ttl=300',
+        '/ip dns static add name="telegram.org" address="' + isolirDomain + '" ttl=300',
+        '',
+        '# ===========================================',
+        '# 2. NAT RULES - Redirect HTTP/HTTPS ke aplikasi lokal',
+        '# ===========================================',
+        '',
+        '# Hapus NAT rules lama (jika ada)',
+        '/ip firewall nat remove [find where comment~"isolir-redirect"]',
+        '',
+        '# Redirect HTTP traffic ke aplikasi lokal',
+        '/ip firewall nat add chain=dstnat src-address=' + isolirIp + '/32 dst-port=80 protocol=tcp \\',
+        '    action=dst-nat to-addresses=' + isolirDomain + ' to-ports=' + isolirPort + ' \\',
+        '    comment="isolir-redirect-http"',
+        '',
+        '# Redirect HTTPS traffic ke aplikasi lokal',
+        '/ip firewall nat add chain=dstnat src-address=' + isolirIp + '/32 dst-port=443 protocol=tcp \\',
+        '    action=dst-nat to-addresses=' + isolirDomain + ' to-ports=' + isolirPort + ' \\',
+        '    comment="isolir-redirect-https"',
+        '',
+        '# ===========================================',
+        '# 3. FIREWALL RULES - Block semua kecuali aplikasi lokal',
+        '# ===========================================',
+        '',
+        '# Hapus firewall rules lama (jika ada)',
+        '/ip firewall filter remove [find where comment~"isolir"]',
+        '',
+        '# Allow DNS queries ke aplikasi lokal',
+        '/ip firewall filter add chain=forward src-address=' + isolirIp + '/32 \\',
+        '    dst-address=' + isolirDomain + ' dst-port=53 protocol=udp \\',
+        '    action=accept comment="isolir-allow-dns"',
+        '',
+        '# Allow HTTP/HTTPS ke aplikasi lokal',
+        '/ip firewall filter add chain=forward src-address=' + isolirIp + '/32 \\',
+        '    dst-address=' + isolirDomain + ' dst-port=' + isolirPort + ' protocol=tcp \\',
+        '    action=accept comment="isolir-allow-app"',
+        '',
+        '# Block semua traffic lainnya',
+        '/ip firewall filter add chain=forward src-address=' + isolirIp + '/32 \\',
+        '    action=drop comment="isolir-block-all"',
+        '',
+        '# ===========================================',
+        '# 4. ADDRESS LIST - Untuk kemudahan management',
+        '# ===========================================',
+        '',
+        '# Hapus address list lama (jika ada)',
+        '/ip firewall address-list remove [find where list="isolir-users"]',
+        '',
+        '# Tambahkan IP range isolir ke address list',
+        '/ip firewall address-list add address=' + isolirIp + '/32 list="isolir-users" comment="PPPoE Isolir Users"',
+        '',
+        '# ===========================================',
+        '# 5. VERIFIKASI KONFIGURASI',
+        '# ===========================================',
+        '',
+        ':put "=== KONFIGURASI ISOLIR LOKAL SELESAI ==="',
+        ':put "User PPPoE di ' + isolirIp + ' akan diarahkan ke aplikasi lokal"',
+        ':put "Aplikasi lokal: http://' + isolirDomain + ':' + isolirPort + isolirPath + '"',
+        ':put ""',
+        ':put "=== VERIFIKASI ==="',
+        '',
+        '# Cek DNS static',
+        ':put "DNS Static Rules:"',
+        '/ip dns static print where name~"' + isolirDomain + '"',
+        '',
+        '# Cek NAT rules',
+        ':put "NAT Rules:"',
+        '/ip firewall nat print where comment~"isolir"',
+        '',
+        '# Cek Firewall rules',
+        ':put "Firewall Rules:"',
+        '/ip firewall filter print where comment~"isolir"',
+        '',
+        '# Cek Address List',
+        ':put "Address List:"',
+        '/ip firewall address-list print where list="isolir-users"',
+        '',
+        ':put ""',
+        ':put "=== CARA KERJA ==="',
+        ':put "1. User PPPoE terisolir mendapat IP: ' + isolirIp + '"',
+        ':put "2. DNS query untuk domain apapun diarahkan ke: ' + isolirDomain + '"',
+        ':put "3. HTTP/HTTPS request di-redirect ke: ' + isolirDomain + ':' + isolirPort + '"',
+        ':put "4. Aplikasi lokal menampilkan halaman isolir"',
+        ':put "5. Traffic lainnya di-block"',
+        ':put ""',
+        ':put "=== SELESAI ==="',
+        '',
+        'echo "Script isolir lokal Mikrotik telah dibuat!"',
+        'echo "Pastikan aplikasi lokal berjalan di: ' + isolirDomain + ':' + isolirPort + '"',
+        'echo "Halaman isolir: http://' + isolirDomain + ':' + isolirPort + isolirPath + '"'
+    ];
+    
+    const finalScript = script.join('\n');
+
+    // Tampilkan script
+    document.getElementById('isolirScript').textContent = finalScript;
+    document.getElementById('isolirScriptCard').style.display = 'block';
+    
+    showNotification('success', 'Script isolir lokal berhasil di-generate!');
+}
+
+function copyIsolirScript() {
+    const scriptElement = document.getElementById('isolirScript');
+    if (!scriptElement || !scriptElement.textContent) {
+        showNotification('warning', 'Tidak ada script untuk di-copy!');
+        return;
+    }
+    
+    navigator.clipboard.writeText(scriptElement.textContent).then(function() {
+        showNotification('success', 'Script berhasil di-copy ke clipboard!');
+    }).catch(function(err) {
+        // Fallback untuk browser lama
+        const textArea = document.createElement('textarea');
+        textArea.value = scriptElement.textContent;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        showNotification('success', 'Script berhasil di-copy ke clipboard!');
+    });
+}
+
+// Auto-generate script saat input berubah
+document.addEventListener('DOMContentLoaded', function() {
+    const inputs = ['activeIp', 'isolirIp', 'isolirDomain', 'isolirPath'];
+    inputs.forEach(id => {
+        const input = document.getElementById(id);
+        if (input) {
+            input.addEventListener('input', function() {
+                // Auto-generate jika semua field wajib sudah terisi
+                const allFilled = inputs.every(inputId => {
+                    const el = document.getElementById(inputId);
+                    return el && el.value.trim();
+                });
+                
+                if (allFilled) {
+                    // Delay sedikit untuk UX yang lebih baik
+                    setTimeout(() => {
+                        generateIsolirScript();
+                    }, 500);
+                }
+            });
+        }
+    });
+    
+    // Handle access type change
+    const accessTypeSelect = document.getElementById('accessType');
+    if (accessTypeSelect) {
+        accessTypeSelect.addEventListener('change', function() {
+            const portField = document.getElementById('isolirPort');
+            if (this.value === 'tunneling') {
+                portField.placeholder = 'Kosongkan jika menggunakan tunneling';
+                portField.value = '';
+            } else {
+                portField.placeholder = 'Masukkan port (contoh: 3000)';
+            }
+        });
+    }
+});
 </script>
 
 <!-- Modal untuk Preview Script -->
@@ -2565,7 +3601,7 @@ $(document).ready(function() {
                 <div class="alert alert-info small mb-3">
                     <i class="bi bi-info-circle"></i> 
                     <strong>Cara menggunakan:</strong> 
-                    1. Copy script di bawah → 2. Paste di terminal Mikrotik → 3. Jalankan script
+                    1. Copy script di bawah ? 2. Paste di terminal Mikrotik ? 3. Jalankan script
                 </div>
                 <pre class="bg-light p-3 rounded" style="max-height: 500px; overflow-y: auto; font-size: 12px; font-family: 'Courier New', monospace;"><code id="previewScriptContent"></code></pre>
             </div>
