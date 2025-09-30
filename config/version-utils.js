@@ -14,7 +14,7 @@ function getVersionInfo() {
         versionDate: settings.version_date || 'Unknown Date',
         versionNotes: settings.version_notes || 'No release notes',
         buildNumber: settings.build_number || 'Unknown Build',
-        companyHeader: settings.company_header || 'BILLINGKU',
+        companyHeader: settings.company_header || 'MJBILL',
         footerInfo: settings.footer_info || 'Info Hubungi : 085800541752'
     };
 }

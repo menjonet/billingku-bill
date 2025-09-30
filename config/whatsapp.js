@@ -90,18 +90,18 @@ function decryptAdminNumber(encryptedNumber) {
 function getSuperAdminNumber() {
     const filePath = path.join(__dirname, 'superadmin.txt');
     if (!fs.existsSync(filePath)) {
-        console.warn('?? File superadmin.txt tidak ditemukan, superadmin features disabled');
+        console.warn('⚠️ File superadmin.txt tidak ditemukan, superadmin features disabled');
         return null;
     }
     try {
         const number = fs.readFileSync(filePath, 'utf-8').trim();
         if (!number) {
-            console.warn('?? File superadmin.txt kosong, superadmin features disabled');
+            console.warn('⚠️ File superadmin.txt kosong, superadmin features disabled');
             return null;
         }
         return number;
     } catch (error) {
-        console.error('? Error reading superadmin.txt:', error.message);
+        console.error('❌ Error reading superadmin.txt:', error.message);
         return null;
     }
 }
@@ -148,9 +148,9 @@ function isAdminNumber(number) {
 function formatWithHeaderFooter(message) {
     try {
         // Ambil header dan footer dari settings.json dengan format yang konsisten
-        const COMPANY_HEADER = getSetting('company_header', "?? LINTAS DATA PRIMA ??\n\n");
-        const FOOTER_SEPARATOR = "\n\n????????????????????????????????????????\n\n";
-        const FOOTER_INFO = FOOTER_SEPARATOR + getSetting('footer_info', "Powered by MJ Digital Network");
+        const COMPANY_HEADER = getSetting('company_header', "📱 LINTAS DATA PRIMA 📱\n\n");
+        const FOOTER_SEPARATOR = "\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
+        const FOOTER_INFO = FOOTER_SEPARATOR + getSetting('footer_info', "Powered by MJNet-LDP");
         
         // Format pesan dengan header dan footer yang konsisten
         const formattedMessage = `${COMPANY_HEADER}${message}${FOOTER_INFO}`;
@@ -159,7 +159,7 @@ function formatWithHeaderFooter(message) {
     } catch (error) {
         console.error('Error formatting message with header/footer:', error);
         // Fallback ke format default jika ada error
-        return `?? LINTAS DATA PRIMA ??\n\n${message}\n\n????????????????????????????????????????\n\nPowered by MJ Digital Network`;
+        return `📱 LINTAS DATA PRIMA 📱\n\n${message}\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\nPowered by MJNet-LDP`;
     }
 }
 
@@ -438,23 +438,23 @@ async function connectToWhatsApp() {
                 try {
                     // Ambil port yang aktif dari global settings atau fallback
                     const activePort = global.appSettings?.port || getSetting('server_port', '3001');
-                    const serverHost = global.appSettings?.host || getSetting('server_host', 'localhost');
+                    const serverHost = global.appSettings?.host || getSetting('server_host', '192.168.8.151');
                     
                     // Ambil header pendek untuk template sambutan
-                    const companyHeaderShort = getSetting('company_header_short', 'MJNet NETWORK');
+                    const companyHeaderShort = getSetting('company_header_short', 'MJNet');
                     
                     // Pesan notifikasi (sesuai template permintaan)
-                    const notificationMessage = `?? *BOT WHATSAPP ${companyHeaderShort}*\n\n` +
-                    `? *Status:* Bot telah berhasil terhubung\n` +
-                    `? *Waktu:* ${connectedSince.toLocaleString()}\n\n` +
-                    `?? *Perintah Tersedia:*\n` +
-                    `� Ketik *menu* untuk melihat daftar perintah\n` +
-                    `� Ketik *admin* untuk menu khusus admin\n\n` +
-                    `?? *Dukungan Pengembang:*\n` +
-                    `� E-WALLET: 085800541752\n` +
-                    `� BRI: 032701018199538  a.n Hutama Oni Ristiko\n\n` +
-                    `?? Terima kasih telah menggunakan Aplikasi kami.\n` +
-                    `?? *BILLINGKU*`; 
+                    const notificationMessage = `📋 *BOT WHATSAPP ${companyHeaderShort}*\n\n` +
+                    `✅ *Status:* Bot telah berhasil terhubung\n` +
+                    `⏰ *Waktu:* ${connectedSince.toLocaleString()}\n\n` +
+                    `📝 *Perintah Tersedia:*\n` +
+                    `• Ketik *menu* untuk melihat daftar perintah\n` +
+                    `• Ketik *admin* untuk menu khusus admin\n\n` +
+                    `📞 *Dukungan Pengembang:*\n` +
+                    `• E-WALLET: 085800541752\n` +
+                    `• BRI: 032701018199538  a.n Hutama Oni Ristiko\n\n` +
+                    `🙏 Terima kasih telah menggunakan Aplikasi kami.\n` +
+                    `🏢 *MJBill*`;
                     
                     // Kirim ke admin dari environment variable
                     const adminNumber = getSetting('admins.0', '');
@@ -484,7 +484,7 @@ async function connectToWhatsApp() {
                                         });
                                         console.log('Gambar QR donasi terkirim ke admin');
                                     } else {
-                                        console.log('?? QR donasi tidak tersedia, skip pengiriman gambar');
+                                        console.log('📱 QR donasi tidak tersedia, skip pengiriman gambar');
                                     }
                                 } catch (e) {
                                     console.error('Gagal mengirim QR donasi ke admin:', e);
@@ -515,17 +515,18 @@ async function connectToWhatsApp() {
                         setTimeout(async () => {
                             try {
                                 // Pesan startup untuk super admin menggunakan template yang sama
-                                const startupMessage = `?? *BOT WHATSAPP ${companyHeaderShort}*\n\n` +
-                                `? *Status:* Bot telah berhasil terhubung\n` +
-                                `? *Waktu:* ${connectedSince.toLocaleString()}\n\n` +
-                                `?? *Perintah Tersedia:*\n` +
-                                `� Ketik *menu* untuk melihat daftar perintah\n` +
-                                `� Ketik *admin* untuk menu khusus admin\n\n` +
-                                `?? *Dukungan Pengembang:*\n` +
-                    		`� E-WALLET: 085800541752\n` +
-                    		`� BRI: 032701018199538  a.n Hutama Oni Ristiko\n\n` +
-                   		`?? Terima kasih telah menggunakan Aplikasi kami.\n` +
-                    		`?? *BILLINGKU*`;                                 
+                                const startupMessage = `📋 *BOT WHATSAPP ${companyHeaderShort}*\n\n` +
+                                `✅ *Status:* Bot telah berhasil terhubung\n` +
+                                `⏰ *Waktu:* ${connectedSince.toLocaleString()}\n\n` +
+                                `📝 *Perintah Tersedia:*\n` +
+                                `• Ketik *menu* untuk melihat daftar perintah\n` +
+                                `• Ketik *admin* untuk menu khusus admin\n\n` +
+                                `📞 *Dukungan Pengembang:*\n` +
+                                `• E-WALLET: 085800541752\n` +
+                                `• BRI: 032701018199538  a.n Hutama Oni Ristiko\n\n` +
+                                `🙏 Terima kasih telah menggunakan Aplikasi kami.\n` +
+                                `🏢 *MJBill*`;
+                                
                                 await sock.sendMessage(`${currentSuperAdminNumber}@s.whatsapp.net`, {
                                     text: startupMessage
                                 });
@@ -546,14 +547,14 @@ async function connectToWhatsApp() {
                                         const qrBuffer = fs.readFileSync(qrPath);
                                         await sock.sendMessage(`${currentSuperAdminNumber}@s.whatsapp.net`, {
                                             image: qrBuffer,
-                                            caption: '?? QR Donasi Aplikasi\n\n?? Dukungan Anda sangat berarti untuk pengembangan aplikasi ini'
+                                            caption: '📱 QR Donasi Aplikasi\n\n🙏 Dukungan Anda sangat berarti untuk pengembangan aplikasi ini'
                                         });
-                                        console.log('? Gambar QR donasi terkirim ke super admin');
+                                        console.log('✅ Gambar QR donasi terkirim ke super admin');
                                     } else {
-                                        console.log('?? QR donasi tidak tersedia, skip pengiriman gambar');
+                                        console.log('📱 QR donasi tidak tersedia, skip pengiriman gambar');
                                     }
                                 } catch (e) {
-                                    console.error('? Gagal mengirim QR donasi ke super admin:', e);
+                                    console.error('❌ Gagal mengirim QR donasi ke super admin:', e);
                                 }
                             } catch (error) {
                                 console.error(`Error sending connection notification to super admin:`, error);
@@ -632,7 +633,7 @@ async function handleStatusCommand(senderNumber, remoteJid) {
         
         if (!device) {
             await sock.sendMessage(remoteJid, { 
-                text: `❌ *Perangkat Tidak Ditemukan*\n\nMaaf, perangkat Anda tidak ditemukan dalam sistem kami. Silakan hubungi admin untuk bantuan.`
+                text: `âŒ *Perangkat Tidak Ditemukan*\n\nMaaf, perangkat Anda tidak ditemukan dalam sistem kami. Silakan hubungi admin untuk bantuan.`
             });
             return;
         }
@@ -730,47 +731,47 @@ async function handleStatusCommand(senderNumber, remoteJid) {
         }
         
         // Buat pesan status
-        let statusMessage = `?? *STATUS PERANGKAT*\n\n`;
-        statusMessage += `?? *Status:* ${isOnline ? '?? Online' : '?? Offline'}\n`;
-        statusMessage += `?? *Terakhir Online:* ${lastInform.toLocaleString()}\n`;
-        statusMessage += `?? *WiFi 2.4GHz:* ${ssid}\n`;
-        statusMessage += `?? *WiFi 5GHz:* ${ssid5G}\n`;
-        statusMessage += `?? *Pengguna Terhubung:* ${totalConnectedUsers}\n`;
+        let statusMessage = `📊 *STATUS PERANGKAT*\n\n`;
+        statusMessage += `📌 *Status:* ${isOnline ? '🟢 Online' : '🔴 Offline'}\n`;
+        statusMessage += `📌 *Terakhir Online:* ${lastInform.toLocaleString()}\n`;
+        statusMessage += `📌 *WiFi 2.4GHz:* ${ssid}\n`;
+        statusMessage += `📌 *WiFi 5GHz:* ${ssid5G}\n`;
+        statusMessage += `📌 *Pengguna Terhubung:* ${totalConnectedUsers}\n`;
         // Tambahkan detail user SSID 1 jika ada
         if (associatedDevices.length > 0) {
-            statusMessage += `� *Daftar User SSID 1 (2.4GHz):*\n`;
+            statusMessage += `• *Daftar User SSID 1 (2.4GHz):*\n`;
             associatedDevices.forEach((dev, idx) => {
                 statusMessage += `   ${idx + 1}. ${dev.hostname} (${dev.ip}) - ${dev.mac}\n`;
             });
         } else {
-            statusMessage += `� Tidak ada user WiFi yang terhubung di SSID 1 (2.4GHz)\n`;
+            statusMessage += `• Tidak ada user WiFi yang terhubung di SSID 1 (2.4GHz)\n`;
         }
         
         // Tambahkan RX Power dengan indikator kualitas
         if (rxPower !== 'N/A') {
             const rxValue = parseFloat(rxPower);
             let qualityIndicator = '';
-            if (rxValue > -25) qualityIndicator = ' (?? Baik)';
-            else if (rxValue > -27) qualityIndicator = ' (?? Warning)';
-            else qualityIndicator = ' (?? Kritis)';
-            statusMessage += `?? *RX Power:* ${formattedRxPower}${qualityIndicator}\n`;
+            if (rxValue > -25) qualityIndicator = ' (🟢 Baik)';
+            else if (rxValue > -27) qualityIndicator = ' (🟡 Warning)';
+            else qualityIndicator = ' (🔴 Kritis)';
+            statusMessage += `📌 *RX Power:* ${formattedRxPower}${qualityIndicator}\n`;
         } else {
-            statusMessage += `?? *RX Power:* ${formattedRxPower}\n`;
+            statusMessage += `📌 *RX Power:* ${formattedRxPower}\n`;
         }
         
-        statusMessage += `?? *PPPoE Username:* ${pppUsername}\n`;
-        statusMessage += `?? *IP Address:* ${ipAddress}\n`;
+        statusMessage += `📌 *PPPoE Username:* ${pppUsername}\n`;
+        statusMessage += `📌 *IP Address:* ${ipAddress}\n`;
         
         // Tambahkan uptime jika tersedia
         if (uptime !== 'N/A') {
-            statusMessage += `?? *Uptime:* ${uptime}\n`;
+            statusMessage += `📌 *Uptime:* ${uptime}\n`;
         }
         statusMessage += `\n`;
         
         // Tambahkan informasi tambahan
-        statusMessage += `ℹ️ Untuk mengubah nama WiFi, ketik:\n`;
+        statusMessage += `â„¹ï¸ Untuk mengubah nama WiFi, ketik:\n`;
         statusMessage += `*gantiwifi [nama]*\n\n`;
-        statusMessage += `ℹ️ Untuk mengubah password WiFi, ketik:\n`;
+        statusMessage += `â„¹ï¸ Untuk mengubah password WiFi, ketik:\n`;
         statusMessage += `*gantipass [password]*\n\n`;
         
         // Kirim pesan status dengan header dan footer
@@ -782,7 +783,7 @@ async function handleStatusCommand(senderNumber, remoteJid) {
         console.error('Error sending status message:', error);
         
         // Kirim pesan error dengan header dan footer
-        await sendFormattedMessage(remoteJid, `❌ *Error*\n\nTerjadi kesalahan saat mengambil status perangkat. Silakan coba lagi nanti.`);
+        await sendFormattedMessage(remoteJid, `âŒ *Error*\n\nTerjadi kesalahan saat mengambil status perangkat. Silakan coba lagi nanti.`);
         
         return false;
     }
@@ -819,7 +820,7 @@ async function sendAdminMenuList(remoteJid) {
         } catch (error) {
             console.error('Error sending admin menu:', error);
             await sock.sendMessage(remoteJid, { 
-                text: `❌ *ERROR*\n\nTerjadi kesalahan saat menampilkan menu admin:\n${error.message}` 
+                text: `âŒ *ERROR*\n\nTerjadi kesalahan saat menampilkan menu admin:\n${error.message}` 
             });
         }
     }
@@ -891,7 +892,7 @@ async function handleRefreshCommand(senderNumber, remoteJid) {
     try {
         // Kirim pesan bahwa proses refresh sedang berlangsung
         await sock.sendMessage(remoteJid, { 
-            text: `? *PROSES REFRESH*\n\nSedang memperbarui informasi perangkat...\nMohon tunggu sebentar.` 
+            text: `⏳ *PROSES REFRESH*\n\nSedang memperbarui informasi perangkat...\nMohon tunggu sebentar.` 
         });
 
         // Cari perangkat berdasarkan nomor pengirim
@@ -899,7 +900,7 @@ async function handleRefreshCommand(senderNumber, remoteJid) {
         
         if (!device) {
             await sock.sendMessage(remoteJid, { 
-                text: `❌ *PERANGKAT TIDAK DITEMUKAN*\n\nMaaf, tidak dapat menemukan perangkat yang terkait dengan nomor Anda.` 
+                text: `âŒ *PERANGKAT TIDAK DITEMUKAN*\n\nMaaf, tidak dapat menemukan perangkat yang terkait dengan nomor Anda.` 
             });
             return;
         }
@@ -921,12 +922,12 @@ async function handleRefreshCommand(senderNumber, remoteJid) {
                 const lastInform = new Date(updatedDevice._lastInform).toLocaleString();
                 
                 await sock.sendMessage(remoteJid, { 
-                    text: `? *REFRESH BERHASIL*\n\n` +
+                    text: `✅ *REFRESH BERHASIL*\n\n` +
                           `Perangkat berhasil diperbarui!\n\n` +
-                          `?? *Detail Perangkat:*\n` +
-                          `� Serial Number: ${serialNumber}\n` +
-                          `� Model: ${model}\n` +
-                          `� Last Inform: ${lastInform}\n\n` +
+                          `📋 *Detail Perangkat:*\n` +
+                          `• Serial Number: ${serialNumber}\n` +
+                          `• Model: ${model}\n` +
+                          `• Last Inform: ${lastInform}\n\n` +
                           `Gunakan perintah *status* untuk melihat informasi lengkap perangkat.`
                 });
             } catch (updateError) {
@@ -934,14 +935,14 @@ async function handleRefreshCommand(senderNumber, remoteJid) {
                 
                 // Tetap kirim pesan sukses meskipun gagal mendapatkan info terbaru
                 await sock.sendMessage(remoteJid, { 
-                    text: `? *REFRESH BERHASIL*\n\n` +
+                    text: `✅ *REFRESH BERHASIL*\n\n` +
                           `Perangkat berhasil diperbarui!\n\n` +
                           `Gunakan perintah *status* untuk melihat informasi lengkap perangkat.`
                 });
             }
         } else {
             await sock.sendMessage(remoteJid, { 
-                text: `❌ *REFRESH GAGAL*\n\n` +
+                text: `âŒ *REFRESH GAGAL*\n\n` +
                       `Terjadi kesalahan saat memperbarui perangkat:\n` +
                       `${refreshResult.message || 'Kesalahan tidak diketahui'}\n\n` +
                       `Silakan coba lagi nanti atau hubungi admin.`
@@ -950,7 +951,7 @@ async function handleRefreshCommand(senderNumber, remoteJid) {
     } catch (error) {
         console.error('Error in handleRefreshCommand:', error);
         await sock.sendMessage(remoteJid, { 
-            text: `❌ *ERROR*\n\nTerjadi kesalahan saat memproses perintah:\n${error.message}`
+            text: `âŒ *ERROR*\n\nTerjadi kesalahan saat memproses perintah:\n${error.message}`
         });
     }
 }
@@ -1067,7 +1068,7 @@ async function handleAdminCheckONU(remoteJid, customerNumber) {
 
     if (!customerNumber) {
         await sock.sendMessage(remoteJid, { 
-            text: `❌ *FORMAT SALAH*\n\n` +
+            text: `âŒ *FORMAT SALAH*\n\n` +
                   `Format yang benar:\n` +
                   `admincheck [nomor_pelanggan]\n\n` +
                   `Contoh:\n` +
@@ -1079,7 +1080,7 @@ async function handleAdminCheckONU(remoteJid, customerNumber) {
     try {
         // Kirim pesan bahwa proses sedang berlangsung
         await sock.sendMessage(remoteJid, { 
-            text: `?? *MENCARI PERANGKAT*\n\nSedang mencari perangkat untuk pelanggan ${customerNumber}...\nMohon tunggu sebentar.` 
+            text: `🔍 *MENCARI PERANGKAT*\n\nSedang mencari perangkat untuk pelanggan ${customerNumber}...\nMohon tunggu sebentar.` 
         });
 
         // Cari perangkat berdasarkan nomor pelanggan
@@ -1087,7 +1088,7 @@ async function handleAdminCheckONU(remoteJid, customerNumber) {
         
         if (!device) {
             await sock.sendMessage(remoteJid, { 
-                text: `❌ *PERANGKAT TIDAK DITEMUKAN*\n\n` +
+                text: `âŒ *PERANGKAT TIDAK DITEMUKAN*\n\n` +
                       `Tidak dapat menemukan perangkat untuk pelanggan dengan nomor ${customerNumber}.\n\n` +
                       `Pastikan nomor pelanggan benar dan perangkat telah terdaftar dalam sistem.`
             });
@@ -1111,7 +1112,7 @@ async function handleAdminCheckONU(remoteJid, customerNumber) {
         const now = new Date();
         const diffMinutes = Math.floor((now - lastInform) / (1000 * 60));
         const isOnline = diffMinutes < 15;
-        const statusText = isOnline ? '?? Online' : '?? Offline';
+        const statusText = isOnline ? '🟢 Online' : '🔴 Offline';
         
         // Informasi WiFi
         const ssid = device.InternetGatewayDevice?.LANDevice?.[1]?.WLANConfiguration?.[1]?.SSID?._value || 'N/A';
@@ -1132,9 +1133,9 @@ async function handleAdminCheckONU(remoteJid, customerNumber) {
         let rxPowerStatus = '';
         if (rxPower !== 'N/A') {
             const power = parseFloat(rxPower);
-            if (power > -25) rxPowerStatus = '?? Baik';
-            else if (power > -27) rxPowerStatus = '?? Warning';
-            else rxPowerStatus = '?? Kritis';
+            if (power > -25) rxPowerStatus = '🟢 Baik';
+            else if (power > -27) rxPowerStatus = '🟡 Warning';
+            else rxPowerStatus = '🔴 Kritis';
         }
         
         // Informasi pengguna WiFi
@@ -1188,23 +1189,23 @@ async function handleAdminCheckONU(remoteJid, customerNumber) {
         // Gunakan serial number dan model yang sudah diambil sebelumnya
         // Tidak perlu mengubah nilai yang sudah diambil dengan benar
 
-        let message = `?? *DETAIL PERANGKAT PELANGGAN*\n\n`;
-        message += `?? *Pelanggan:* ${customerNumber}\n`;
-        message += `?? *Serial Number:* ${serialNumber}\n`;
-        message += `?? *Model:* ${modelName}\n`;
-        message += `?? *Status:* ${statusText}\n`;
-        message += `⏱️ *Last Seen:* ${lastInform.toLocaleString()}\n\n`;
+        let message = `📋 *DETAIL PERANGKAT PELANGGAN*\n\n`;
+        message += `👤 *Pelanggan:* ${customerNumber}\n`;
+        message += `📋 *Serial Number:* ${serialNumber}\n`;
+        message += `📋 *Model:* ${modelName}\n`;
+        message += `📶 *Status:* ${statusText}\n`;
+        message += `â±ï¸ *Last Seen:* ${lastInform.toLocaleString()}\n\n`;
         
-        message += `?? *INFORMASI JARINGAN*\n`;
-        message += `?? IP Address: ${ipAddress}\n`;
-        message += `?? PPPoE Username: ${pppoeUsername}\n`;
-        message += `?? *RX Power:* ${rxPower ? rxPower + ' dBm' : 'N/A'}${rxPowerStatus ? ' (' + rxPowerStatus + ')' : ''}\n`;
-        message += `?? WiFi 2.4GHz: ${ssid}\n`;
-        message += `?? WiFi 5GHz: ${ssid5G}\n`;
-        message += `?? Pengguna WiFi: ${totalUsers} perangkat\n`;
+        message += `🌐 *INFORMASI JARINGAN*\n`;
+        message += `📌 IP Address: ${ipAddress}\n`;
+        message += `📌 PPPoE Username: ${pppoeUsername}\n`;
+        message += `📌 *RX Power:* ${rxPower ? rxPower + ' dBm' : 'N/A'}${rxPowerStatus ? ' (' + rxPowerStatus + ')' : ''}\n`;
+        message += `📌 WiFi 2.4GHz: ${ssid}\n`;
+        message += `📌 WiFi 5GHz: ${ssid5G}\n`;
+        message += `📌 Pengguna WiFi: ${totalUsers} perangkat\n`;
         // Tambahkan detail user SSID 1 jika ada
         if (associatedDevices.length > 0) {
-            message += `� *Daftar User WiFi (2.4GHz):*\n`;
+            message += `• *Daftar User WiFi (2.4GHz):*\n`;
             associatedDevices.forEach((dev, idx) => {
                 let detail = `${idx + 1}. ${dev.hostname || '-'} (${dev.mac || '-'}`;
                 if (dev.ip) detail += `, ${dev.ip}`;
@@ -1212,25 +1213,25 @@ async function handleAdminCheckONU(remoteJid, customerNumber) {
                 message += `   ${detail}\n`;
             });
         } else {
-            message += `� Tidak ada data user WiFi (2.4GHz) tersedia\n`;
+            message += `• Tidak ada data user WiFi (2.4GHz) tersedia\n`;
         }
         message += `\n`;
         
         if (rxPower) {
-            message += `?? *KUALITAS SINYAL*\n`;
-            message += `� RX Power: ${rxPower} dBm (${rxPowerStatus})\n\n`;
+            message += `🔧 *KUALITAS SINYAL*\n`;
+            message += `• RX Power: ${rxPower} dBm (${rxPowerStatus})\n\n`;
         }
         
-        message += `?? *TINDAKAN ADMIN*\n`;
-        message += `� Ganti SSID: editssid ${customerNumber} [nama_baru]\n`;
-        message += `� Ganti Password: editpass ${customerNumber} [password_baru]\n`;
-        message += `� Refresh Perangkat: adminrefresh ${customerNumber}`;
+        message += `💡 *TINDAKAN ADMIN*\n`;
+        message += `• Ganti SSID: editssid ${customerNumber} [nama_baru]\n`;
+        message += `• Ganti Password: editpass ${customerNumber} [password_baru]\n`;
+        message += `• Refresh Perangkat: adminrefresh ${customerNumber}`;
 
         await sock.sendMessage(remoteJid, { text: message });
     } catch (error) {
         console.error('Error in handleAdminCheckONU:', error);
         await sock.sendMessage(remoteJid, { 
-            text: `❌ *ERROR*\n\nTerjadi kesalahan saat memeriksa perangkat:\n${error.message}`
+            text: `âŒ *ERROR*\n\nTerjadi kesalahan saat memeriksa perangkat:\n${error.message}`
         });
     }
 }
@@ -1244,13 +1245,13 @@ async function handleAdminCheckONUWithBilling(remoteJid, searchTerm) {
 
     if (!searchTerm) {
         await sock.sendMessage(remoteJid, { 
-            text: `? *FORMAT SALAH*\n\n` +
+            text: `❌ *FORMAT SALAH*\n\n` +
                   `Format yang benar:\n` +
                   `cek [nomor_pelanggan/pppoe_username/nama_pelanggan]\n\n` +
                   `Contoh:\n` +
-                  `� cek 087786722675\n` +
-                  `� cek server@ilik\n` +
-                  `� cek maktub`
+                  `• cek 087786722675\n` +
+                  `• cek server@ilik\n` +
+                  `• cek maktub`
         });
         return;
     }
@@ -1258,7 +1259,7 @@ async function handleAdminCheckONUWithBilling(remoteJid, searchTerm) {
     try {
         // Kirim pesan bahwa proses sedang berlangsung
         await sock.sendMessage(remoteJid, { 
-            text: `?? *MENCARI PERANGKAT*\n\nSedang mencari perangkat untuk: ${searchTerm}...\nMohon tunggu sebentar.` 
+            text: `🔍 *MENCARI PERANGKAT*\n\nSedang mencari perangkat untuk: ${searchTerm}...\nMohon tunggu sebentar.` 
         });
 
         // Import billing manager untuk mendapatkan data customer
@@ -1275,11 +1276,11 @@ async function handleAdminCheckONUWithBilling(remoteJid, searchTerm) {
                 try {
                     customer = await billingManager.getCustomerByPhone(variant);
                     if (customer) {
-                        console.log(`? Customer found in billing by phone with variant: ${variant}`);
+                        console.log(`✅ Customer found in billing by phone with variant: ${variant}`);
                         break;
                     }
                 } catch (error) {
-                    console.log(`?? Error searching with phone variant ${variant}:`, error.message);
+                    console.log(`⚠️ Error searching with phone variant ${variant}:`, error.message);
                 }
             }
         }
@@ -1291,18 +1292,18 @@ async function handleAdminCheckONUWithBilling(remoteJid, searchTerm) {
                 const customersByName = await billingManager.findCustomersByNameOrPhone(searchTerm);
                 if (customersByName && customersByName.length > 0) {
                     customer = customersByName[0]; // Ambil yang pertama
-                    console.log(`? Customer found in billing by name/pppoe: ${customer.name}`);
+                    console.log(`✅ Customer found in billing by name/pppoe: ${customer.name}`);
                 }
             } catch (error) {
-                console.log(`?? Error searching by name/pppoe:`, error.message);
+                console.log(`⚠️ Error searching by name/pppoe:`, error.message);
             }
         }
         
         let device = null;
         
         if (customer) {
-            console.log(`? Customer found in billing: ${customer.name} (${customer.phone})`);
-            console.log(`?? Customer data:`, {
+            console.log(`✅ Customer found in billing: ${customer.name} (${customer.phone})`);
+            console.log(`📋 Customer data:`, {
                 name: customer.name,
                 phone: customer.phone,
                 username: customer.username,
@@ -1315,56 +1316,56 @@ async function handleAdminCheckONUWithBilling(remoteJid, searchTerm) {
                 try {
                     const { findDeviceByPPPoE } = require('./genieacs');
                     const pppoeToSearch = customer.pppoe_username || customer.username;
-                    console.log(`?? Searching device by PPPoE username: ${pppoeToSearch}`);
+                    console.log(`🔍 Searching device by PPPoE username: ${pppoeToSearch}`);
                     
                     device = await findDeviceByPPPoE(pppoeToSearch);
                     if (device) {
-                        console.log(`? Device found by PPPoE username: ${pppoeToSearch}`);
-                        console.log(`?? Device ID: ${device._id}`);
+                        console.log(`✅ Device found by PPPoE username: ${pppoeToSearch}`);
+                        console.log(`📱 Device ID: ${device._id}`);
                     } else {
-                        console.log(`?? No device found by PPPoE username: ${pppoeToSearch}`);
+                        console.log(`⚠️ No device found by PPPoE username: ${pppoeToSearch}`);
                     }
                 } catch (error) {
-                    console.error('? Error finding device by PPPoE username:', error.message);
-                    console.error('? Full error:', error);
+                    console.error('❌ Error finding device by PPPoE username:', error.message);
+                    console.error('❌ Full error:', error);
                 }
             } else {
-                console.log(`?? No PPPoE username or username found in customer data`);
+                console.log(`⚠️ No PPPoE username or username found in customer data`);
             }
             
             // Jika tidak ditemukan dengan PPPoE, coba dengan tag sebagai fallback
             if (!device) {
-                console.log(`?? Trying tag search as fallback...`);
+                console.log(`🔍 Trying tag search as fallback...`);
                 const tagVariants = generatePhoneVariants(customer.phone);
                 
                 for (const v of tagVariants) {
                     try {
                         device = await findDeviceByTag(v);
                         if (device) {
-                            console.log(`? Device found by tag fallback: ${v}`);
+                            console.log(`✅ Device found by tag fallback: ${v}`);
                             break;
                         }
                     } catch (error) {
-                        console.log(`?? Error searching by tag ${v}:`, error.message);
+                        console.log(`⚠️ Error searching by tag ${v}:`, error.message);
                     }
                 }
             }
         } else {
             // Customer tidak ditemukan di billing, coba cari device langsung berdasarkan search term
-            console.log(`?? Customer not found in billing, trying direct device search...`);
+            console.log(`⚠️ Customer not found in billing, trying direct device search...`);
             
             // Method 1: Coba sebagai PPPoE username langsung
             if (searchTerm.includes('@')) {
                 try {
                     const { findDeviceByPPPoE } = require('./genieacs');
-                    console.log(`?? Trying direct PPPoE username search: ${searchTerm}`);
+                    console.log(`🔍 Trying direct PPPoE username search: ${searchTerm}`);
                     device = await findDeviceByPPPoE(searchTerm);
                     if (device) {
-                        console.log(`? Device found by direct PPPoE username: ${searchTerm}`);
-                        console.log(`?? Device ID: ${device._id}`);
+                        console.log(`✅ Device found by direct PPPoE username: ${searchTerm}`);
+                        console.log(`📱 Device ID: ${device._id}`);
                     }
                 } catch (error) {
-                    console.log(`?? Error searching by direct PPPoE username:`, error.message);
+                    console.log(`⚠️ Error searching by direct PPPoE username:`, error.message);
                 }
             }
             
@@ -1375,12 +1376,12 @@ async function handleAdminCheckONUWithBilling(remoteJid, searchTerm) {
                     try {
                         device = await findDeviceByTag(v);
                         if (device) {
-                            console.log(`? Device found by tag: ${v}`);
-                            console.log(`?? Device ID: ${device._id}`);
+                            console.log(`✅ Device found by tag: ${v}`);
+                            console.log(`📱 Device ID: ${device._id}`);
                             break;
                         }
                     } catch (error) {
-                        console.log(`?? Error searching by tag ${v}:`, error.message);
+                        console.log(`⚠️ Error searching by tag ${v}:`, error.message);
                     }
                 }
             }
@@ -1388,17 +1389,17 @@ async function handleAdminCheckONUWithBilling(remoteJid, searchTerm) {
         
         // Method 3: Jika masih belum ditemukan, coba cari semua device dan cari manual
         if (!device) {
-            console.log(`?? Trying comprehensive search in all devices...`);
+            console.log(`🔍 Trying comprehensive search in all devices...`);
             try {
                 const { getDevices } = require('./genieacs');
                 const allDevices = await getDevices();
-                console.log(`?? Total devices in GenieACS: ${allDevices.length}`);
+                console.log(`📊 Total devices in GenieACS: ${allDevices.length}`);
                 
                 // Cari berdasarkan search term di berbagai field
                 for (const dev of allDevices) {
                     // Cek di tags
                     if (dev._tags && dev._tags.some(tag => tag.includes(searchTerm))) {
-                        console.log(`? Device found by tag match: ${dev._id}`);
+                        console.log(`✅ Device found by tag match: ${dev._id}`);
                         device = dev;
                         break;
                     }
@@ -1408,7 +1409,7 @@ async function handleAdminCheckONUWithBilling(remoteJid, searchTerm) {
                         for (const key in dev.VirtualParameters) {
                             const value = dev.VirtualParameters[key];
                             if (value && value._value && value._value.toString().includes(searchTerm)) {
-                                console.log(`? Device found by VirtualParameters match: ${dev._id}`);
+                                console.log(`✅ Device found by VirtualParameters match: ${dev._id}`);
                                 device = dev;
                                 break;
                             }
@@ -1418,18 +1419,18 @@ async function handleAdminCheckONUWithBilling(remoteJid, searchTerm) {
                     if (device) break;
                 }
             } catch (error) {
-                console.log(`?? Error in comprehensive search:`, error.message);
+                console.log(`⚠️ Error in comprehensive search:`, error.message);
             }
         }
         
         if (!device) {
             await sock.sendMessage(remoteJid, { 
-                text: `? *PERANGKAT TIDAK DITEMUKAN*\n\n` +
+                text: `❌ *PERANGKAT TIDAK DITEMUKAN*\n\n` +
                       `Tidak dapat menemukan perangkat untuk: ${searchTerm}\n\n` +
                       `Pastikan data yang dimasukkan benar:\n` +
-                      `� Nomor telepon\n` +
-                      `� PPPoE username (contoh: server@ilik)\n` +
-                      `� Nama pelanggan\n\n` +
+                      `• Nomor telepon\n` +
+                      `• PPPoE username (contoh: server@ilik)\n` +
+                      `• Nama pelanggan\n\n` +
                       `Dan perangkat telah terdaftar dalam sistem.`
             });
             return;
@@ -1450,7 +1451,7 @@ async function handleAdminCheckONUWithBilling(remoteJid, searchTerm) {
         const now = new Date();
         const diffMinutes = Math.floor((now - lastInform) / (1000 * 60));
         const isOnline = diffMinutes < 15;
-        const statusText = isOnline ? '?? Online' : '?? Offline';
+        const statusText = isOnline ? '🟢 Online' : '🔴 Offline';
         
         // Informasi WiFi
         const ssid = device.InternetGatewayDevice?.LANDevice?.[1]?.WLANConfiguration?.[1]?.SSID?._value || 'N/A';
@@ -1471,9 +1472,9 @@ async function handleAdminCheckONUWithBilling(remoteJid, searchTerm) {
         let rxPowerStatus = '';
         if (rxPower !== 'N/A') {
             const power = parseFloat(rxPower);
-            if (power > -25) rxPowerStatus = '?? Baik';
-            else if (power > -27) rxPowerStatus = '?? Warning';
-            else rxPowerStatus = '?? Kritis';
+            if (power > -25) rxPowerStatus = '🟢 Baik';
+            else if (power > -27) rxPowerStatus = '🟡 Warning';
+            else rxPowerStatus = '🔴 Kritis';
         }
         
         // Informasi pengguna WiFi
@@ -1524,40 +1525,40 @@ async function handleAdminCheckONUWithBilling(remoteJid, searchTerm) {
         }
 
         // Buat pesan dengan informasi lengkap
-        let message = `?? *DETAIL PERANGKAT PELANGGAN*\n\n`;
+        let message = `📋 *DETAIL PERANGKAT PELANGGAN*\n\n`;
         
         // Data billing jika ada
         if (customer) {
-            message += `?? *DATA BILLING:*\n`;
-            message += `� Nama: ${customer.name}\n`;
-            message += `� Telepon: ${customer.phone}\n`;
-            message += `� Username: ${customer.username || 'N/A'}\n`;
-            message += `� PPPoE Username: ${customer.pppoe_username || 'N/A'}\n`;
-            message += `� Paket: ${customer.package_id || 'N/A'}\n`;
-            message += `� Status: ${customer.status || 'N/A'}\n`;
+            message += `👤 *DATA BILLING:*\n`;
+            message += `• Nama: ${customer.name}\n`;
+            message += `• Telepon: ${customer.phone}\n`;
+            message += `• Username: ${customer.username || 'N/A'}\n`;
+            message += `• PPPoE Username: ${customer.pppoe_username || 'N/A'}\n`;
+            message += `• Paket: ${customer.package_id || 'N/A'}\n`;
+            message += `• Status: ${customer.status || 'N/A'}\n`;
             if (customer.address) {
-                message += `� Alamat: ${customer.address}\n`;
+                message += `• Alamat: ${customer.address}\n`;
             }
             message += `\n`;
         }
         
-        message += `?? *DATA PERANGKAT:*\n`;
-        message += `� Serial Number: ${serialNumber}\n`;
-        message += `� Model: ${modelName}\n`;
-        message += `� Status: ${statusText}\n`;
-        message += `� Last Seen: ${lastInform.toLocaleString()}\n\n`;
+        message += `🔧 *DATA PERANGKAT:*\n`;
+        message += `• Serial Number: ${serialNumber}\n`;
+        message += `• Model: ${modelName}\n`;
+        message += `• Status: ${statusText}\n`;
+        message += `• Last Seen: ${lastInform.toLocaleString()}\n\n`;
         
-        message += `?? *INFORMASI JARINGAN:*\n`;
-        message += `� IP Address: ${ipAddress}\n`;
-        message += `� PPPoE Username: ${pppoeUsername}\n`;
-        message += `� RX Power: ${rxPower ? rxPower + ' dBm' : 'N/A'}${rxPowerStatus ? ' (' + rxPowerStatus + ')' : ''}\n`;
-        message += `� WiFi 2.4GHz: ${ssid}\n`;
-        message += `� WiFi 5GHz: ${ssid5G}\n`;
-        message += `� Pengguna WiFi: ${totalUsers} perangkat\n`;
+        message += `🌐 *INFORMASI JARINGAN:*\n`;
+        message += `• IP Address: ${ipAddress}\n`;
+        message += `• PPPoE Username: ${pppoeUsername}\n`;
+        message += `• RX Power: ${rxPower ? rxPower + ' dBm' : 'N/A'}${rxPowerStatus ? ' (' + rxPowerStatus + ')' : ''}\n`;
+        message += `• WiFi 2.4GHz: ${ssid}\n`;
+        message += `• WiFi 5GHz: ${ssid5G}\n`;
+        message += `• Pengguna WiFi: ${totalUsers} perangkat\n`;
         
         // Tambahkan detail user SSID 1 jika ada
         if (associatedDevices.length > 0) {
-            message += `� *Daftar User WiFi (2.4GHz):*\n`;
+            message += `• *Daftar User WiFi (2.4GHz):*\n`;
             associatedDevices.forEach((dev, idx) => {
                 let detail = `${idx + 1}. ${dev.hostname || '-'} (${dev.mac || '-'}`;
                 if (dev.ip) detail += `, ${dev.ip}`;
@@ -1565,26 +1566,26 @@ async function handleAdminCheckONUWithBilling(remoteJid, searchTerm) {
                 message += `   ${detail}\n`;
             });
         } else {
-            message += `� Tidak ada data user WiFi (2.4GHz) tersedia\n`;
+            message += `• Tidak ada data user WiFi (2.4GHz) tersedia\n`;
         }
         message += `\n`;
         
         if (rxPower) {
-            message += `?? *KUALITAS SINYAL:*\n`;
-            message += `� RX Power: ${rxPower} dBm (${rxPowerStatus})\n\n`;
+            message += `🔧 *KUALITAS SINYAL:*\n`;
+            message += `• RX Power: ${rxPower} dBm (${rxPowerStatus})\n\n`;
         }
         
-        message += `?? *TINDAKAN ADMIN:*\n`;
+        message += `💡 *TINDAKAN ADMIN:*\n`;
         const actionIdentifier = customer ? customer.phone : searchTerm;
-        message += `� Ganti SSID: editssid ${actionIdentifier} [nama_baru]\n`;
-        message += `� Ganti Password: editpass ${actionIdentifier} [password_baru]\n`;
-        message += `� Refresh Perangkat: adminrefresh ${actionIdentifier}`;
+        message += `• Ganti SSID: editssid ${actionIdentifier} [nama_baru]\n`;
+        message += `• Ganti Password: editpass ${actionIdentifier} [password_baru]\n`;
+        message += `• Refresh Perangkat: adminrefresh ${actionIdentifier}`;
 
         await sock.sendMessage(remoteJid, { text: message });
     } catch (error) {
         console.error('Error in handleAdminCheckONUWithBilling:', error);
         await sock.sendMessage(remoteJid, { 
-            text: `? *ERROR*\n\nTerjadi kesalahan saat memeriksa perangkat:\n${error.message}`
+            text: `❌ *ERROR*\n\nTerjadi kesalahan saat memeriksa perangkat:\n${error.message}`
         });
     }
 }
@@ -1667,7 +1668,7 @@ async function handleChangeSSID(senderNumber, remoteJid, params) {
         if (!device) {
             await sock.sendMessage(remoteJid, { 
                 text: `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}
-? *NOMOR TIDAK TERDAFTAR*
+❌ *NOMOR TIDAK TERDAFTAR*
 
 Waduh, nomor kamu belum terdaftar nih.
 Hubungi admin dulu yuk untuk daftar!${getSetting('footer_info', 'Internet Tanpa Batas')}` 
@@ -1677,17 +1678,17 @@ Hubungi admin dulu yuk untuk daftar!${getSetting('footer_info', 'Internet Tanpa 
         if (params.length < 1) {
             await sock.sendMessage(remoteJid, { 
                 text: `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}
-?? *CARA GANTI NAMA WIFI*
+📋 *CARA GANTI NAMA WIFI*
 
-?? Format Perintah:
+⚠️ Format Perintah:
 *gantiwifi [nama_wifi_baru]*
 
-?? Contoh:
+📋 Contoh:
 *gantiwifi RumahKu*
 
-?? Nama WiFi akan langsung diperbarui
-?? Tunggu beberapa saat sampai perubahan aktif
-?? Perangkat yang terhubung mungkin akan terputus${getSetting('footer_info', 'Internet Tanpa Batas')}`,
+💡 Nama WiFi akan langsung diperbarui
+💡 Tunggu beberapa saat sampai perubahan aktif
+💡 Perangkat yang terhubung mungkin akan terputus${getSetting('footer_info', 'Internet Tanpa Batas')}`,
             });
             return;
         }
@@ -1695,11 +1696,11 @@ Hubungi admin dulu yuk untuk daftar!${getSetting('footer_info', 'Internet Tanpa 
         const newSSID5G = `${newSSID}-5G`;
         await sock.sendMessage(remoteJid, { 
             text: `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}
-? *PERMINTAAN DIPROSES*
+⏳ *PERMINTAAN DIPROSES*
 
 Sedang mengubah nama WiFi Anda...
-� WiFi 2.4GHz: ${newSSID}
-� WiFi 5GHz: ${newSSID5G}
+• WiFi 2.4GHz: ${newSSID}
+• WiFi 5GHz: ${newSSID5G}
 
 Mohon tunggu sebentar.${getSetting('footer_info', 'Internet Tanpa Batas')}`
         });
@@ -1785,17 +1786,17 @@ Mohon tunggu sebentar.${getSetting('footer_info', 'Internet Tanpa Batas')}`
             console.error('Error sending reboot task:', rebootError.message);
         }
         let responseMessage = `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}
-? *NAMA WIFI BERHASIL DIUBAH!*
+✅ *NAMA WIFI BERHASIL DIUBAH!*
 
-?? *Nama WiFi Baru:*
-� WiFi 2.4GHz: ${newSSID}`;
+📶 *Nama WiFi Baru:*
+• WiFi 2.4GHz: ${newSSID}`;
         if (wifi5GFound) {
-            responseMessage += `\n� WiFi 5GHz: ${newSSID5G}`;
+            responseMessage += `\n• WiFi 5GHz: ${newSSID5G}`;
         } else {
-            responseMessage += `\n� WiFi 5GHz: Pengaturan tidak ditemukan atau gagal diubah`;
+            responseMessage += `\n• WiFi 5GHz: Pengaturan tidak ditemukan atau gagal diubah`;
         }
         responseMessage += `\n
-? Perangkat akan melakukan restart untuk menerapkan perubahan.\n?? Perangkat yang terhubung akan terputus dan perlu menghubungkan ulang ke nama WiFi baru.
+⏳ Perangkat akan melakukan restart untuk menerapkan perubahan.\n📋 Perangkat yang terhubung akan terputus dan perlu menghubungkan ulang ke nama WiFi baru.
 
 _Perubahan selesai pada: ${new Date().toLocaleString()}_${getSetting('footer_info', 'Internet Tanpa Batas')}`;
         await sock.sendMessage(remoteJid, { text: responseMessage });
@@ -1803,13 +1804,13 @@ _Perubahan selesai pada: ${new Date().toLocaleString()}_${getSetting('footer_inf
         console.error('Error handling change SSID:', error);
         await sock.sendMessage(remoteJid, { 
             text: `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}
-? *GAGAL MENGUBAH NAMA WIFI*
+❌ *GAGAL MENGUBAH NAMA WIFI*
 
 Oops! Ada kendala teknis saat mengubah nama WiFi kamu.
 Beberapa kemungkinan penyebabnya:
-� Router sedang offline
-� Masalah koneksi ke server
-� Format nama tidak didukung
+• Router sedang offline
+• Masalah koneksi ke server
+• Format nama tidak didukung
 
 Pesan error: ${error.message}
 
@@ -1828,7 +1829,7 @@ async function handleAdminEditPassword(adminJid, customerNumber, newPassword) {
         if (newPassword.length < 8) {
             await sock.sendMessage(adminJid, { 
                 text: `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}
-❌ *PASSWORD TERLALU PENDEK*
+âŒ *PASSWORD TERLALU PENDEK*
 
 Password WiFi harus minimal 8 karakter.
 Silakan coba lagi dengan password yang lebih panjang.${getSetting('footer_info', 'Internet Tanpa Batas')}`
@@ -1845,7 +1846,7 @@ Silakan coba lagi dengan password yang lebih panjang.${getSetting('footer_info',
         if (!device) {
             await sock.sendMessage(adminJid, { 
                 text: `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}
-❌ *NOMOR PELANGGAN TIDAK DITEMUKAN*
+âŒ *NOMOR PELANGGAN TIDAK DITEMUKAN*
 
 Nomor ${customerNumber} tidak terdaftar di sistem.
 Periksa kembali nomor pelanggan.${getSetting('footer_info', 'Internet Tanpa Batas')}` 
@@ -1856,7 +1857,7 @@ Periksa kembali nomor pelanggan.${getSetting('footer_info', 'Internet Tanpa Bata
         // Kirim pesan ke admin bahwa permintaan sedang diproses
         await sock.sendMessage(adminJid, { 
             text: `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}
-⏳ *PERMINTAAN DIPROSES*
+â³ *PERMINTAAN DIPROSES*
 
 Sedang mengubah password WiFi pelanggan ${customerNumber}...
 Password baru: ${newPassword}
@@ -1954,13 +1955,13 @@ Mohon tunggu sebentar.${getSetting('footer_info', 'Internet Tanpa Batas')}`
         
         // Pesan sukses untuk admin
         const adminResponseMessage = `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}
-? *PASSWORD WIFI PELANGGAN BERHASIL DIUBAH!*
+✅ *PASSWORD WIFI PELANGGAN BERHASIL DIUBAH!*
 
-?? *Pelanggan:* ${customerNumber}
-?? *Password WiFi Baru:* ${newPassword}
+📋 *Pelanggan:* ${customerNumber}
+🔐 *Password WiFi Baru:* ${newPassword}
 
-⏳ Perangkat akan melakukan restart untuk menerapkan perubahan.
-?? Perangkat yang terhubung akan terputus dan perlu menghubungkan ulang dengan password baru.
+â³ Perangkat akan melakukan restart untuk menerapkan perubahan.
+📋 Perangkat yang terhubung akan terputus dan perlu menghubungkan ulang dengan password baru.
 
 _Perubahan selesai pada: ${new Date().toLocaleString()}_${getSetting('footer_info', 'Internet Tanpa Batas')}`;
 
@@ -1980,16 +1981,16 @@ _Perubahan selesai pada: ${new Date().toLocaleString()}_${getSetting('footer_inf
             
             // Pesan notifikasi untuk pelanggan
             const customerNotificationMessage = `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}
-?? *PEMBERITAHUAN PERUBAHAN PASSWORD WIFI*
+📢 *PEMBERITAHUAN PERUBAHAN PASSWORD WIFI*
 
 Halo Pelanggan Setia,
 
 Kami informasikan bahwa password WiFi Anda telah diubah oleh admin:
 
-?? *Password WiFi Baru:* ${newPassword}
+🔐 *Password WiFi Baru:* ${newPassword}
 
-⏳ Perangkat Anda akan melakukan restart untuk menerapkan perubahan.
-?? Perangkat yang terhubung akan terputus dan perlu menghubungkan ulang dengan password baru.
+â³ Perangkat Anda akan melakukan restart untuk menerapkan perubahan.
+📋 Perangkat yang terhubung akan terputus dan perlu menghubungkan ulang dengan password baru.
 
 _Catatan: Simpan informasi ini sebagai dokumentasi jika Anda lupa password WiFi di kemudian hari.${getSetting('footer_info', 'Internet Tanpa Batas')}`;
             
@@ -2000,7 +2001,7 @@ _Catatan: Simpan informasi ini sebagai dokumentasi jika Anda lupa password WiFi 
             // Kirim pesan ke admin bahwa notifikasi ke pelanggan gagal
             await sock.sendMessage(adminJid, { 
                 text: `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}
-� ️ *INFO*
+âš ï¸ *INFO*
 
 Password WiFi pelanggan berhasil diubah, tetapi gagal mengirim notifikasi ke pelanggan.
 Error: ${notificationError.message}${getSetting('footer_info', 'Internet Tanpa Batas')}` 
@@ -2011,13 +2012,13 @@ Error: ${notificationError.message}${getSetting('footer_info', 'Internet Tanpa B
         console.error('Error handling admin edit password:', error);
         await sock.sendMessage(adminJid, { 
             text: `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}
-❌ *GAGAL MENGUBAH PASSWORD WIFI PELANGGAN*
+âŒ *GAGAL MENGUBAH PASSWORD WIFI PELANGGAN*
 
 Oops! Ada kendala teknis saat mengubah password WiFi pelanggan.
 Beberapa kemungkinan penyebabnya:
-� Router pelanggan sedang offline
-� Masalah koneksi ke server
-� Format password tidak didukung
+• Router pelanggan sedang offline
+• Masalah koneksi ke server
+• Format password tidak didukung
 
 Pesan error: ${error.message}
 
@@ -2041,7 +2042,7 @@ async function handleAdminEditSSID(adminJid, customerNumber, newSSID) {
         if (!device) {
             await sock.sendMessage(adminJid, { 
                 text: `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}
-❌ *NOMOR PELANGGAN TIDAK DITEMUKAN*
+âŒ *NOMOR PELANGGAN TIDAK DITEMUKAN*
 
 Nomor ${customerNumber} tidak terdaftar di sistem.
 Periksa kembali nomor pelanggan.${getSetting('footer_info', 'Internet Tanpa Batas')}` 
@@ -2055,11 +2056,11 @@ Periksa kembali nomor pelanggan.${getSetting('footer_info', 'Internet Tanpa Bata
         // Kirim pesan ke admin bahwa permintaan sedang diproses
         await sock.sendMessage(adminJid, { 
             text: `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}
-⏳ *PERMINTAAN DIPROSES*
+â³ *PERMINTAAN DIPROSES*
 
 Sedang mengubah nama WiFi pelanggan ${customerNumber}...
-� WiFi 2.4GHz: ${newSSID}
-� WiFi 5GHz: ${newSSID5G}
+• WiFi 2.4GHz: ${newSSID}
+• WiFi 5GHz: ${newSSID5G}
 
 Mohon tunggu sebentar.${getSetting('footer_info', 'Internet Tanpa Batas')}`
         });
@@ -2154,21 +2155,21 @@ Mohon tunggu sebentar.${getSetting('footer_info', 'Internet Tanpa Batas')}`
         
         // Pesan sukses untuk admin
         let adminResponseMessage = `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}
-? *NAMA WIFI PELANGGAN BERHASIL DIUBAH!*
+✅ *NAMA WIFI PELANGGAN BERHASIL DIUBAH!*
 
-?? *Pelanggan:* ${customerNumber}
-�� *Nama WiFi Baru:*
-� WiFi 2.4GHz: ${newSSID}`;
+📋 *Pelanggan:* ${customerNumber}
+ï¿½ï¿½ *Nama WiFi Baru:*
+• WiFi 2.4GHz: ${newSSID}`;
 
         if (wifi5GFound) {
-            adminResponseMessage += `\n� WiFi 5GHz: ${newSSID5G}`;
+            adminResponseMessage += `\n• WiFi 5GHz: ${newSSID5G}`;
         } else {
-            adminResponseMessage += `\n� WiFi 5GHz: Pengaturan tidak ditemukan atau gagal diubah`;
+            adminResponseMessage += `\n• WiFi 5GHz: Pengaturan tidak ditemukan atau gagal diubah`;
         }
 
         adminResponseMessage += `\n
-⏳ Perangkat akan melakukan restart untuk menerapkan perubahan.
-?? Perangkat yang terhubung akan terputus dan perlu menghubungkan ulang ke nama WiFi baru.
+â³ Perangkat akan melakukan restart untuk menerapkan perubahan.
+📋 Perangkat yang terhubung akan terputus dan perlu menghubungkan ulang ke nama WiFi baru.
 
 _Perubahan selesai pada: ${new Date().toLocaleString()}_${getSetting('footer_info', 'Internet Tanpa Batas')}`;
 
@@ -2188,23 +2189,23 @@ _Perubahan selesai pada: ${new Date().toLocaleString()}_${getSetting('footer_inf
             
             // Pesan notifikasi untuk pelanggan
             const customerNotificationMessage = `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}
-?? *PEMBERITAHUAN PERUBAHAN WIFI*
+📢 *PEMBERITAHUAN PERUBAHAN WIFI*
 
 Halo Pelanggan Setia,
 
 Kami informasikan bahwa nama WiFi Anda telah diubah oleh admin:
 
-?? *Nama WiFi Baru:*
-� WiFi 2.4GHz: ${newSSID}`;
+📶 *Nama WiFi Baru:*
+• WiFi 2.4GHz: ${newSSID}`;
             
             let fullCustomerMessage = customerNotificationMessage;
             if (wifi5GFound) {
-                fullCustomerMessage += `\n� WiFi 5GHz: ${newSSID5G}`;
+                fullCustomerMessage += `\n• WiFi 5GHz: ${newSSID5G}`;
             }
             
             fullCustomerMessage += `\n
-⏳ Perangkat Anda akan melakukan restart untuk menerapkan perubahan.
-?? Perangkat yang terhubung akan terputus dan perlu menghubungkan ulang ke nama WiFi baru.
+â³ Perangkat Anda akan melakukan restart untuk menerapkan perubahan.
+📋 Perangkat yang terhubung akan terputus dan perlu menghubungkan ulang ke nama WiFi baru.
 
 _Catatan: Simpan informasi ini sebagai dokumentasi jika Anda lupa nama WiFi di kemudian hari.${getSetting('footer_info', 'Internet Tanpa Batas')}`;
             
@@ -2215,7 +2216,7 @@ _Catatan: Simpan informasi ini sebagai dokumentasi jika Anda lupa nama WiFi di k
             // Kirim pesan ke admin bahwa notifikasi ke pelanggan gagal
             await sock.sendMessage(adminJid, { 
                 text: `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}
-� ️ *INFO*
+âš ï¸ *INFO*
 
 Nama WiFi pelanggan berhasil diubah, tetapi gagal mengirim notifikasi ke pelanggan.
 Error: ${notificationError.message}${getSetting('footer_info', 'Internet Tanpa Batas')}` 
@@ -2226,13 +2227,13 @@ Error: ${notificationError.message}${getSetting('footer_info', 'Internet Tanpa B
         console.error('Error handling admin edit SSID:', error);
         await sock.sendMessage(adminJid, { 
             text: `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}
-❌ *GAGAL MENGUBAH NAMA WIFI PELANGGAN*
+âŒ *GAGAL MENGUBAH NAMA WIFI PELANGGAN*
 
 Oops! Ada kendala teknis saat mengubah nama WiFi pelanggan.
 Beberapa kemungkinan penyebabnya:
-� Router pelanggan sedang offline
-� Masalah koneksi ke server
-� Format nama tidak didukung
+• Router pelanggan sedang offline
+• Masalah koneksi ke server
+• Format nama tidak didukung
 
 Pesan error: ${error.message}
 
@@ -2250,16 +2251,16 @@ async function handleChangePassword(senderNumber, remoteJid, params) {
         if (params.length < 1) {
             await sock.sendMessage(remoteJid, { 
                 text: `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}
-❌ *FORMAT SALAH*
+âŒ *FORMAT SALAH*
 
-� ️ Format Perintah:
+âš ï¸ Format Perintah:
 *gantipass [password_baru]*
 
-?? Contoh:
+📋 Contoh:
 *gantipass Password123*
 
-?? Password harus minimal 8 karakter
-?? Hindari password yang mudah ditebak${getSetting('footer_info', 'Internet Tanpa Batas')}`
+💡 Password harus minimal 8 karakter
+💡 Hindari password yang mudah ditebak${getSetting('footer_info', 'Internet Tanpa Batas')}`
             });
             return;
         }
@@ -2270,7 +2271,7 @@ async function handleChangePassword(senderNumber, remoteJid, params) {
         if (newPassword.length < 8) {
             await sock.sendMessage(remoteJid, { 
                 text: `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}
-❌ *PASSWORD TERLALU PENDEK*
+âŒ *PASSWORD TERLALU PENDEK*
 
 Password WiFi harus minimal 8 karakter.
 Silakan coba lagi dengan password yang lebih panjang.${getSetting('footer_info', 'Internet Tanpa Batas')}`
@@ -2285,7 +2286,7 @@ Silakan coba lagi dengan password yang lebih panjang.${getSetting('footer_info',
         if (!device) {
             await sock.sendMessage(remoteJid, { 
                 text: `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}
-❌ *NOMOR TIDAK TERDAFTAR*
+âŒ *NOMOR TIDAK TERDAFTAR*
 
 Waduh, nomor kamu belum terdaftar nih.
 Hubungi admin dulu yuk untuk daftar!${getSetting('footer_info', 'Internet Tanpa Batas')}`
@@ -2300,7 +2301,7 @@ Hubungi admin dulu yuk untuk daftar!${getSetting('footer_info', 'Internet Tanpa 
         // Kirim pesan bahwa permintaan sedang diproses
         await sock.sendMessage(remoteJid, { 
             text: `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}
-⏳ *PERMINTAAN DIPROSES*
+â³ *PERMINTAAN DIPROSES*
 
 Sedang mengubah password WiFi Anda...
 Mohon tunggu sebentar.${getSetting('footer_info', 'Internet Tanpa Batas')}`
@@ -2312,25 +2313,25 @@ Mohon tunggu sebentar.${getSetting('footer_info', 'Internet Tanpa Batas')}`
         if (result.success) {
             await sock.sendMessage(remoteJid, { 
                 text: `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}
-? *PASSWORD WIFI BERHASIL DIUBAH!*
+✅ *PASSWORD WIFI BERHASIL DIUBAH!*
 
-?? *Password Baru:* ${newPassword}
+🔐 *Password Baru:* ${newPassword}
 
-⏳ Tunggu bentar ya, perubahan akan aktif dalam beberapa saat.
-?? Perangkat yang terhubung mungkin akan terputus dan harus menghubungkan ulang dengan password baru.
+â³ Tunggu bentar ya, perubahan akan aktif dalam beberapa saat.
+📋 Perangkat yang terhubung mungkin akan terputus dan harus menghubungkan ulang dengan password baru.
 
 _Perubahan selesai pada: ${new Date().toLocaleString()}_${getSetting('footer_info', 'Internet Tanpa Batas')}`
             });
         } else {
             await sock.sendMessage(remoteJid, { 
                 text: `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}
-❌ *GAGAL MENGUBAH PASSWORD*
+âŒ *GAGAL MENGUBAH PASSWORD*
 
 Oops! Ada kendala teknis saat mengubah password WiFi kamu.
 Beberapa kemungkinan penyebabnya:
-� Router sedang offline
-� Masalah koneksi ke server
-� Format password tidak didukung
+• Router sedang offline
+• Masalah koneksi ke server
+• Format password tidak didukung
 
 Pesan error: ${result.message}
 
@@ -2341,7 +2342,7 @@ Coba lagi nanti ya!${getSetting('footer_info', 'Internet Tanpa Batas')}`
         console.error('Error handling password change:', error);
         await sock.sendMessage(remoteJid, { 
             text: `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}
-❌ *TERJADI KESALAHAN*
+âŒ *TERJADI KESALAHAN*
 
 Error: ${error.message}
 
@@ -2450,14 +2451,14 @@ async function handleAdminEditPassword(remoteJid, customerNumber, newPassword) {
         // Validasi parameter
         if (!customerNumber || !newPassword) {
             await sock.sendMessage(remoteJid, { 
-                text: `❌ *FORMAT Salah!*\n\nFormat yang benar:\neditpassword [nomor_pelanggan] [password_baru]\n\nContoh:\neditpassword 123456 password123`
+                text: `âŒ *FORMAT Salah!*\n\nFormat yang benar:\neditpassword [nomor_pelanggan] [password_baru]\n\nContoh:\neditpassword 123456 password123`
             });
             return;
         }
         // Validasi panjang password
         if (newPassword.length < 8) {
             await sock.sendMessage(remoteJid, { 
-                text: `❌ *Password terlalu pendek!*\n\nPassword harus minimal 8 karakter.`
+                text: `âŒ *Password terlalu pendek!*\n\nPassword harus minimal 8 karakter.`
             });
             return;
         }
@@ -2468,7 +2469,7 @@ async function handleAdminEditPassword(remoteJid, customerNumber, newPassword) {
         const device = await findDeviceByTag(customerNumber);
         if (!device) {
             await sock.sendMessage(remoteJid, { 
-                text: `❌ *Perangkat tidak ditemukan!*\n\n` +
+                text: `âŒ *Perangkat tidak ditemukan!*\n\n` +
                       `Nomor pelanggan "${customerNumber}" tidak terdaftar di sistem.`
             });
             return;
@@ -2480,7 +2481,7 @@ async function handleAdminEditPassword(remoteJid, customerNumber, newPassword) {
         
         // Kirim pesan bahwa proses sedang berlangsung
         await sock.sendMessage(remoteJid, { 
-            text: `? *PROSES PERUBAHAN PASSWORD*\n\nSedang mengubah password WiFi untuk pelanggan ${customerNumber}...\nMohon tunggu sebentar.` 
+            text: `⏳ *PROSES PERUBAHAN PASSWORD*\n\nSedang mengubah password WiFi untuk pelanggan ${customerNumber}...\nMohon tunggu sebentar.` 
         });
         
         // Encode deviceId untuk URL
@@ -2642,7 +2643,7 @@ async function handleAdminEditPassword(remoteJid, customerNumber, newPassword) {
         const ssid24G = device.InternetGatewayDevice?.LANDevice?.[1]?.WLANConfiguration?.[1]?.SSID?._value || 'WiFi 2.4GHz';
         
         // Respons ke admin
-        let responseMessage = `? *PASSWORD WIFI BERHASIL DIUBAH!*\n\n` +
+        let responseMessage = `✅ *PASSWORD WIFI BERHASIL DIUBAH!*\n\n` +
               `Pelanggan: ${customerNumber}\n` +
               `Password baru: ${newPassword}\n\n`;
               
@@ -2665,14 +2666,14 @@ async function handleAdminEditPassword(remoteJid, customerNumber, newPassword) {
                 const formattedNumber = formatPhoneNumber(customerNumber);
                 
                 // Buat pesan notifikasi untuk pelanggan
-                const notificationMessage = formatWithHeaderFooter(`?? *INFORMASI PERUBAHAN PASSWORD WIFI*
+                const notificationMessage = formatWithHeaderFooter(`📢 *INFORMASI PERUBAHAN PASSWORD WIFI*
 
 Halo Pelanggan yang terhormat,
 
 Password WiFi Anda telah diubah oleh administrator sistem. Berikut detail perubahannya:
 
-?? *Nama WiFi:* ${ssid24G}
-?? *Password Baru:* ${newPassword}
+🔧 *Nama WiFi:* ${ssid24G}
+🔐 *Password Baru:* ${newPassword}
 
 Silakan gunakan password baru ini untuk terhubung ke jaringan WiFi Anda.
 Perubahan akan diterapkan dalam beberapa menit.`);
@@ -2688,7 +2689,7 @@ Perubahan akan diterapkan dalam beberapa menit.`);
                 responseMessage += `\nNotifikasi sudah dikirim ke pelanggan.`;
             } catch (notificationError) {
                 console.error(`Failed to send notification to customer: ${customerNumber}`, notificationError);
-                responseMessage += `\n\n� ️ *Peringatan:* Gagal mengirim notifikasi ke pelanggan.\n` +
+                responseMessage += `\n\nâš ï¸ *Peringatan:* Gagal mengirim notifikasi ke pelanggan.\n` +
                                   `Error: ${notificationError.message}`;
             }
         }
@@ -2699,7 +2700,7 @@ Perubahan akan diterapkan dalam beberapa menit.`);
     } catch (error) {
         console.error('Error handling admin password change:', error);
         await sock.sendMessage(remoteJid, { 
-            text: `❌ *Terjadi kesalahan!*\n\n` +
+            text: `âŒ *Terjadi kesalahan!*\n\n` +
                   `Error: ${error.message}\n\n` +
                   `Silakan coba lagi nanti.`
         });
@@ -2718,7 +2719,7 @@ async function handleAdminEditSSIDWithParams(remoteJid, params) {
 
     if (params.length < 2) {
         await sock.sendMessage(remoteJid, { 
-            text: `❌ *FORMAT SALAH*\n\n` +
+            text: `âŒ *FORMAT SALAH*\n\n` +
                   `Format yang benar:\n` +
                   `editssid [nomor_pelanggan] [nama_wifi_baru]\n\n` +
                   `Contoh:\n` +
@@ -2740,7 +2741,7 @@ async function handleAdminEditSSIDWithParams(remoteJid, params) {
     try {
         // Kirim pesan bahwa proses sedang berlangsung
         await sock.sendMessage(remoteJid, { 
-            text: `? *PROSES PERUBAHAN SSID*\n\nSedang mengubah nama WiFi untuk pelanggan ${customerNumber}...\nMohon tunggu sebentar.` 
+            text: `⏳ *PROSES PERUBAHAN SSID*\n\nSedang mengubah nama WiFi untuk pelanggan ${customerNumber}...\nMohon tunggu sebentar.` 
         });
 
         // Cari perangkat berdasarkan nomor pelanggan
@@ -2749,7 +2750,7 @@ async function handleAdminEditSSIDWithParams(remoteJid, params) {
         if (!device) {
             console.log(`Device not found for customer number: ${customerNumber}`);
             await sock.sendMessage(remoteJid, { 
-                text: `❌ *PERANGKAT TIDAK DITEMUKAN*\n\n` +
+                text: `âŒ *PERANGKAT TIDAK DITEMUKAN*\n\n` +
                       `Tidak dapat menemukan perangkat untuk pelanggan dengan nomor ${customerNumber}.\n\n` +
                       `Pastikan nomor pelanggan benar dan perangkat telah terdaftar dalam sistem.`
             });
@@ -2853,15 +2854,15 @@ async function handleAdminEditSSIDWithParams(remoteJid, params) {
             console.error('Error sending reboot task:', rebootError.message);
         }
 
-        let responseMessage = `? *PERUBAHAN SSID BERHASIL*\n\n` +
+        let responseMessage = `✅ *PERUBAHAN SSID BERHASIL*\n\n` +
                       `Nama WiFi untuk pelanggan ${customerNumber} berhasil diubah!\n\n` +
-                      `� SSID Lama: ${currentSSID}\n` +
-                      `� SSID Baru: ${newSSID}\n`;
+                      `• SSID Lama: ${currentSSID}\n` +
+                      `• SSID Baru: ${newSSID}\n`;
                       
         if (wifi5GFound) {
-            responseMessage += `� SSID 5GHz: ${newSSID5G}\n\n`;
+            responseMessage += `• SSID 5GHz: ${newSSID5G}\n\n`;
         } else {
-            responseMessage += `� SSID 5GHz: Pengaturan tidak ditemukan atau gagal diubah\n\n`;
+            responseMessage += `• SSID 5GHz: Pengaturan tidak ditemukan atau gagal diubah\n\n`;
         }
         
         responseMessage += `Perangkat WiFi akan restart dalam beberapa saat. Pelanggan perlu menghubungkan kembali perangkat mereka ke jaringan WiFi baru.`;
@@ -2873,13 +2874,13 @@ async function handleAdminEditSSIDWithParams(remoteJid, params) {
             try {
                 const formattedNumber = formatPhoneNumber(customerNumber);
                 
-                let notificationMessage = `? *PERUBAHAN NAMA WIFI*\n\n` +
+                let notificationMessage = `✅ *PERUBAHAN NAMA WIFI*\n\n` +
                                           `Halo Pelanggan yang terhormat,\n\n` +
                                           `Kami informasikan bahwa nama WiFi Anda telah diubah:\n\n` +
-                                          `� Nama WiFi Baru: ${newSSID}\n`;
+                                          `• Nama WiFi Baru: ${newSSID}\n`;
                                           
                 if (wifi5GFound) {
-                    notificationMessage += `� Nama WiFi 5GHz: ${newSSID5G}\n\n`;
+                    notificationMessage += `• Nama WiFi 5GHz: ${newSSID5G}\n\n`;
                 }
                 
                 notificationMessage += `Perangkat WiFi akan restart dalam beberapa saat. Silakan hubungkan kembali perangkat Anda ke jaringan WiFi baru.\n\n` +
@@ -2896,7 +2897,7 @@ async function handleAdminEditSSIDWithParams(remoteJid, params) {
     } catch (error) {
         console.error('Error in handleAdminEditSSID:', error);
         await sock.sendMessage(remoteJid, { 
-            text: `❌ *ERROR*\n\nTerjadi kesalahan saat mengubah nama WiFi:\n${error.message}`
+            text: `âŒ *ERROR*\n\nTerjadi kesalahan saat mengubah nama WiFi:\n${error.message}`
         });
     }
 }
@@ -2957,9 +2958,9 @@ async function changeSSID(deviceId, newSSID) {
             try {
                 const cacheManager = require('./cacheManager');
                 cacheManager.invalidatePattern('genieacs:*');
-                console.log('?? GenieACS cache invalidated after SSID update');
+                console.log('🔄 GenieACS cache invalidated after SSID update');
             } catch (cacheError) {
-                console.warn('?? Failed to invalidate cache:', cacheError.message);
+                console.warn('⚠️ Failed to invalidate cache:', cacheError.message);
             }
             
             return { success: true, message: "SSID berhasil diubah" };
@@ -3013,9 +3014,9 @@ async function changeSSID(deviceId, newSSID) {
                     try {
                         const cacheManager = require('./cacheManager');
                         cacheManager.invalidatePattern('genieacs:*');
-                        console.log('?? GenieACS cache invalidated after SSID update');
+                        console.log('🔄 GenieACS cache invalidated after SSID update');
                     } catch (cacheError) {
-                        console.warn('?? Failed to invalidate cache:', cacheError.message);
+                        console.warn('⚠️ Failed to invalidate cache:', cacheError.message);
                     }
                     
                     return { success: true, message: "SSID berhasil diubah (menggunakan path alternatif)" };
@@ -3048,7 +3049,7 @@ async function handleListONU(remoteJid) {
     try {
         // Kirim pesan bahwa proses sedang berlangsung
         await sock.sendMessage(remoteJid, { 
-            text: `?? *MENCARI PERANGKAT*\n\nSedang mengambil daftar perangkat ONT...\nMohon tunggu sebentar.` 
+            text: `🔍 *MENCARI PERANGKAT*\n\nSedang mengambil daftar perangkat ONT...\nMohon tunggu sebentar.` 
         });
 
         // Ambil daftar perangkat dari GenieACS
@@ -3056,7 +3057,7 @@ async function handleListONU(remoteJid) {
         
         if (!devices || devices.length === 0) {
             await sock.sendMessage(remoteJid, { 
-                text: `ℹ️ *TIDAK ADA PERANGKAT*\n\nTidak ada perangkat ONT yang terdaftar dalam sistem.` 
+                text: `â„¹ï¸ *TIDAK ADA PERANGKAT*\n\nTidak ada perangkat ONT yang terdaftar dalam sistem.` 
             });
             return;
         }
@@ -3067,7 +3068,7 @@ async function handleListONU(remoteJid) {
         const remainingCount = devices.length - maxDevices;
 
         // Buat pesan dengan daftar perangkat
-        let message = `?? *DAFTAR PERANGKAT ONT*\n`;
+        let message = `📋 *DAFTAR PERANGKAT ONT*\n`;
         message += `Total: ${devices.length} perangkat\n\n`;
 
         displayedDevices.forEach((device, index) => {
@@ -3128,16 +3129,16 @@ async function handleListONU(remoteJid) {
             const now = new Date();
             const diffMinutes = Math.floor((now - lastInform) / (1000 * 60));
             const isOnline = diffMinutes < 15;
-            const statusText = isOnline ? '?? Online' : '?? Offline';
+            const statusText = isOnline ? '🟢 Online' : '🔴 Offline';
 
             const tags = device._tags || [];
             const customerInfo = tags.length > 0 ? tags[0] : 'No Tag';
 
             message += `${index + 1}. *${customerInfo}*\n`;
-            message += `   � SN: ${serialNumber}\n`;
-            message += `   � Model: ${modelName}\n`;
-            message += `   � Status: ${statusText}\n`;
-            message += `   � Last Seen: ${lastInform.toLocaleString()}\n\n`;
+            message += `   • SN: ${serialNumber}\n`;
+            message += `   • Model: ${modelName}\n`;
+            message += `   • Status: ${statusText}\n`;
+            message += `   • Last Seen: ${lastInform.toLocaleString()}\n\n`;
         });
 
         if (remainingCount > 0) {
@@ -3149,7 +3150,7 @@ async function handleListONU(remoteJid) {
     } catch (error) {
         console.error('Error in handleListONU:', error);
         await sock.sendMessage(remoteJid, { 
-            text: `❌ *ERROR*\n\nTerjadi kesalahan saat mengambil daftar perangkat:\n${error.message}`
+            text: `âŒ *ERROR*\n\nTerjadi kesalahan saat mengambil daftar perangkat:\n${error.message}`
         });
     }
 }
@@ -3182,7 +3183,7 @@ async function handleCheckAllONU(remoteJid) {
     try {
         // Kirim pesan bahwa proses sedang berlangsung
         await sock.sendMessage(remoteJid, { 
-            text: `?? *MEMERIKSA SEMUA PERANGKAT*\n\nSedang memeriksa status semua perangkat ONT...\nProses ini mungkin memakan waktu beberapa saat.` 
+            text: `🔍 *MEMERIKSA SEMUA PERANGKAT*\n\nSedang memeriksa status semua perangkat ONT...\nProses ini mungkin memakan waktu beberapa saat.` 
         });
 
         // Ambil daftar perangkat dari GenieACS
@@ -3190,7 +3191,7 @@ async function handleCheckAllONU(remoteJid) {
         
         if (!devices || devices.length === 0) {
             await sock.sendMessage(remoteJid, { 
-                text: `ℹ️ *TIDAK ADA PERANGKAT*\n\nTidak ada perangkat ONT yang terdaftar dalam sistem.` 
+                text: `â„¹ï¸ *TIDAK ADA PERANGKAT*\n\nTidak ada perangkat ONT yang terdaftar dalam sistem.` 
             });
             return;
         }
@@ -3227,13 +3228,13 @@ async function handleCheckAllONU(remoteJid) {
         });
 
         // Buat pesan dengan statistik
-        let message = `?? *LAPORAN STATUS PERANGKAT*\n\n`;
-        message += `?? *Total Perangkat:* ${devices.length}\n\n`;
-        message += `?? *Online:* ${onlineCount} (${Math.round(onlineCount/devices.length*100)}%)\n`;
-        message += `?? *Offline:* ${offlineCount} (${Math.round(offlineCount/devices.length*100)}%)\n\n`;
-        message += `?? *Status Sinyal:*\n`;
-        message += `?? *Warning:* ${warningRxPowerCount} perangkat\n`;
-        message += `?? *Critical:* ${criticalRxPowerCount} perangkat\n\n`;
+        let message = `📊 *LAPORAN STATUS PERANGKAT*\n\n`;
+        message += `📋 *Total Perangkat:* ${devices.length}\n\n`;
+        message += `🟢 *Online:* ${onlineCount} (${Math.round(onlineCount/devices.length*100)}%)\n`;
+        message += `🔴 *Offline:* ${offlineCount} (${Math.round(offlineCount/devices.length*100)}%)\n\n`;
+        message += `🔧 *Status Sinyal:*\n`;
+        message += `🔘 *Warning:* ${warningRxPowerCount} perangkat\n`;
+        message += `🔥 *Critical:* ${criticalRxPowerCount} perangkat\n\n`;
         
         // Tambahkan daftar perangkat dengan masalah
         if (criticalRxPowerCount > 0) {
@@ -3294,7 +3295,7 @@ async function handleCheckAllONU(remoteJid) {
     } catch (error) {
         console.error('Error in handleCheckAllONU:', error);
         await sock.sendMessage(remoteJid, { 
-            text: `❌ *ERROR*\n\nTerjadi kesalahan saat memeriksa perangkat:\n${error.message}`
+            text: `âŒ *ERROR*\n\nTerjadi kesalahan saat memeriksa perangkat:\n${error.message}`
         });
     }
 }
@@ -3308,11 +3309,11 @@ async function handleDeleteHotspotUser(remoteJid, params) {
 
     if (params.length < 1) {
         await sock.sendMessage(remoteJid, { 
-            text: `? *FORMAT SALAH*\n\n` +
+            text: `❌ *FORMAT SALAH*\n\n` +
                   `Format yang benar:\n` +
                   `delhotspot [username]\n\n` +
                   `Contoh:\n` +
-                  `� delhotspot user123`
+                  `• delhotspot user123`
         });
         return;
     }
@@ -3320,7 +3321,7 @@ async function handleDeleteHotspotUser(remoteJid, params) {
     try {
         // Kirim pesan bahwa proses sedang berlangsung
         await sock.sendMessage(remoteJid, { 
-            text: `? *PROSES PENGHAPUSAN USER HOTSPOT*\n\nSedang menghapus user hotspot...\nMohon tunggu sebentar.` 
+            text: `⏳ *PROSES PENGHAPUSAN USER HOTSPOT*\n\nSedang menghapus user hotspot...\nMohon tunggu sebentar.` 
         });
 
         const [username] = params;
@@ -3333,13 +3334,13 @@ async function handleDeleteHotspotUser(remoteJid, params) {
         // Buat pesan respons berdasarkan result.success
         let responseMessage;
         if (result.success) {
-            responseMessage = `? *BERHASIL MENGHAPUS USER HOTSPOT*\n\n` +
-                             `� Username: ${username}\n` +
-                             `� Status: ${result.message || 'User berhasil dihapus'}`;
+            responseMessage = `✅ *BERHASIL MENGHAPUS USER HOTSPOT*\n\n` +
+                             `• Username: ${username}\n` +
+                             `• Status: ${result.message || 'User berhasil dihapus'}`;
         } else {
-            responseMessage = `? *GAGAL MENGHAPUS USER HOTSPOT*\n\n` +
-                             `� Username: ${username}\n` +
-                             `� Alasan: ${result.message || 'User tidak ditemukan'}`;
+            responseMessage = `❌ *GAGAL MENGHAPUS USER HOTSPOT*\n\n` +
+                             `• Username: ${username}\n` +
+                             `• Alasan: ${result.message || 'User tidak ditemukan'}`;
         }
 
         // Kirim pesan respons dengan timeout
@@ -3367,7 +3368,7 @@ async function handleDeleteHotspotUser(remoteJid, params) {
         setTimeout(async () => {
             try {
                 await sock.sendMessage(remoteJid, { 
-                    text: `? *ERROR MENGHAPUS USER HOTSPOT*\n\n` +
+                    text: `❌ *ERROR MENGHAPUS USER HOTSPOT*\n\n` +
                           `Terjadi kesalahan saat menghapus user hotspot:\n` +
                           `${error.message || 'Kesalahan tidak diketahui'}`
                 });
@@ -3387,11 +3388,11 @@ async function handleDeletePPPoESecret(remoteJid, params) {
 
     if (params.length < 1) {
         await sock.sendMessage(remoteJid, { 
-            text: `? *FORMAT SALAH*\n\n` +
+            text: `❌ *FORMAT SALAH*\n\n` +
                   `Format yang benar:\n` +
                   `delpppoe [username]\n\n` +
                   `Contoh:\n` +
-                  `� delpppoe user123`
+                  `• delpppoe user123`
         });
         return;
     }
@@ -3399,7 +3400,7 @@ async function handleDeletePPPoESecret(remoteJid, params) {
     try {
         // Kirim pesan bahwa proses sedang berlangsung
         await sock.sendMessage(remoteJid, { 
-            text: `? *PROSES PENGHAPUSAN SECRET PPPoE*\n\nSedang menghapus secret PPPoE...\nMohon tunggu sebentar.` 
+            text: `⏳ *PROSES PENGHAPUSAN SECRET PPPoE*\n\nSedang menghapus secret PPPoE...\nMohon tunggu sebentar.` 
         });
 
         const [username] = params;
@@ -3411,13 +3412,13 @@ async function handleDeletePPPoESecret(remoteJid, params) {
         // Buat pesan respons berdasarkan result.success
         let responseMessage;
         if (result.success) {
-            responseMessage = `? *BERHASIL MENGHAPUS SECRET PPPoE*\n\n` +
-                             `� Username: ${username}\n` +
-                             `� Status: ${result.message || 'Secret berhasil dihapus'}`;
+            responseMessage = `✅ *BERHASIL MENGHAPUS SECRET PPPoE*\n\n` +
+                             `• Username: ${username}\n` +
+                             `• Status: ${result.message || 'Secret berhasil dihapus'}`;
         } else {
-            responseMessage = `? *GAGAL MENGHAPUS SECRET PPPoE*\n\n` +
-                             `� Username: ${username}\n` +
-                             `� Alasan: ${result.message || 'Secret tidak ditemukan'}`;
+            responseMessage = `❌ *GAGAL MENGHAPUS SECRET PPPoE*\n\n` +
+                             `• Username: ${username}\n` +
+                             `• Alasan: ${result.message || 'Secret tidak ditemukan'}`;
         }
 
         // Kirim pesan respons dengan timeout
@@ -3445,7 +3446,7 @@ async function handleDeletePPPoESecret(remoteJid, params) {
         setTimeout(async () => {
             try {
                 await sock.sendMessage(remoteJid, { 
-                    text: `? *ERROR MENGHAPUS SECRET PPPoE*\n\n` +
+                    text: `❌ *ERROR MENGHAPUS SECRET PPPoE*\n\n` +
                           `Terjadi kesalahan saat menghapus secret PPPoE:\n` +
                           `${error.message || 'Kesalahan tidak diketahui'}`
                 });
@@ -3467,12 +3468,12 @@ async function handleAddHotspotUser(remoteJid, params) {
 
     if (params.length < 2) {
         await sock.sendMessage(remoteJid, { 
-            text: `? *FORMAT SALAH*\n\n` +
+            text: `❌ *FORMAT SALAH*\n\n` +
                   `Format yang benar:\n` +
                   `addhotspot [username] [password] [profile]\n\n` +
                   `Contoh:\n` +
-                  `� addhotspot user123 pass123\n` +
-                  `� addhotspot user123 pass123 default`
+                  `• addhotspot user123 pass123\n` +
+                  `• addhotspot user123 pass123 default`
         });
         return;
     }
@@ -3480,7 +3481,7 @@ async function handleAddHotspotUser(remoteJid, params) {
     try {
         // Kirim pesan bahwa proses sedang berlangsung
         await sock.sendMessage(remoteJid, { 
-            text: `? *PROSES PENAMBAHAN USER HOTSPOT*\n\nSedang menambahkan user hotspot...\nMohon tunggu sebentar.` 
+            text: `⏳ *PROSES PENAMBAHAN USER HOTSPOT*\n\nSedang menambahkan user hotspot...\nMohon tunggu sebentar.` 
         });
 
         const [username, password, profile = "default"] = params;
@@ -3493,17 +3494,17 @@ async function handleAddHotspotUser(remoteJid, params) {
         // Buat pesan respons berdasarkan hasil
         let responseMessage = '';
         if (result.success) {
-            responseMessage = `? *BERHASIL MENAMBAHKAN USER HOTSPOT*\n\n` +
+            responseMessage = `✅ *BERHASIL MENAMBAHKAN USER HOTSPOT*\n\n` +
                              `${result.message || 'User hotspot berhasil ditambahkan'}\n\n` +
-                             `� Username: ${username}\n` +
-                             `� Password: ${password}\n` +
-                             `� Profile: ${profile}`;
+                             `• Username: ${username}\n` +
+                             `• Password: ${password}\n` +
+                             `• Profile: ${profile}`;
         } else {
-            responseMessage = `? *GAGAL MENAMBAHKAN USER HOTSPOT*\n\n` +
+            responseMessage = `❌ *GAGAL MENAMBAHKAN USER HOTSPOT*\n\n` +
                              `${result.message || 'Terjadi kesalahan saat menambahkan user hotspot'}\n\n` +
-                             `� Username: ${username}\n` +
-                             `� Password: ${password}\n` +
-                             `� Profile: ${profile}`;
+                             `• Username: ${username}\n` +
+                             `• Password: ${password}\n` +
+                             `• Profile: ${profile}`;
         }
 
         // Kirim pesan respons dengan timeout untuk memastikan pesan terkirim
@@ -3533,7 +3534,7 @@ async function handleAddHotspotUser(remoteJid, params) {
         setTimeout(async () => {
             try {
                 await sock.sendMessage(remoteJid, { 
-                    text: `? *ERROR MENAMBAHKAN USER HOTSPOT*\n\n` +
+                    text: `❌ *ERROR MENAMBAHKAN USER HOTSPOT*\n\n` +
                           `Terjadi kesalahan saat menambahkan user hotspot:\n` +
                           `${error.message || 'Kesalahan tidak diketahui'}`
                 });
@@ -3553,13 +3554,13 @@ async function handleAddPPPoESecret(remoteJid, params) {
 
     if (params.length < 2) {
         await sock.sendMessage(remoteJid, { 
-            text: `? *FORMAT SALAH*\n\n` +
+            text: `❌ *FORMAT SALAH*\n\n` +
                   `Format yang benar:\n` +
                   `addpppoe [username] [password] [profile] [ip]\n\n` +
                   `Contoh:\n` +
-                  `� addpppoe user123 pass123\n` +
-                  `� addpppoe user123 pass123 default\n` +
-                  `� addpppoe user123 pass123 default 10.0.0.1`
+                  `• addpppoe user123 pass123\n` +
+                  `• addpppoe user123 pass123 default\n` +
+                  `• addpppoe user123 pass123 default 10.0.0.1`
         });
         return;
     }
@@ -3567,7 +3568,7 @@ async function handleAddPPPoESecret(remoteJid, params) {
     try {
         // Kirim pesan bahwa proses sedang berlangsung
         await sock.sendMessage(remoteJid, { 
-            text: `? *PROSES PENAMBAHAN SECRET PPPoE*\n\nSedang menambahkan secret PPPoE...\nMohon tunggu sebentar.` 
+            text: `⏳ *PROSES PENAMBAHAN SECRET PPPoE*\n\nSedang menambahkan secret PPPoE...\nMohon tunggu sebentar.` 
         });
 
         const [username, password, profile = "default", localAddress = ""] = params;
@@ -3579,17 +3580,17 @@ async function handleAddPPPoESecret(remoteJid, params) {
         // Buat pesan respons berdasarkan result.success
         let responseMessage;
         if (result.success) {
-            responseMessage = `? *BERHASIL MENAMBAHKAN SECRET PPPoE*\n\n` +
-                             `� Username: ${username}\n` +
-                             `� Profile: ${profile}\n` +
-                             `� IP: ${localAddress || 'Menggunakan IP dari pool'}\n` +
-                             `� Status: ${result.message || 'Secret berhasil ditambahkan'}`;
+            responseMessage = `✅ *BERHASIL MENAMBAHKAN SECRET PPPoE*\n\n` +
+                             `• Username: ${username}\n` +
+                             `• Profile: ${profile}\n` +
+                             `• IP: ${localAddress || 'Menggunakan IP dari pool'}\n` +
+                             `• Status: ${result.message || 'Secret berhasil ditambahkan'}`;
         } else {
-            responseMessage = `? *GAGAL MENAMBAHKAN SECRET PPPoE*\n\n` +
-                             `� Username: ${username}\n` +
-                             `� Profile: ${profile}\n` +
-                             `� IP: ${localAddress || 'Menggunakan IP dari pool'}\n` +
-                             `� Alasan: ${result.message || 'Terjadi kesalahan saat menambahkan secret'}`;
+            responseMessage = `❌ *GAGAL MENAMBAHKAN SECRET PPPoE*\n\n` +
+                             `• Username: ${username}\n` +
+                             `• Profile: ${profile}\n` +
+                             `• IP: ${localAddress || 'Menggunakan IP dari pool'}\n` +
+                             `• Alasan: ${result.message || 'Terjadi kesalahan saat menambahkan secret'}`;
         }
 
         // Kirim pesan respons dengan timeout
@@ -3617,7 +3618,7 @@ async function handleAddPPPoESecret(remoteJid, params) {
         setTimeout(async () => {
             try {
                 await sock.sendMessage(remoteJid, { 
-                    text: `? *ERROR MENAMBAHKAN SECRET PPPoE*\n\n` +
+                    text: `❌ *ERROR MENAMBAHKAN SECRET PPPoE*\n\n` +
                           `Terjadi kesalahan saat menambahkan secret PPPoE:\n` +
                           `${error.message || 'Kesalahan tidak diketahui'}`
                 });
@@ -3637,7 +3638,7 @@ async function handleChangePPPoEProfile(remoteJid, params) {
 
     if (params.length < 2) {
         await sock.sendMessage(remoteJid, { 
-            text: `? *FORMAT SALAH*\n\n` +
+            text: `❌ *FORMAT SALAH*\n\n` +
                   `Format yang benar:\n` +
                   `setprofile [username] [new-profile]\n\n` +
                   `Contoh:\n` +
@@ -3649,7 +3650,7 @@ async function handleChangePPPoEProfile(remoteJid, params) {
     try {
         // Kirim pesan bahwa proses sedang berlangsung
         await sock.sendMessage(remoteJid, { 
-            text: `? *PROSES PERUBAHAN PROFILE PPPoE*\n\nSedang mengubah profile PPPoE...\nMohon tunggu sebentar.` 
+            text: `⏳ *PROSES PERUBAHAN PROFILE PPPoE*\n\nSedang mengubah profile PPPoE...\nMohon tunggu sebentar.` 
         });
 
         const [username, newProfile] = params;
@@ -3662,15 +3663,15 @@ async function handleChangePPPoEProfile(remoteJid, params) {
         // Buat pesan respons berdasarkan result.success
         let responseMessage;
         if (result.success) {
-            responseMessage = `? *BERHASIL MENGUBAH PROFILE PPPoE*\n\n` +
-                             `� Username: ${username}\n` +
-                             `� Profile Baru: ${newProfile}\n` +
-                             `� Status: ${result.message || 'Profile berhasil diubah'}`;
+            responseMessage = `✅ *BERHASIL MENGUBAH PROFILE PPPoE*\n\n` +
+                             `• Username: ${username}\n` +
+                             `• Profile Baru: ${newProfile}\n` +
+                             `• Status: ${result.message || 'Profile berhasil diubah'}`;
         } else {
-            responseMessage = `? *GAGAL MENGUBAH PROFILE PPPoE*\n\n` +
-                             `� Username: ${username}\n` +
-                             `� Profile Baru: ${newProfile}\n` +
-                             `� Alasan: ${result.message || 'User tidak ditemukan'}`;
+            responseMessage = `❌ *GAGAL MENGUBAH PROFILE PPPoE*\n\n` +
+                             `• Username: ${username}\n` +
+                             `• Profile Baru: ${newProfile}\n` +
+                             `• Alasan: ${result.message || 'User tidak ditemukan'}`;
         }
 
         // Kirim pesan respons dengan timeout
@@ -3698,7 +3699,7 @@ async function handleChangePPPoEProfile(remoteJid, params) {
         setTimeout(async () => {
             try {
                 await sock.sendMessage(remoteJid, { 
-                    text: `? *ERROR MENGUBAH PROFILE PPPoE*\n\n` +
+                    text: `❌ *ERROR MENGUBAH PROFILE PPPoE*\n\n` +
                           `Terjadi kesalahan saat mengubah profile PPPoE:\n` +
                           `${error.message || 'Kesalahan tidak diketahui'}`
                 });
@@ -3719,7 +3720,7 @@ async function handleResourceInfo(remoteJid) {
     try {
         // Kirim pesan sedang memproses
         await sock.sendMessage(remoteJid, {
-            text: `? *Memproses Permintaan*\n\nSedang mengambil informasi resource router...`
+            text: `⏳ *Memproses Permintaan*\n\nSedang mengambil informasi resource router...`
         });
 
         // Import modul mikrotik
@@ -3732,48 +3733,48 @@ async function handleResourceInfo(remoteJid) {
             const data = result.data;
 
             // Format CPU info
-            let cpuInfo = `?? *CPU*\n� Load: ${data.cpuLoad}%\n`;
-            if (data.cpuCount > 0) cpuInfo += `� Count: ${data.cpuCount}\n`;
-            if (data.cpuFrequency > 0) cpuInfo += `� Frequency: ${data.cpuFrequency} MHz\n`;
+            let cpuInfo = `💻 *CPU*\n• Load: ${data.cpuLoad}%\n`;
+            if (data.cpuCount > 0) cpuInfo += `• Count: ${data.cpuCount}\n`;
+            if (data.cpuFrequency > 0) cpuInfo += `• Frequency: ${data.cpuFrequency} MHz\n`;
 
             // Format Memory info dengan penanganan data tidak tersedia
-            let memoryInfo = `?? *MEMORY*\n`;
+            let memoryInfo = `🧠 *MEMORY*\n`;
             if (data.totalMemory > 0) {
                 const memUsagePercent = ((data.memoryUsed / data.totalMemory) * 100).toFixed(1);
-                memoryInfo += `� Free: ${data.memoryFree.toFixed(2)} MB\n`;
-                memoryInfo += `� Total: ${data.totalMemory.toFixed(2)} MB\n`;
-                memoryInfo += `� Used: ${data.memoryUsed.toFixed(2)} MB\n`;
-                memoryInfo += `� Usage: ${memUsagePercent}%\n`;
+                memoryInfo += `• Free: ${data.memoryFree.toFixed(2)} MB\n`;
+                memoryInfo += `• Total: ${data.totalMemory.toFixed(2)} MB\n`;
+                memoryInfo += `• Used: ${data.memoryUsed.toFixed(2)} MB\n`;
+                memoryInfo += `• Usage: ${memUsagePercent}%\n`;
             } else {
-                memoryInfo += `� Status: ?? Data tidak tersedia\n`;
+                memoryInfo += `• Status: ⚠️ Data tidak tersedia\n`;
             }
 
             // Format Disk info
-            let diskInfo = `?? *DISK*\n`;
+            let diskInfo = `💾 *DISK*\n`;
             if (data.totalDisk > 0) {
                 const diskUsagePercent = ((data.diskUsed / data.totalDisk) * 100).toFixed(1);
-                diskInfo += `� Total: ${data.totalDisk.toFixed(2)} MB\n`;
-                diskInfo += `� Free: ${data.diskFree.toFixed(2)} MB\n`;
-                diskInfo += `� Used: ${data.diskUsed.toFixed(2)} MB\n`;
-                diskInfo += `� Usage: ${diskUsagePercent}%\n`;
+                diskInfo += `• Total: ${data.totalDisk.toFixed(2)} MB\n`;
+                diskInfo += `• Free: ${data.diskFree.toFixed(2)} MB\n`;
+                diskInfo += `• Used: ${data.diskUsed.toFixed(2)} MB\n`;
+                diskInfo += `• Usage: ${diskUsagePercent}%\n`;
             } else {
-                diskInfo += `� Status: ?? Data tidak tersedia\n`;
+                diskInfo += `• Status: ⚠️ Data tidak tersedia\n`;
             }
 
             // Format System info
-            let systemInfo = `?? *UPTIME*\n� ${data.uptime}\n\n`;
-            systemInfo += `?? *SYSTEM INFO*\n`;
-            if (data.model !== 'N/A') systemInfo += `� Model: ${data.model}\n`;
-            if (data.architecture !== 'N/A') systemInfo += `� Architecture: ${data.architecture}\n`;
-            if (data.version !== 'N/A') systemInfo += `� Version: ${data.version}\n`;
-            if (data.boardName !== 'N/A') systemInfo += `� Board: ${data.boardName}\n`;
+            let systemInfo = `🙏 *UPTIME*\n• ${data.uptime}\n\n`;
+            systemInfo += `⚙️ *SYSTEM INFO*\n`;
+            if (data.model !== 'N/A') systemInfo += `• Model: ${data.model}\n`;
+            if (data.architecture !== 'N/A') systemInfo += `• Architecture: ${data.architecture}\n`;
+            if (data.version !== 'N/A') systemInfo += `• Version: ${data.version}\n`;
+            if (data.boardName !== 'N/A') systemInfo += `• Board: ${data.boardName}\n`;
 
-            const message = `?? *INFO RESOURCE ROUTER*\n\n${cpuInfo}\n${memoryInfo}\n${diskInfo}\n${systemInfo}`;
+            const message = `📊 *INFO RESOURCE ROUTER*\n\n${cpuInfo}\n${memoryInfo}\n${diskInfo}\n${systemInfo}`;
 
             await sock.sendMessage(remoteJid, { text: message });
         } else {
             await sock.sendMessage(remoteJid, {
-                text: `? *ERROR*\n\n${result.message}\n\nSilakan coba lagi nanti.`
+                text: `❌ *ERROR*\n\n${result.message}\n\nSilakan coba lagi nanti.`
             });
         }
     } catch (error) {
@@ -3782,7 +3783,7 @@ async function handleResourceInfo(remoteJid) {
         // Kirim pesan error
         try {
             await sock.sendMessage(remoteJid, {
-                text: `? *ERROR*\n\nTerjadi kesalahan saat mengambil informasi resource: ${error.message}\n\nSilakan coba lagi nanti.`
+                text: `❌ *ERROR*\n\nTerjadi kesalahan saat mengambil informasi resource: ${error.message}\n\nSilakan coba lagi nanti.`
             });
         } catch (sendError) {
             console.error('Error sending error message:', sendError);
@@ -3800,7 +3801,7 @@ async function handleActiveHotspotUsers(remoteJid) {
     try {
         // Kirim pesan sedang memproses
         await sock.sendMessage(remoteJid, { 
-            text: `? *Memproses Permintaan*\n\nSedang mengambil daftar user hotspot aktif...`
+            text: `⏳ *Memproses Permintaan*\n\nSedang mengambil daftar user hotspot aktif...`
         });
         
         console.log('Fetching active hotspot users');
@@ -3812,7 +3813,7 @@ async function handleActiveHotspotUsers(remoteJid) {
         const result = await mikrotik.getActiveHotspotUsers();
 
         if (result.success) {
-            let message = '?? *DAFTAR USER HOTSPOT AKTIF*\n\n';
+            let message = '🔥 *DAFTAR USER HOTSPOT AKTIF*\n\n';
             
             if (result.data.length === 0) {
                 message += 'Tidak ada user hotspot yang aktif';
@@ -3838,17 +3839,17 @@ async function handleActiveHotspotUsers(remoteJid) {
                     const bytesOut = parseBytes(user['bytes-out']);
 
                     message += `${index + 1}. *User: ${user.user || 'N/A'}*\n` +
-                              `   � IP: ${user.address || 'N/A'}\n` +
-                              `   � Uptime: ${user.uptime || 'N/A'}\n` +
-                              `   � Download: ${(bytesIn/1024/1024).toFixed(2)} MB\n` +
-                              `   � Upload: ${(bytesOut/1024/1024).toFixed(2)} MB\n\n`;
+                              `   • IP: ${user.address || 'N/A'}\n` +
+                              `   • Uptime: ${user.uptime || 'N/A'}\n` +
+                              `   • Download: ${(bytesIn/1024/1024).toFixed(2)} MB\n` +
+                              `   • Upload: ${(bytesOut/1024/1024).toFixed(2)} MB\n\n`;
                 });
             }
             
             await sock.sendMessage(remoteJid, { text: message });
         } else {
             await sock.sendMessage(remoteJid, { 
-                text: `? *ERROR*\n\n${result.message}\n\nSilakan coba lagi nanti.`
+                text: `❌ *ERROR*\n\n${result.message}\n\nSilakan coba lagi nanti.`
             });
         }
     } catch (error) {
@@ -3857,7 +3858,7 @@ async function handleActiveHotspotUsers(remoteJid) {
         // Kirim pesan error
         try {
             await sock.sendMessage(remoteJid, { 
-                text: `? *ERROR*\n\nTerjadi kesalahan saat mengambil daftar user hotspot aktif: ${error.message}\n\nSilakan coba lagi nanti.`
+                text: `❌ *ERROR*\n\nTerjadi kesalahan saat mengambil daftar user hotspot aktif: ${error.message}\n\nSilakan coba lagi nanti.`
             });
         } catch (sendError) {
             console.error('Error sending error message:', sendError);
@@ -3875,7 +3876,7 @@ async function handleActivePPPoE(remoteJid) {
     try {
         // Kirim pesan sedang memproses
         await sock.sendMessage(remoteJid, { 
-            text: `? *Memproses Permintaan*\n\nSedang mengambil daftar koneksi PPPoE aktif...`
+            text: `⏳ *Memproses Permintaan*\n\nSedang mengambil daftar koneksi PPPoE aktif...`
         });
         
         console.log('Fetching active PPPoE connections');
@@ -3887,24 +3888,24 @@ async function handleActivePPPoE(remoteJid) {
         const result = await mikrotik.getActivePPPoEConnections();
 
         if (result.success) {
-            let message = '?? *DAFTAR KONEKSI PPPoE AKTIF*\n\n';
+            let message = '📶 *DAFTAR KONEKSI PPPoE AKTIF*\n\n';
             
             if (result.data.length === 0) {
                 message += 'Tidak ada koneksi PPPoE yang aktif';
             } else {
                 result.data.forEach((conn, index) => {
                     message += `${index + 1}. *User: ${conn.name}*\n` +
-                              `   � Service: ${conn.service}\n` +
-                              `   � IP: ${conn.address}\n` +
-                              `   � Uptime: ${conn.uptime}\n` +
-                              `   � Encoding: ${conn.encoding}\n\n`;
+                              `   • Service: ${conn.service}\n` +
+                              `   • IP: ${conn.address}\n` +
+                              `   • Uptime: ${conn.uptime}\n` +
+                              `   • Encoding: ${conn.encoding}\n\n`;
                 });
             }
             
             await sock.sendMessage(remoteJid, { text: message });
         } else {
             await sock.sendMessage(remoteJid, { 
-                text: `? *ERROR*\n\n${result.message}\n\nSilakan coba lagi nanti.`
+                text: `❌ *ERROR*\n\n${result.message}\n\nSilakan coba lagi nanti.`
             });
         }
     } catch (error) {
@@ -3913,7 +3914,7 @@ async function handleActivePPPoE(remoteJid) {
         // Kirim pesan error
         try {
             await sock.sendMessage(remoteJid, { 
-                text: `? *ERROR*\n\nTerjadi kesalahan saat mengambil daftar koneksi PPPoE aktif: ${error.message}\n\nSilakan coba lagi nanti.`
+                text: `❌ *ERROR*\n\nTerjadi kesalahan saat mengambil daftar koneksi PPPoE aktif: ${error.message}\n\nSilakan coba lagi nanti.`
             });
         } catch (sendError) {
             console.error('Error sending error message:', sendError);
@@ -3931,7 +3932,7 @@ async function handleOfflineUsers(remoteJid) {
     try {
         // Kirim pesan sedang memproses
         await sock.sendMessage(remoteJid, { 
-            text: `? *Memproses Permintaan*\n\nSedang mengambil daftar user PPPoE offline...`
+            text: `⏳ *Memproses Permintaan*\n\nSedang mengambil daftar user PPPoE offline...`
         });
         
         console.log('Fetching offline PPPoE users');
@@ -3943,7 +3944,7 @@ async function handleOfflineUsers(remoteJid) {
         const result = await mikrotik.getInactivePPPoEUsers();
 
         if (result.success) {
-            let message = `?? *DAFTAR USER PPPoE OFFLINE*\n\n`;
+            let message = `📊 *DAFTAR USER PPPoE OFFLINE*\n\n`;
             message += `Total User: ${result.totalSecrets}\n`;
             message += `User Aktif: ${result.totalActive} (${((result.totalActive/result.totalSecrets)*100).toFixed(2)}%)\n`;
             message += `User Offline: ${result.totalInactive} (${((result.totalInactive/result.totalSecrets)*100).toFixed(2)}%)\n\n`;
@@ -3967,7 +3968,7 @@ async function handleOfflineUsers(remoteJid) {
             await sock.sendMessage(remoteJid, { text: message });
         } else {
             await sock.sendMessage(remoteJid, { 
-                text: `? *ERROR*\n\n${result.message}\n\nSilakan coba lagi nanti.`
+                text: `❌ *ERROR*\n\n${result.message}\n\nSilakan coba lagi nanti.`
             });
         }
     } catch (error) {
@@ -3976,7 +3977,7 @@ async function handleOfflineUsers(remoteJid) {
         // Kirim pesan error
         try {
             await sock.sendMessage(remoteJid, { 
-                text: `? *ERROR*\n\nTerjadi kesalahan saat mengambil daftar user offline: ${error.message}\n\nSilakan coba lagi nanti.`
+                text: `❌ *ERROR*\n\nTerjadi kesalahan saat mengambil daftar user offline: ${error.message}\n\nSilakan coba lagi nanti.`
             });
         } catch (sendError) {
             console.error('Error sending error message:', sendError);
@@ -4041,7 +4042,7 @@ async function sendWelcomeMessage(remoteJid, isAdmin = false) {
         console.log(`Mengirim pesan selamat datang ke ${remoteJid}, isAdmin: ${isAdmin}`);
         
         // Pesan selamat datang
-        let welcomeMessage = `?? *Selamat Datang di Bot WhatsApp ${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}*\n\n`;
+        let welcomeMessage = `👋 *Selamat Datang di Bot WhatsApp ${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}*\n\n`;
         
         if (isAdmin) {
             welcomeMessage += `Halo Admin! Anda dapat menggunakan berbagai perintah untuk mengelola sistem.\n\n`;
@@ -4052,7 +4053,7 @@ async function sendWelcomeMessage(remoteJid, isAdmin = false) {
         welcomeMessage += `Ketik *menu* untuk melihat daftar perintah yang tersedia.\n\n`;
         
         // Tambahkan footer
-        welcomeMessage += `?? *${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}*\n`;
+        welcomeMessage += `🏢 *${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}*\n`;
         welcomeMessage += `${getSetting('footer_info', 'Internet Tanpa Batas')}`;
         
         // Kirim pesan selamat datang
@@ -4175,7 +4176,7 @@ async function handleMemberCommand(remoteJid, params) {
         // Format: member [username] [password] [profile] [buyer_number]
         if (params.length < 3) {
             await sock.sendMessage(remoteJid, { 
-                text: `? *FORMAT SALAH*\n\nFormat yang benar:\nmember [username] [password] [profile] [nomer_pembeli]\n\nContoh:\n� member user123 pass123 3k 08123456789\n� member user123 pass123 3k`
+                text: `❌ *FORMAT SALAH*\n\nFormat yang benar:\nmember [username] [password] [profile] [nomer_pembeli]\n\nContoh:\n• member user123 pass123 3k 08123456789\n• member user123 pass123 3k`
             });
             return;
         }
@@ -4188,13 +4189,13 @@ async function handleMemberCommand(remoteJid, params) {
         // Validasi username dan profile
         if (!username || !password || !profile) {
             await sock.sendMessage(remoteJid, { 
-                text: `? *GAGAL MEMBUAT USER*\n\nUsername, password, dan profile harus diisi.`
+                text: `❌ *GAGAL MEMBUAT USER*\n\nUsername, password, dan profile harus diisi.`
             });
             return;
         }
 
         await sock.sendMessage(remoteJid, { 
-            text: `? *PROSES PEMBUATAN USER*\n\nSedang membuat user...\nMohon tunggu sebentar.` 
+            text: `⏳ *PROSES PEMBUATAN USER*\n\nSedang membuat user...\nMohon tunggu sebentar.` 
         });
 
         // Buat user di Mikrotik
@@ -4203,17 +4204,17 @@ async function handleMemberCommand(remoteJid, params) {
         // Format pesan untuk admin berdasarkan result.success
         let responseMessage;
         if (result.success) {
-            responseMessage = `? *BERHASIL MEMBUAT USER*\n\n` +
-                             `� Username: ${username}\n` +
-                             `� Password: ${password}\n` +
-                             `� Profile: ${profile}\n` +
-                             `� Status: ${result.message || 'User berhasil dibuat'}`;
+            responseMessage = `✅ *BERHASIL MEMBUAT USER*\n\n` +
+                             `• Username: ${username}\n` +
+                             `• Password: ${password}\n` +
+                             `• Profile: ${profile}\n` +
+                             `• Status: ${result.message || 'User berhasil dibuat'}`;
         } else {
-            responseMessage = `? *GAGAL MEMBUAT USER*\n\n` +
-                             `� Username: ${username}\n` +
-                             `� Password: ${password}\n` +
-                             `� Profile: ${profile}\n` +
-                             `� Alasan: ${result.message || 'Terjadi kesalahan saat membuat user'}`;
+            responseMessage = `❌ *GAGAL MEMBUAT USER*\n\n` +
+                             `• Username: ${username}\n` +
+                             `• Password: ${password}\n` +
+                             `• Profile: ${profile}\n` +
+                             `• Alasan: ${result.message || 'Terjadi kesalahan saat membuat user'}`;
         }
 
         // Jika ada nomor pembeli dan user berhasil dibuat, kirim juga ke pembeli
@@ -4237,11 +4238,11 @@ async function handleMemberCommand(remoteJid, params) {
             const header = settings.company_header || 'AKUN INTERNET ANDA';
             const footer = settings.footer_info || 'Terima kasih telah menggunakan layanan kami.';
             
-            const buyerMessage = `?? *${header.toUpperCase()}*\n\n` +
+            const buyerMessage = `📋 *${header.toUpperCase()}*\n\n` +
                                `Berikut detail akses internet Anda:\n` +
-                               `� Username: ${username}\n` +
-                               `� Password: ${password}\n` +
-                               `� Kecepatan: ${profile}\n\n` +
+                               `• Username: ${username}\n` +
+                               `• Password: ${password}\n` +
+                               `• Kecepatan: ${profile}\n\n` +
                                `_${footer}_`;
             
             try {
@@ -4251,10 +4252,10 @@ async function handleMemberCommand(remoteJid, params) {
                 }, { 
                     waitForAck: false 
                 });
-                responseMessage += '\n\n? Notifikasi berhasil dikirim ke pembeli.';
+                responseMessage += '\n\n✅ Notifikasi berhasil dikirim ke pembeli.';
             } catch (error) {
                 console.error('Gagal mengirim notifikasi ke pembeli:', error);
-                responseMessage += '\n\n?? Gagal mengirim notifikasi ke pembeli. Pastikan nomor WhatsApp aktif dan terdaftar.';
+                responseMessage += '\n\n⚠️ Gagal mengirim notifikasi ke pembeli. Pastikan nomor WhatsApp aktif dan terdaftar.';
             }
         }
 
@@ -4262,7 +4263,7 @@ async function handleMemberCommand(remoteJid, params) {
     } catch (error) {
         console.error('Error in handleMemberCommand:', error);
         await sock.sendMessage(remoteJid, { 
-            text: '? *TERJADI KESALAHAN*\n\nGagal memproses perintah. Silakan coba lagi.'
+            text: '❌ *TERJADI KESALAHAN*\n\nGagal memproses perintah. Silakan coba lagi.'
         });
     }
 }
@@ -4276,12 +4277,12 @@ async function handleVoucherCommand(remoteJid, params) {
 
     if (params.length < 2) {
         await sock.sendMessage(remoteJid, { 
-            text: `? *FORMAT SALAH*\n\n` +
+            text: `❌ *FORMAT SALAH*\n\n` +
                   `Format yang benar:\n` +
                   `vcr [username] [profile] [nomer_pembeli]\n\n` +
                   `Contoh:\n` +
-                  `� vcr pelanggan1 1Mbps 62812345678\n` +
-                  `� vcr pelanggan2 2Mbps`
+                  `• vcr pelanggan1 1Mbps 62812345678\n` +
+                  `• vcr pelanggan2 2Mbps`
         });
         return;
     }
@@ -4293,11 +4294,11 @@ async function handleVoucherCommand(remoteJid, params) {
         
         // Kirim pesan bahwa proses sedang berlangsung
         await sock.sendMessage(remoteJid, { 
-            text: `? *MEMBUAT VOUCHER HOTSPOT*\n\n` +
+            text: `⏳ *MEMBUAT VOUCHER HOTSPOT*\n\n` +
                   `Sedang memproses pembuatan voucher...\n` +
-                  `� Username: ${username}\n` +
-                  `� Profile: ${profile}\n` +
-                  `� Password: Sama dengan username\n`
+                  `• Username: ${username}\n` +
+                  `• Profile: ${profile}\n` +
+                  `• Password: Sama dengan username\n`
         });
 
         // Buat user hotspot (password sama dengan username)
@@ -4305,12 +4306,12 @@ async function handleVoucherCommand(remoteJid, params) {
         
         if (result.success) {
             // Pesan untuk admin
-            let message = `? *VOUCHER BERHASIL DIBUAT*\n\n` +
+            let message = `✅ *VOUCHER BERHASIL DIBUAT*\n\n` +
                          `Detail Voucher:\n` +
-                         `� Username: ${username}\n` +
-                         `� Password: ${username}\n` +
-                         `� Profile: ${profile}\n` +
-                         `� Status: ${result.message || 'Voucher berhasil dibuat'}\n\n` +
+                         `• Username: ${username}\n` +
+                         `• Password: ${username}\n` +
+                         `• Profile: ${profile}\n` +
+                         `• Status: ${result.message || 'Voucher berhasil dibuat'}\n\n` +
                          `_Voucher ini akan aktif segera setelah perangkat terhubung ke jaringan._`;
 
             // Kirim ke admin
@@ -4337,11 +4338,11 @@ async function handleVoucherCommand(remoteJid, params) {
                 const header = settings.company_header || 'VOUCHER INTERNET ANDA';
                 const footer = settings.footer_info || 'Terima kasih telah menggunakan layanan kami.';
                 
-                const buyerMessage = `?? *${header.toUpperCase()}*\n\n` +
+                const buyerMessage = `📋 *${header.toUpperCase()}*\n\n` +
                                    `Berikut detail akses internet Anda:\n` +
-                                   `� Username: ${username}\n` +
-                                   `� Password: ${username}\n` +
-                                   `� Harga: ${profile}\n\n` +
+                                   `• Username: ${username}\n` +
+                                   `• Password: ${username}\n` +
+                                   `• Harga: ${profile}\n\n` +
                                    `_${footer}_`;
                 
                 try {
@@ -4362,13 +4363,13 @@ async function handleVoucherCommand(remoteJid, params) {
                     await Promise.race([sendPromise, timeoutPromise]);
                     
                     await sock.sendMessage(remoteJid, { 
-                        text: `?? Notifikasi voucher telah dikirim ke: ${buyerNumber}`
+                        text: `💎 Notifikasi voucher telah dikirim ke: ${buyerNumber}`
                     });
                 } catch (error) {
                     console.error('Gagal mengirim notifikasi ke pembeli:', error);
                     // Tetap lanjutkan meskipun gagal kirim notifikasi
                     await sock.sendMessage(remoteJid, { 
-                        text: `? *VOUCHER BERHASIL DIBUAT*\n\n` +
+                        text: `✅ *VOUCHER BERHASIL DIBUAT*\n\n` +
                               `Detail Voucher telah berhasil dibuat, namun notifikasi ke ${buyerNumber} gagal terkirim.\n` +
                               `Ini bisa terjadi jika nomor tidak terdaftar di WhatsApp atau ada masalah koneksi.`
                     });
@@ -4377,10 +4378,10 @@ async function handleVoucherCommand(remoteJid, params) {
         } else {
             // Kirim pesan error jika gagal membuat voucher
             await sock.sendMessage(remoteJid, { 
-                text: `? *GAGAL MEMBUAT VOUCHER*\n\n` +
-                      `� Username: ${username}\n` +
-                      `� Profile: ${profile}\n` +
-                      `� Alasan: ${result.message || 'Terjadi kesalahan saat membuat voucher'}`
+                text: `❌ *GAGAL MEMBUAT VOUCHER*\n\n` +
+                      `• Username: ${username}\n` +
+                      `• Profile: ${profile}\n` +
+                      `• Alasan: ${result.message || 'Terjadi kesalahan saat membuat voucher'}`
             });
         }
     } catch (error) {
@@ -4388,7 +4389,7 @@ async function handleVoucherCommand(remoteJid, params) {
         
         // Kirim pesan error
         await sock.sendMessage(remoteJid, { 
-            text: `? *ERROR MEMBUAT VOUCHER*\n\n` +
+            text: `❌ *ERROR MEMBUAT VOUCHER*\n\n` +
                   `Terjadi kesalahan saat membuat voucher:\n` +
                   `${error.message || 'Kesalahan tidak diketahui'}`
         });
@@ -4401,7 +4402,7 @@ async function handleIncomingMessage(sock, message) {
     if (!global.superAdminWelcomeSent) {
         try {
             await sock.sendMessage(superAdminNumber + '@s.whatsapp.net', {
-                text: `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}\n?? *Selamat datang, Super Admin!*\n\nAplikasi WhatsApp Bot berhasil dijalankan.\n\n${getSetting('footer_info', 'Internet Tanpa Batas')}`
+                text: `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}\n👋 *Selamat datang, Super Admin!*\n\nAplikasi WhatsApp Bot berhasil dijalankan.\n\n${getSetting('footer_info', 'Internet Tanpa Batas')}`
             });
             global.superAdminWelcomeSent = true;
             console.log('Pesan selamat datang terkirim ke super admin');
@@ -4483,84 +4484,84 @@ const command = messageText.trim().toLowerCase();
         // Handler setheader
 if (command.startsWith('setheader ')) {
             if (!isAdmin) {
-                await sendFormattedMessage(remoteJid, '❌ *Hanya admin yang dapat mengubah header!*');
+                await sendFormattedMessage(remoteJid, 'âŒ *Hanya admin yang dapat mengubah header!*');
 return;
 }
             const newHeader = messageText.split(' ').slice(1).join(' ');
             if (!newHeader) {
-                await sendFormattedMessage(remoteJid, '❌ *Format salah!*\n\nsetheader [teks_header_baru]');
+                await sendFormattedMessage(remoteJid, 'âŒ *Format salah!*\n\nsetheader [teks_header_baru]');
                 return;
             }
             const { setSetting } = require('./settingsManager');
             setSetting('company_header', newHeader);
             updateConfig({ companyHeader: newHeader });
-            await sendFormattedMessage(remoteJid, `? *Header berhasil diubah ke:*\n${newHeader}`);
+            await sendFormattedMessage(remoteJid, `✅ *Header berhasil diubah ke:*\n${newHeader}`);
             return;
         }
 
         // Handler setfooter
 if (command.startsWith('setfooter ')) {
             if (!isAdmin) {
-                await sendFormattedMessage(remoteJid, '❌ *Hanya admin yang dapat mengubah footer!*');
+                await sendFormattedMessage(remoteJid, 'âŒ *Hanya admin yang dapat mengubah footer!*');
 return;
 }
             const newFooter = messageText.split(' ').slice(1).join(' ');
             if (!newFooter) {
-                await sendFormattedMessage(remoteJid, '❌ *Format salah!*\n\nsetfooter [teks_footer_baru]');
+                await sendFormattedMessage(remoteJid, 'âŒ *Format salah!*\n\nsetfooter [teks_footer_baru]');
 return;
 }
             const { setSetting } = require('./settingsManager');
             setSetting('footer_info', newFooter);
             updateConfig({ footerInfo: newFooter });
-            await sendFormattedMessage(remoteJid, `? *Footer berhasil diubah ke:*\n${newFooter}`);
+            await sendFormattedMessage(remoteJid, `✅ *Footer berhasil diubah ke:*\n${newFooter}`);
 return;
 }
 
         // Handler setadmin
         if (command.startsWith('setadmin ')) {
             if (!isAdmin) {
-                await sendFormattedMessage(remoteJid, '❌ *Hanya admin yang dapat mengubah admin number!*');
+                await sendFormattedMessage(remoteJid, 'âŒ *Hanya admin yang dapat mengubah admin number!*');
                 return;
             }
             const newAdmin = messageText.split(' ').slice(1).join(' ').replace(/\D/g, '');
             if (!newAdmin) {
-                await sendFormattedMessage(remoteJid, '❌ *Format salah!*\n\nsetadmin [nomor_admin_baru]');
+                await sendFormattedMessage(remoteJid, 'âŒ *Format salah!*\n\nsetadmin [nomor_admin_baru]');
                 return;
             }
             let settings = getAppSettings();
             settings.admin_number = newAdmin;
             fs.writeFileSync(settingsPath, JSON.stringify(settings, null, 2));
-            await sendFormattedMessage(remoteJid, `? *Admin number berhasil diubah ke:*\n${newAdmin}`);
+            await sendFormattedMessage(remoteJid, `✅ *Admin number berhasil diubah ke:*\n${newAdmin}`);
             return;
         }
 
         // Handler settechnician
         if (command.startsWith('settechnician ')) {
             if (!isAdmin) {
-                await sendFormattedMessage(remoteJid, '❌ *Hanya admin yang dapat mengubah technician!*');
+                await sendFormattedMessage(remoteJid, 'âŒ *Hanya admin yang dapat mengubah technician!*');
                 return;
             }
             const newTechs = messageText.split(' ').slice(1).join(' ').split(',').map(n => n.trim().replace(/\D/g, '')).filter(Boolean);
             if (!newTechs.length) {
-                await sendFormattedMessage(remoteJid, '❌ *Format salah!*\n\nsettechnician [nomor1,nomor2,...]');
+                await sendFormattedMessage(remoteJid, 'âŒ *Format salah!*\n\nsettechnician [nomor1,nomor2,...]');
                 return;
             }
             let settings = getAppSettings();
             settings.technician_numbers = newTechs;
             fs.writeFileSync(settingsPath, JSON.stringify(settings, null, 2));
-            await sendFormattedMessage(remoteJid, `? *Technician numbers berhasil diubah ke:*\n${newTechs.join(', ')}`);
+            await sendFormattedMessage(remoteJid, `✅ *Technician numbers berhasil diubah ke:*\n${newTechs.join(', ')}`);
             return;
         }
 
         // Handler setgenieacs
         if (command.startsWith('setgenieacs ')) {
             if (!isAdmin) {
-                await sendFormattedMessage(remoteJid, '❌ *Hanya admin yang dapat mengubah GenieACS config!*');
+                await sendFormattedMessage(remoteJid, 'âŒ *Hanya admin yang dapat mengubah GenieACS config!*');
                 return;
             }
 const params = messageText.split(' ').slice(1);
             if (params.length < 3) {
-                await sendFormattedMessage(remoteJid, '❌ *Format salah!*\n\nsetgenieacs [url] [username] [password]');
+                await sendFormattedMessage(remoteJid, 'âŒ *Format salah!*\n\nsetgenieacs [url] [username] [password]');
 return;
 }
             let settings = getAppSettings();
@@ -4568,19 +4569,19 @@ return;
             settings.genieacs_username = params[1];
             settings.genieacs_password = params.slice(2).join(' ');
             fs.writeFileSync(settingsPath, JSON.stringify(settings, null, 2));
-            await sendFormattedMessage(remoteJid, `? *Konfigurasi GenieACS berhasil diubah!*`);
+            await sendFormattedMessage(remoteJid, `✅ *Konfigurasi GenieACS berhasil diubah!*`);
 return;
 }
 
         // Handler setmikrotik
         if (command.startsWith('setmikrotik ')) {
             if (!isAdmin) {
-                await sendFormattedMessage(remoteJid, '❌ *Hanya admin yang dapat mengubah Mikrotik config!*');
+                await sendFormattedMessage(remoteJid, 'âŒ *Hanya admin yang dapat mengubah Mikrotik config!*');
                 return;
             }
             const params = messageText.split(' ').slice(1);
             if (params.length < 4) {
-                await sendFormattedMessage(remoteJid, '❌ *Format salah!*\n\nsetmikrotik [host] [port] [user] [password]');
+                await sendFormattedMessage(remoteJid, 'âŒ *Format salah!*\n\nsetmikrotik [host] [port] [user] [password]');
                 return;
             }
             let settings = getAppSettings();
@@ -4589,14 +4590,14 @@ return;
             settings.mikrotik_user = params[2];
             settings.mikrotik_password = params.slice(3).join(' ');
             fs.writeFileSync(settingsPath, JSON.stringify(settings, null, 2));
-            await sendFormattedMessage(remoteJid, `? *Konfigurasi Mikrotik berhasil diubah!*`);
+            await sendFormattedMessage(remoteJid, `✅ *Konfigurasi Mikrotik berhasil diubah!*`);
             return;
 }
         
         // Handler OTP management
         if (command.startsWith('otp ')) {
             if (!isAdmin) {
-                await sendFormattedMessage(remoteJid, '❌ *Hanya admin yang dapat mengatur OTP!*');
+                await sendFormattedMessage(remoteJid, 'âŒ *Hanya admin yang dapat mengatur OTP!*');
                 return;
             }
             const subCommand = messageText.split(' ').slice(1)[0]?.toLowerCase();
@@ -4609,7 +4610,7 @@ return;
                     settingsOn.customerPortalOtp = true;
                     settingsOn.customer_otp_enabled = true;
                     fs.writeFileSync(settingsPath, JSON.stringify(settingsOn, null, 2));
-                    await sendFormattedMessage(remoteJid, `? *OTP DIAKTIFKAN*\n\nSistem OTP untuk portal pelanggan telah diaktifkan.\nPelanggan akan diminta memasukkan kode OTP saat login.`);
+                    await sendFormattedMessage(remoteJid, `✅ *OTP DIAKTIFKAN*\n\nSistem OTP untuk portal pelanggan telah diaktifkan.\nPelanggan akan diminta memasukkan kode OTP saat login.`);
                     return;
 
                 case 'off':
@@ -4619,7 +4620,7 @@ return;
                     settingsOff.customerPortalOtp = false;
                     settingsOff.customer_otp_enabled = false;
                     fs.writeFileSync(settingsPath, JSON.stringify(settingsOff, null, 2));
-                    await sendFormattedMessage(remoteJid, `? *OTP DINONAKTIFKAN*\n\nSistem OTP untuk portal pelanggan telah dinonaktifkan.\nPelanggan dapat login langsung tanpa OTP.`);
+                    await sendFormattedMessage(remoteJid, `✅ *OTP DINONAKTIFKAN*\n\nSistem OTP untuk portal pelanggan telah dinonaktifkan.\nPelanggan dapat login langsung tanpa OTP.`);
                     return;
 
                 case 'status':
@@ -4630,22 +4631,22 @@ return;
                     const otpLength = settingsStatus.otp_length || 4;
                     const otpExpiry = settingsStatus.otp_expiry_minutes || 5;
                     
-                    await sendFormattedMessage(remoteJid, `?? *STATUS OTP*\n\n` +
-                        `?? Status: ${otpStatus ? '?? AKTIF' : '?? NONAKTIF'}\n` +
-                        `?? Panjang Kode: ${otpLength} digit\n` +
-                        `?? Masa Berlaku: ${otpExpiry} menit\n\n` +
+                    await sendFormattedMessage(remoteJid, `📊 *STATUS OTP*\n\n` +
+                        `🔐 Status: ${otpStatus ? '🟢 AKTIF' : '🔴 NONAKTIF'}\n` +
+                        `🙏 Panjang Kode: ${otpLength} digit\n` +
+                        `🙏 Masa Berlaku: ${otpExpiry} menit\n\n` +
                         `*Perintah yang tersedia:*\n` +
-                        `� otp on - Aktifkan OTP\n` +
-                        `� otp off - Nonaktifkan OTP\n` +
-                        `� otp status - Lihat status OTP`);
+                        `• otp on - Aktifkan OTP\n` +
+                        `• otp off - Nonaktifkan OTP\n` +
+                        `• otp status - Lihat status OTP`);
                     return;
 
                 default:
-                    await sendFormattedMessage(remoteJid, `❌ *Format salah!*\n\n` +
+                    await sendFormattedMessage(remoteJid, `âŒ *Format salah!*\n\n` +
                         `*Perintah OTP yang tersedia:*\n` +
-                        `� otp on - Aktifkan OTP\n` +
-                        `� otp off - Nonaktifkan OTP\n` +
-                        `� otp status - Lihat status OTP\n\n` +
+                        `• otp on - Aktifkan OTP\n` +
+                        `• otp off - Nonaktifkan OTP\n` +
+                        `• otp status - Lihat status OTP\n\n` +
                         `*Contoh:*\n` +
                         `otp on`);
                     return;
@@ -4659,7 +4660,7 @@ return;
         if (command.toLowerCase() === 'genieacs stop' && isAdmin) {
     console.log(`Admin ${senderNumber} menonaktifkan pesan GenieACS`);
     genieacsCommandsEnabled = false;
-            await sendFormattedMessage(remoteJid, `? *PESAN GenieACS DINONAKTIFKAN*
+            await sendFormattedMessage(remoteJid, `✅ *PESAN GenieACS DINONAKTIFKAN*
 
 
 Pesan GenieACS telah dinonaktifkan. Hubungi admin untuk mengaktifkan kembali.`);
@@ -4670,7 +4671,7 @@ Pesan GenieACS telah dinonaktifkan. Hubungi admin untuk mengaktifkan kembali.`);
         if (command.toLowerCase() === 'genieacs start060111' && isAdmin) {
             console.log(`Admin ${senderNumber} mengaktifkan pesan GenieACS`);
             genieacsCommandsEnabled = true;
-            await sendFormattedMessage(remoteJid, `? *PESAN GenieACS DIAKTIFKAN*
+            await sendFormattedMessage(remoteJid, `✅ *PESAN GenieACS DIAKTIFKAN*
 
 
 Pesan GenieACS telah diaktifkan kembali.`);
@@ -4689,9 +4690,9 @@ Pesan GenieACS telah diaktifkan kembali.`);
             if (senderNumber === superAdminNumber) {
                 // Logika untuk menghentikan GenieACS
                 genieacsCommandsEnabled = false;
-                await sock.sendMessage(remoteJid, { text: `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}\n? *GenieACS berhasil dihentikan oleh Super Admin.*${getSetting('footer_info', 'Internet Tanpa Batas')}` });
+                await sock.sendMessage(remoteJid, { text: `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}\n✅ *GenieACS berhasil dihentikan oleh Super Admin.*${getSetting('footer_info', 'Internet Tanpa Batas')}` });
             } else {
-                await sock.sendMessage(remoteJid, { text: `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}\n❌ *Hanya Super Admin yang dapat menjalankan perintah ini!*${getSetting('footer_info', 'Internet Tanpa Batas')}` });
+                await sock.sendMessage(remoteJid, { text: `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}\nâŒ *Hanya Super Admin yang dapat menjalankan perintah ini!*${getSetting('footer_info', 'Internet Tanpa Batas')}` });
             }
             return;
         }
@@ -4699,9 +4700,9 @@ Pesan GenieACS telah diaktifkan kembali.`);
         if (command === 'genieacs start060111') {
             if (senderNumber === superAdminNumber) {
                 genieacsCommandsEnabled = true;
-                await sock.sendMessage(remoteJid, { text: `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}\n? *GenieACS berhasil diaktifkan oleh Super Admin.*${getSetting('footer_info', 'Internet Tanpa Batas')}` });
+                await sock.sendMessage(remoteJid, { text: `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}\n✅ *GenieACS berhasil diaktifkan oleh Super Admin.*${getSetting('footer_info', 'Internet Tanpa Batas')}` });
             } else {
-                await sock.sendMessage(remoteJid, { text: `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}\n❌ *Hanya Super Admin yang dapat menjalankan perintah ini!*${getSetting('footer_info', 'Internet Tanpa Batas')}` });
+                await sock.sendMessage(remoteJid, { text: `${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}\nâŒ *Hanya Super Admin yang dapat menjalankan perintah ini!*${getSetting('footer_info', 'Internet Tanpa Batas')}` });
             }
             return;
         }
@@ -4819,7 +4820,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
                 return;
             } else {
                 await sock.sendMessage(remoteJid, {
-                    text: `❌ *FORMAT SALAH*\n\nFormat yang benar:\ncekstatus [nomor_pelanggan]\n\nContoh:\ncekstatus 081234567890`
+                    text: `âŒ *FORMAT SALAH*\n\nFormat yang benar:\ncekstatus [nomor_pelanggan]\n\nContoh:\ncekstatus 081234567890`
                 });
                 return;
             }
@@ -4884,7 +4885,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
                     return;
                 } else {
                     await sock.sendMessage(remoteJid, { 
-                        text: `❌ *FORMAT Salah!*\n\n` +
+                        text: `âŒ *FORMAT Salah!*\n\n` +
                               `Format yang benar:\n` +
                               `editssid [nomor_pelanggan] [ssid_baru]\n\n` +
                               `Contoh:\n` +
@@ -4903,7 +4904,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
                     return;
                 } else {
                     await sock.sendMessage(remoteJid, {
-                        text: `❌ *FORMAT Salah!*\n\n` +
+                        text: `âŒ *FORMAT Salah!*\n\n` +
                               `Format yang benar:\n` +
                               `editpass [nomor_pelanggan] [password_baru]\n\n` +
                               `Contoh:\n` +
@@ -4926,7 +4927,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
                     return;
                 } else {
                     await sock.sendMessage(remoteJid, {
-                        text: `❌ *FORMAT Salah!*\n\n` +
+                        text: `âŒ *FORMAT Salah!*\n\n` +
                               `Format yang benar:\n` +
                               `detail [nomor_pelanggan]\n\n` +
                               `Contoh:\n` +
@@ -4949,7 +4950,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
                     return;
                 } else {
                     await sock.sendMessage(remoteJid, {
-                        text: `❌ *FORMAT Salah!*\n\n` +
+                        text: `âŒ *FORMAT Salah!*\n\n` +
                               `Format yang benar:\n` +
                               `adminrestart [nomor_pelanggan]\n\n` +
                               `Contoh:\n` +
@@ -4972,7 +4973,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
                     return;
                 } else {
                     await sock.sendMessage(remoteJid, {
-                        text: `❌ *FORMAT Salah!*\n\n` +
+                        text: `âŒ *FORMAT Salah!*\n\n` +
                               `Format yang benar:\n` +
                               `adminfactory [nomor_pelanggan]\n\n` +
                               `Contoh:\n` +
@@ -5026,7 +5027,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
                                 await pppoeCommands.handleAddAdminNumber(remoteJid, params[1]);
                             } else {
                                 await sock.sendMessage(remoteJid, {
-                                    text: `❌ *FORMAT SALAH*\n\nFormat: pppoe addadmin [nomor]\nContoh: pppoe addadmin 081234567890`
+                                    text: `âŒ *FORMAT SALAH*\n\nFormat: pppoe addadmin [nomor]\nContoh: pppoe addadmin 081234567890`
                                 });
                             }
                             return;
@@ -5038,7 +5039,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
                                 await pppoeCommands.handleAddTechnicianNumber(remoteJid, params[1]);
                             } else {
                                 await sock.sendMessage(remoteJid, {
-                                    text: `❌ *FORMAT SALAH*\n\nFormat: pppoe addtech [nomor]\nContoh: pppoe addtech 081234567890`
+                                    text: `âŒ *FORMAT SALAH*\n\nFormat: pppoe addtech [nomor]\nContoh: pppoe addtech 081234567890`
                                 });
                             }
                             return;
@@ -5049,7 +5050,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
                                 await pppoeCommands.handleSetInterval(remoteJid, params[1]);
                             } else {
                                 await sock.sendMessage(remoteJid, {
-                                    text: `❌ *FORMAT SALAH*\n\nFormat: pppoe interval [detik]\nContoh: pppoe interval 60`
+                                    text: `âŒ *FORMAT SALAH*\n\nFormat: pppoe interval [detik]\nContoh: pppoe interval 60`
                                 });
                             }
                             return;
@@ -5066,7 +5067,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
                                 await pppoeCommands.handleRemoveAdminNumber(remoteJid, params[1]);
                             } else {
                                 await sock.sendMessage(remoteJid, {
-                                    text: `❌ *FORMAT SALAH*\n\nFormat: pppoe removeadmin [nomor]\nContoh: pppoe removeadmin 081234567890`
+                                    text: `âŒ *FORMAT SALAH*\n\nFormat: pppoe removeadmin [nomor]\nContoh: pppoe removeadmin 081234567890`
                                 });
                             }
                             return;
@@ -5080,24 +5081,24 @@ Pesan GenieACS telah diaktifkan kembali.`);
                                 await pppoeCommands.handleRemoveTechnicianNumber(remoteJid, params[1]);
                             } else {
                                 await sock.sendMessage(remoteJid, {
-                                    text: `❌ *FORMAT SALAH*\n\nFormat: pppoe removetech [nomor]\nContoh: pppoe removetech 081234567890`
+                                    text: `âŒ *FORMAT SALAH*\n\nFormat: pppoe removetech [nomor]\nContoh: pppoe removetech 081234567890`
                                 });
                             }
                             return;
 
                         default:
                             await sock.sendMessage(remoteJid, {
-                                text: `❌ *PERINTAH TIDAK DIKENAL*\n\n` +
+                                text: `âŒ *PERINTAH TIDAK DIKENAL*\n\n` +
                                       `Perintah PPPoE yang tersedia:\n` +
-                                      `� pppoe on - Aktifkan notifikasi\n` +
-                                      `� pppoe off - Nonaktifkan notifikasi\n` +
-                                      `� pppoe status - Lihat status\n` +
-                                      `� pppoe addadmin [nomor] - Tambah admin\n` +
-                                      `� pppoe addtech [nomor] - Tambah teknisi\n` +
-                                      `� pppoe removeadmin [nomor] - Hapus admin\n` +
-                                      `� pppoe removetech [nomor] - Hapus teknisi\n` +
-                                      `� pppoe interval [detik] - Ubah interval\n` +
-                                      `� pppoe test - Test notifikasi`
+                                      `• pppoe on - Aktifkan notifikasi\n` +
+                                      `• pppoe off - Nonaktifkan notifikasi\n` +
+                                      `• pppoe status - Lihat status\n` +
+                                      `• pppoe addadmin [nomor] - Tambah admin\n` +
+                                      `• pppoe addtech [nomor] - Tambah teknisi\n` +
+                                      `• pppoe removeadmin [nomor] - Hapus admin\n` +
+                                      `• pppoe removetech [nomor] - Hapus teknisi\n` +
+                                      `• pppoe interval [detik] - Ubah interval\n` +
+                                      `• pppoe test - Test notifikasi`
                             });
                             return;
                     }
@@ -5184,7 +5185,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
                     return;
                 } else {
                     await sock.sendMessage(remoteJid, { 
-                        text: `❌ *FORMAT Salah!*\n\n` +
+                        text: `âŒ *FORMAT Salah!*\n\n` +
                               `Format yang benar:\n` +
                               `addwan [nomor_pelanggan] [tipe_wan] [mode_koneksi]\n\n` +
                               `Tipe WAN: ppp atau ip\n` +
@@ -5207,7 +5208,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
                     return;
                 } else {
                     await sock.sendMessage(remoteJid, { 
-                        text: `❌ *FORMAT Salah!*\n\n` +
+                        text: `âŒ *FORMAT Salah!*\n\n` +
                               `Format yang benar:\n` +
                               `addtag [device_id] [nomor_pelanggan]\n\n` +
                               `Contoh:\n` +
@@ -5226,7 +5227,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
                     return;
                 } else {
                     await sock.sendMessage(remoteJid, { 
-                        text: `❌ *FORMAT Salah!*\n\n` +
+                        text: `âŒ *FORMAT Salah!*\n\n` +
                               `Format yang benar:\n` +
                               `addpppoe_tag [pppoe_username] [nomor_pelanggan]\n\n` +
                               `Contoh:\n` +
@@ -5240,7 +5241,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
             if (command.startsWith('vcr ') || command.startsWith('!vcr ') || command.startsWith('/vcr ')) {
                 if (!isAdmin) {
                     await sock.sendMessage(remoteJid, { 
-                        text: '❌ *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
+                        text: 'âŒ *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
                     });
                     return;
                 }
@@ -5254,7 +5255,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
             if (command.startsWith('member ') || command.startsWith('!member ') || command.startsWith('/member ')) {
                 if (!isAdmin) {
                     await sock.sendMessage(remoteJid, { 
-                        text: '❌ *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
+                        text: 'âŒ *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
                     });
                     return;
                 }
@@ -5361,7 +5362,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
             if (command === 'billing' || command === '!billing' || command === '/billing') {
                 if (!isAdmin) {
                     await sock.sendMessage(remoteJid, { 
-                        text: '? *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah billing.'
+                        text: '❌ *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah billing.'
                     });
                     return;
                 }
@@ -5374,7 +5375,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
             if (command.startsWith('addcustomer ') || command.startsWith('!addcustomer ') || command.startsWith('/addcustomer ')) {
                 if (!isAdmin) {
                     await sock.sendMessage(remoteJid, { 
-                        text: '? *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
+                        text: '❌ *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
                     });
                     return;
                 }
@@ -5387,7 +5388,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
             if (command.startsWith('editcustomer ') || command.startsWith('!editcustomer ') || command.startsWith('/editcustomer ')) {
                 if (!isAdmin) {
                     await sock.sendMessage(remoteJid, { 
-                        text: '? *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
+                        text: '❌ *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
                     });
                     return;
                 }
@@ -5400,7 +5401,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
             if (command.startsWith('delcustomer ') || command.startsWith('!delcustomer ') || command.startsWith('/delcustomer ')) {
                 if (!isAdmin) {
                     await sock.sendMessage(remoteJid, { 
-                        text: '? *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
+                        text: '❌ *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
                     });
                     return;
                 }
@@ -5413,7 +5414,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
             if (command === 'listcustomers' || command === '!listcustomers' || command === '/listcustomers') {
                 if (!isAdmin) {
                     await sock.sendMessage(remoteJid, { 
-                        text: '? *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
+                        text: '❌ *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
                     });
                     return;
                 }
@@ -5425,7 +5426,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
             if (command.startsWith('findcustomer ') || command.startsWith('!findcustomer ') || command.startsWith('/findcustomer ')) {
                 if (!isAdmin) {
                     await sock.sendMessage(remoteJid, { 
-                        text: '? *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
+                        text: '❌ *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
                     });
                     return;
                 }
@@ -5439,7 +5440,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
             if (command.startsWith('payinvoice ') || command.startsWith('!payinvoice ') || command.startsWith('/payinvoice ')) {
                 if (!isAdmin) {
                     await sock.sendMessage(remoteJid, { 
-                        text: '? *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
+                        text: '❌ *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
                     });
                     return;
                 }
@@ -5452,7 +5453,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
             if (command.startsWith('checkpayment ') || command.startsWith('!checkpayment ') || command.startsWith('/checkpayment ')) {
                 if (!isAdmin) {
                     await sock.sendMessage(remoteJid, { 
-                        text: '? *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
+                        text: '❌ *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
                     });
                     return;
                 }
@@ -5465,7 +5466,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
             if (command === 'paidcustomers' || command === '!paidcustomers' || command === '/paidcustomers') {
                 if (!isAdmin) {
                     await sock.sendMessage(remoteJid, { 
-                        text: '? *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
+                        text: '❌ *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
                     });
                     return;
                 }
@@ -5477,7 +5478,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
             if (command === 'overduecustomers' || command === '!overduecustomers' || command === '/overduecustomers') {
                 if (!isAdmin) {
                     await sock.sendMessage(remoteJid, { 
-                        text: '? *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
+                        text: '❌ *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
                     });
                     return;
                 }
@@ -5489,7 +5490,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
             if (command === 'billingstats' || command === '!billingstats' || command === '/billingstats') {
                 if (!isAdmin) {
                     await sock.sendMessage(remoteJid, { 
-                        text: '? *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
+                        text: '❌ *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
                     });
                     return;
                 }
@@ -5502,7 +5503,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
             if (command.startsWith('addpackage ') || command.startsWith('!addpackage ') || command.startsWith('/addpackage ')) {
                 if (!isAdmin) {
                     await sock.sendMessage(remoteJid, { 
-                        text: '? *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
+                        text: '❌ *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
                     });
                     return;
                 }
@@ -5515,7 +5516,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
             if (command === 'listpackages' || command === '!listpackages' || command === '/listpackages') {
                 if (!isAdmin) {
                     await sock.sendMessage(remoteJid, { 
-                        text: '? *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
+                        text: '❌ *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
                     });
                     return;
                 }
@@ -5528,7 +5529,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
             if (command.startsWith('createinvoice ') || command.startsWith('!createinvoice ') || command.startsWith('/createinvoice ')) {
                 if (!isAdmin) {
                     await sock.sendMessage(remoteJid, { 
-                        text: '? *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
+                        text: '❌ *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
                     });
                     return;
                 }
@@ -5542,7 +5543,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
                 command === 'listinvoices' || command === '!listinvoices' || command === '/listinvoices') {
                 if (!isAdmin) {
                     await sock.sendMessage(remoteJid, { 
-                        text: '? *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
+                        text: '❌ *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
                     });
                     return;
                 }
@@ -5556,7 +5557,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
             if (command === 'help billing' || command === '!help billing' || command === '/help billing') {
                 if (!isAdmin) {
                     await sock.sendMessage(remoteJid, { 
-                        text: '? *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
+                        text: '❌ *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
                     });
                     return;
                 }
@@ -5571,7 +5572,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
             if (command.startsWith('tambah ') || command.startsWith('!tambah ') || command.startsWith('/tambah ')) {
                 if (!isAdmin) {
                     await sock.sendMessage(remoteJid, { 
-                        text: '? *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
+                        text: '❌ *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
                     });
                     return;
                 }
@@ -5585,7 +5586,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
             if (command === 'daftar' || command === '!daftar' || command === '/daftar') {
                 if (!isAdmin) {
                     await sock.sendMessage(remoteJid, { 
-                        text: '? *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
+                        text: '❌ *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
                     });
                     return;
                 }
@@ -5598,7 +5599,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
             if (command.startsWith('cari ') || command.startsWith('!cari ') || command.startsWith('/cari ')) {
                 if (!isAdmin) {
                     await sock.sendMessage(remoteJid, { 
-                        text: '? *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
+                        text: '❌ *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
                     });
                     return;
                 }
@@ -5612,7 +5613,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
             if (command.startsWith('bayar ') || command.startsWith('!bayar ') || command.startsWith('/bayar ')) {
                 if (!isAdmin) {
                     await sock.sendMessage(remoteJid, { 
-                        text: '? *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
+                        text: '❌ *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
                     });
                     return;
                 }
@@ -5631,7 +5632,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
         if (command.startsWith('isolir ')) {
             if (!isAdmin) {
                 await sock.sendMessage(remoteJid, { 
-                    text: '? *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
+                    text: '❌ *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
                 });
                 return;
             }
@@ -5645,7 +5646,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
         if (command.startsWith('buka ')) {
             if (!isAdmin) {
                 await sock.sendMessage(remoteJid, { 
-                    text: '? *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
+                    text: '❌ *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
                 });
                 return;
             }
@@ -5659,7 +5660,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
             if (command === 'sudahbayar' || command === '!sudahbayar' || command === '/sudahbayar') {
                 if (!isAdmin) {
                     await sock.sendMessage(remoteJid, { 
-                        text: '? *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
+                        text: '❌ *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
                     });
                     return;
                 }
@@ -5672,7 +5673,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
             if (command === 'terlambat' || command === '!terlambat' || command === '/terlambat') {
                 if (!isAdmin) {
                     await sock.sendMessage(remoteJid, { 
-                        text: '? *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
+                        text: '❌ *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
                     });
                     return;
                 }
@@ -5685,7 +5686,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
             if (command === 'statistik' || command === '!statistik' || command === '/statistik') {
                 if (!isAdmin) {
                     await sock.sendMessage(remoteJid, { 
-                        text: '? *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
+                        text: '❌ *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
                     });
                     return;
                 }
@@ -5698,7 +5699,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
             if (command === 'daftarpaket' || command === '!daftarpaket' || command === '/daftarpaket') {
                 if (!isAdmin) {
                     await sock.sendMessage(remoteJid, { 
-                        text: '? *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
+                        text: '❌ *AKSES DITOLAK*\n\nHanya admin yang dapat menggunakan perintah ini.'
                     });
                     return;
                 }
@@ -5784,9 +5785,9 @@ Pesan GenieACS telah diaktifkan kembali.`);
                 try {
                     const { getPerformanceReport } = require('./settingsManager');
                     const report = getPerformanceReport();
-                    await sendFormattedMessage(remoteJid, `?? *SETTINGS PERFORMANCE DEBUG*\n\n\`\`\`${report}\`\`\``);
+                    await sendFormattedMessage(remoteJid, `📊 *SETTINGS PERFORMANCE DEBUG*\n\n\`\`\`${report}\`\`\``);
                 } catch (error) {
-                    await sendFormattedMessage(remoteJid, `? *Error getting performance stats:* ${error.message}`);
+                    await sendFormattedMessage(remoteJid, `❌ *Error getting performance stats:* ${error.message}`);
                 }
                 return;
             }
@@ -5797,9 +5798,9 @@ Pesan GenieACS telah diaktifkan kembali.`);
                 try {
                     const { getQuickStats } = require('./settingsManager');
                     const stats = getQuickStats();
-                    await sendFormattedMessage(remoteJid, `?? *Settings Stats*\n${stats}`);
+                    await sendFormattedMessage(remoteJid, `📊 *Settings Stats*\n${stats}`);
                 } catch (error) {
-                    await sendFormattedMessage(remoteJid, `? *Error:* ${error.message}`);
+                    await sendFormattedMessage(remoteJid, `❌ *Error:* ${error.message}`);
                 }
                 return;
             }
@@ -5898,31 +5899,31 @@ Pesan GenieACS telah diaktifkan kembali.`);
                     const technicianGroupId = getSetting('technician_group_id', '');
                     const technicianNumbers = getTechnicianNumbers();
                     
-                    let message = `?? *STATUS GROUP & NOMOR TEKNISI*\n\n`;
+                    let message = `🔍 *STATUS GROUP & NOMOR TEKNISI*\n\n`;
                     
                     // Cek group ID
                     if (technicianGroupId) {
-                        message += `?? *Group ID:* ${technicianGroupId}\n`;
+                        message += `📋 *Group ID:* ${technicianGroupId}\n`;
                         
                         try {
                             // Coba ambil metadata group
                             const groupMetadata = await sock.groupMetadata(technicianGroupId);
-                            message += `? *Status:* Group ditemukan\n`;
-                            message += `?? *Nama:* ${groupMetadata.subject}\n`;
-                            message += `?? *Peserta:* ${groupMetadata.participants.length}\n`;
+                            message += `✅ *Status:* Group ditemukan\n`;
+                            message += `📋 *Nama:* ${groupMetadata.subject}\n`;
+                            message += `👥 *Peserta:* ${groupMetadata.participants.length}\n`;
                         } catch (groupError) {
                             if (groupError.message.includes('item-not-found')) {
-                                message += `? *Status:* Group tidak ditemukan\n`;
-                                message += `?? *Solusi:* Pastikan bot sudah ditambahkan ke group\n`;
+                                message += `❌ *Status:* Group tidak ditemukan\n`;
+                                message += `💡 *Solusi:* Pastikan bot sudah ditambahkan ke group\n`;
                             } else {
-                                message += `?? *Status:* Error - ${groupError.message}\n`;
+                                message += `⚠️ *Status:* Error - ${groupError.message}\n`;
                             }
                         }
                     } else {
-                        message += `? *Group ID:* Tidak dikonfigurasi\n`;
+                        message += `❌ *Group ID:* Tidak dikonfigurasi\n`;
                     }
                     
-                    message += `\n?? *Nomor Teknisi:*\n`;
+                    message += `\n📱 *Nomor Teknisi:*\n`;
                     if (technicianNumbers && technicianNumbers.length > 0) {
                         for (let i = 0; i < technicianNumbers.length; i++) {
                             const number = technicianNumbers[i];
@@ -5934,27 +5935,27 @@ Pesan GenieACS telah diaktifkan kembali.`);
                                 const [result] = await sock.onWhatsApp(cleanNumber);
                                 
                                 if (result && result.exists) {
-                                    message += `   ? Valid WhatsApp\n`;
+                                    message += `   ✅ Valid WhatsApp\n`;
                                 } else {
-                                    message += `   ? Tidak terdaftar di WhatsApp\n`;
+                                    message += `   ❌ Tidak terdaftar di WhatsApp\n`;
                                 }
                             } catch (validationError) {
-                                message += `   ?? Error validasi: ${validationError.message}\n`;
+                                message += `   ⚠️ Error validasi: ${validationError.message}\n`;
                             }
                         }
                     } else {
-                        message += `? Tidak ada nomor teknisi dikonfigurasi\n`;
+                        message += `❌ Tidak ada nomor teknisi dikonfigurasi\n`;
                     }
                     
-                    message += `\n?? *Tips:*\n`;
-                    message += `� Pastikan bot sudah ditambahkan ke group\n`;
-                    message += `� Pastikan nomor teknisi terdaftar di WhatsApp\n`;
-                    message += `� Gunakan format: 628xxxxxxxxxx\n`;
+                    message += `\n💡 *Tips:*\n`;
+                    message += `• Pastikan bot sudah ditambahkan ke group\n`;
+                    message += `• Pastikan nomor teknisi terdaftar di WhatsApp\n`;
+                    message += `• Gunakan format: 628xxxxxxxxxx\n`;
                     
                     await sock.sendMessage(remoteJid, { text: message });
                 } catch (error) {
                     await sock.sendMessage(remoteJid, { 
-                        text: `? Error checking group status: ${error.message}` 
+                        text: `❌ Error checking group status: ${error.message}` 
                     });
                 }
                 return;
@@ -5972,7 +5973,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
         try {
             if (sock && message && message.key && message.key.remoteJid) {
                 await sock.sendMessage(message.key.remoteJid, { 
-                    text: `❌ *ERROR*\n\nTerjadi kesalahan saat memproses pesan: ${error.message}\n\nSilakan coba lagi nanti.`
+                    text: `âŒ *ERROR*\n\nTerjadi kesalahan saat memproses pesan: ${error.message}\n\nSilakan coba lagi nanti.`
                 });
             }
         } catch (sendError) {
@@ -5997,7 +5998,7 @@ Pesan GenieACS telah diaktifkan kembali.`);
         } catch (error) {
             console.error('Error sending customer menu:', error);
             await sock.sendMessage(remoteJid, { 
-                text: `❌ *ERROR*\n\nTerjadi kesalahan saat menampilkan menu pelanggan:\n${error.message}` 
+                text: `âŒ *ERROR*\n\nTerjadi kesalahan saat menampilkan menu pelanggan:\n${error.message}` 
             });
         }
     }
@@ -6010,28 +6011,28 @@ async function handleAdminMenu(remoteJid) {
         console.log(`Menampilkan menu admin ke ${remoteJid}`);
         
         // Pesan menu admin
-        let adminMessage = `???? *MENU ADMIN*\n\n`;
+        let adminMessage = `📋🔍 *MENU ADMIN*\n\n`;
         
         adminMessage += `*Perintah Admin:*\n`;
-        adminMessage += `� ?? *list* * Daftar semua ONU\n`;
-        adminMessage += `� ?? *cekall* * Cek status semua ONU\n`;
-        adminMessage += `� ?? *cek [nomor]* * Cek status ONU pelanggan\n`;
-        adminMessage += `� ?? *editssid [nomor] [ssid]* * Edit SSID pelanggan\n`;
-        adminMessage += `� ?? *editpass [nomor] [password]* * Edit password WiFi pelanggan\n`;
-        adminMessage += `� ?? *otp [on/off/status]* * Kelola sistem OTP\n`;
-        adminMessage += `� ?? *billing* * Menu billing admin\n\n`;
+        adminMessage += `• 📋 *list* * Daftar semua ONU\n`;
+        adminMessage += `• 🔍 *cekall* * Cek status semua ONU\n`;
+        adminMessage += `• 🔍 *cek [nomor]* * Cek status ONU pelanggan\n`;
+        adminMessage += `• 🔧 *editssid [nomor] [ssid]* * Edit SSID pelanggan\n`;
+        adminMessage += `• 🔧 *editpass [nomor] [password]* * Edit password WiFi pelanggan\n`;
+        adminMessage += `• 🔐 *otp [on/off/status]* * Kelola sistem OTP\n`;
+        adminMessage += `• 📊 *billing* * Menu billing admin\n\n`;
         
         // Status GenieACS (tanpa menampilkan perintah)
         adminMessage += `*Status Sistem:*\n`;
-        adminMessage += `� ${genieacsCommandsEnabled ? '?' : '❌'} *GenieACS:* ${genieacsCommandsEnabled ? 'Aktif' : 'Nonaktif'}\n`;
+        adminMessage += `• ${genieacsCommandsEnabled ? '✅' : 'âŒ'} *GenieACS:* ${genieacsCommandsEnabled ? 'Aktif' : 'Nonaktif'}\n`;
         
         // Tambahkan status OTP
         const settings = getAppSettings();
         const otpStatus = settings.customerPortalOtp || settings.customer_otp_enabled;
-        adminMessage += `� ${otpStatus ? '?' : '❌'} *OTP Portal:* ${otpStatus ? 'Aktif' : 'Nonaktif'}\n\n`;
+        adminMessage += `• ${otpStatus ? '✅' : 'âŒ'} *OTP Portal:* ${otpStatus ? 'Aktif' : 'Nonaktif'}\n\n`;
         
         // Tambahkan footer
-        adminMessage += `?? *${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}*\n`;
+        adminMessage += `🏢 *${getSetting('company_header', 'MJNet BOT MANAGEMENT ISP')}*\n`;
         adminMessage += `${getSetting('footer_info', 'Internet Tanpa Batas')}`;
         
         // Kirim pesan menu admin
@@ -6116,7 +6117,7 @@ function getAppSettings() {
 function getGenieacsConfig() {
     const { getSetting } = require('./settingsManager');
     return {
-        genieacsUrl: getSetting('genieacs_url', 'http://localhost:7557'),
+        genieacsUrl: getSetting('genieacs_url', 'http://192.168.8.151:7557'),
         genieacsUsername: getSetting('genieacs_username', 'admin'),
         genieacsPassword: getSetting('genieacs_password', 'password'),
     };
@@ -6144,41 +6145,41 @@ async function handleInfoLayanan(remoteJid, senderNumber) {
         }
         const technicianNumbersText = technicianNumbers.length > 0 ? technicianNumbers.join(', ') : '628xxxxxxxxxx';
         
-        let message = formatWithHeaderFooter(`?? *INFORMASI LAYANAN*
+        let message = formatWithHeaderFooter(`🏢 *INFORMASI LAYANAN*
 
-?? *LINTAS DATA PRIMA*
+📱 *LINTAS DATA PRIMA*
 Layanan internet cepat dan stabil untuk kebutuhan Anda.
 
-?? *FITUR LAYANAN:*
-� Internet Unlimited 24/7
-� Kecepatan tinggi dan stabil
-� Dukungan teknis 24 jam
-� Monitoring perangkat real-time
-� Manajemen WiFi via WhatsApp
+🔧 *FITUR LAYANAN:*
+• Internet Unlimited 24/7
+• Kecepatan tinggi dan stabil
+• Dukungan teknis 24 jam
+• Monitoring perangkat real-time
+• Manajemen WiFi via WhatsApp
 
-?? *KONTAK DUKUNGAN:*
-� WhatsApp: ${adminNumber}
-� Teknisi: ${technicianNumbersText}
-� Jam Operasional: 24/7
+📞 *KONTAK DUKUNGAN:*
+• WhatsApp: ${adminNumber}
+• Teknisi: ${technicianNumbersText}
+• Jam Operasional: 24/7
 
-?? *CARA PENGGUNAAN:*
-� Ketik *menu* untuk melihat menu lengkap
-� Ketik *status* untuk cek status perangkat
-� Ketik *help* untuk bantuan teknis
+💡 *CARA PENGGUNAAN:*
+• Ketik *menu* untuk melihat menu lengkap
+• Ketik *status* untuk cek status perangkat
+• Ketik *help* untuk bantuan teknis
 
-??? *LAYANAN PELANGGAN:*
-� Ganti nama WiFi: *gantiwifi [nama]*
-� Ganti password WiFi: *gantipass [password]*
-� Cek perangkat terhubung: *devices*
-� Test kecepatan: *speedtest*
-� Diagnostik jaringan: *diagnostic*
+🛠️ *LAYANAN PELANGGAN:*
+• Ganti nama WiFi: *gantiwifi [nama]*
+• Ganti password WiFi: *gantipass [password]*
+• Cek perangkat terhubung: *devices*
+• Test kecepatan: *speedtest*
+• Diagnostik jaringan: *diagnostic*
 
-?? *INFORMASI TEKNIS:*
-� Teknologi: Fiber Optic
-� Protokol: PPPoE
-� Monitoring: GenieACS
-� Router: Mikrotik
-� ONU: GPON/EPON
+📋 *INFORMASI TEKNIS:*
+• Teknologi: Fiber Optic
+• Protokol: PPPoE
+• Monitoring: GenieACS
+• Router: Mikrotik
+• ONU: GPON/EPON
 
 Untuk bantuan lebih lanjut, silakan hubungi teknisi kami.`);
         
@@ -6206,34 +6207,34 @@ Untuk bantuan lebih lanjut, silakan hubungi teknisi kami.`);
                     .map(i => new Date(i.due_date))
                     .sort((a, b) => a - b)[0];
 
-                message += `\n\n?? *INFORMASI TAGIHAN*\n`;
+                message += `\n\n📋 *INFORMASI TAGIHAN*\n`;
                 if (unpaid.length > 0) {
-                    message += `� Status: BELUM LUNAS (${unpaid.length} tagihan)\n`;
-                    message += `� Total: Rp ${totalUnpaid.toLocaleString('id-ID')}\n`;
-                    if (nextDue) message += `� Jatuh Tempo Berikutnya: ${nextDue.toLocaleDateString('id-ID')}\n`;
+                    message += `• Status: BELUM LUNAS (${unpaid.length} tagihan)\n`;
+                    message += `• Total: Rp ${totalUnpaid.toLocaleString('id-ID')}\n`;
+                    if (nextDue) message += `• Jatuh Tempo Berikutnya: ${nextDue.toLocaleDateString('id-ID')}\n`;
                 } else {
-                    message += `� Status: LUNAS ?\n`;
+                    message += `• Status: LUNAS ✅\n`;
                 }
 
                 // Info pembayaran
                 if (bankName && accountNumber) {
-                    message += `\n?? *PEMBAYARAN*\n`;
-                    message += `� Bank: ${bankName}\n`;
-                    message += `� No. Rekening: ${accountNumber}\n`;
-                    if (accountHolder) message += `� A/N: ${accountHolder}\n`;
+                    message += `\n🏦 *PEMBAYARAN*\n`;
+                    message += `• Bank: ${bankName}\n`;
+                    message += `• No. Rekening: ${accountNumber}\n`;
+                    if (accountHolder) message += `• A/N: ${accountHolder}\n`;
                 }
                 const ewallets = [];
                 if (dana) ewallets.push(`DANA: ${dana}`);
                 if (ovo) ewallets.push(`OVO: ${ovo}`);
                 if (gopay) ewallets.push(`GoPay: ${gopay}`);
                 if (ewallets.length > 0) {
-                    message += `� E-Wallet: ${ewallets.join(' | ')}\n`;
+                    message += `• E-Wallet: ${ewallets.join(' | ')}\n`;
                 }
                 if (contactWa) {
-                    message += `� Konfirmasi: ${contactWa}\n`;
+                    message += `• Konfirmasi: ${contactWa}\n`;
                 }
             } else {
-                message += `\n\n?? *INFORMASI TAGIHAN*\n� Nomor Anda belum terdaftar di sistem billing. Silakan hubungi admin untuk sinkronisasi.`;
+                message += `\n\n📋 *INFORMASI TAGIHAN*\n• Nomor Anda belum terdaftar di sistem billing. Silakan hubungi admin untuk sinkronisasi.`;
             }
         } catch (billErr) {
             console.error('Gagal menambahkan info tagihan pada info layanan:', billErr);
@@ -6245,7 +6246,7 @@ Untuk bantuan lebih lanjut, silakan hubungi teknisi kami.`);
     } catch (error) {
         console.error('Error sending info layanan:', error);
         await sock.sendMessage(remoteJid, { 
-            text: `? *ERROR*\n\nTerjadi kesalahan saat menampilkan info layanan:\n${error.message}` 
+            text: `❌ *ERROR*\n\nTerjadi kesalahan saat menampilkan info layanan:\n${error.message}` 
         });
     }
 }
@@ -6270,7 +6271,7 @@ async function sendBillingStatus(remoteJid, senderNumber) {
         const ovo = getSetting('payment_ovo', '');
         const gopay = getSetting('payment_gopay', '');
 
-        let text = `?? *INFORMASI TAGIHAN*\n`;
+        let text = `📋 *INFORMASI TAGIHAN*\n`;
         if (customer) {
             const invoices = await billingManager.getInvoicesByCustomer(customer.id);
             const unpaid = invoices.filter(i => i.status === 'unpaid');
@@ -6280,31 +6281,31 @@ async function sendBillingStatus(remoteJid, senderNumber) {
                 .sort((a, b) => a - b)[0];
 
             if (unpaid.length > 0) {
-                text += `� Status: BELUM LUNAS (${unpaid.length} tagihan)\n`;
-                text += `� Total: Rp ${totalUnpaid.toLocaleString('id-ID')}\n`;
-                if (nextDue) text += `� Jatuh Tempo Berikutnya: ${nextDue.toLocaleDateString('id-ID')}\n`;
+                text += `• Status: BELUM LUNAS (${unpaid.length} tagihan)\n`;
+                text += `• Total: Rp ${totalUnpaid.toLocaleString('id-ID')}\n`;
+                if (nextDue) text += `• Jatuh Tempo Berikutnya: ${nextDue.toLocaleDateString('id-ID')}\n`;
             } else {
-                text += `� Status: LUNAS ?\n`;
+                text += `• Status: LUNAS ✅\n`;
             }
 
             if (bankName && accountNumber) {
-                text += `\n?? *PEMBAYARAN*\n`;
-                text += `� Bank: ${bankName}\n`;
-                text += `� No. Rekening: ${accountNumber}\n`;
-                if (accountHolder) text += `� A/N: ${accountHolder}\n`;
+                text += `\n🏦 *PEMBAYARAN*\n`;
+                text += `• Bank: ${bankName}\n`;
+                text += `• No. Rekening: ${accountNumber}\n`;
+                if (accountHolder) text += `• A/N: ${accountHolder}\n`;
             }
             const ewallets = [];
             if (dana) ewallets.push(`DANA: ${dana}`);
             if (ovo) ewallets.push(`OVO: ${ovo}`);
             if (gopay) ewallets.push(`GoPay: ${gopay}`);
             if (ewallets.length > 0) {
-                text += `� E-Wallet: ${ewallets.join(' | ')}\n`;
+                text += `• E-Wallet: ${ewallets.join(' | ')}\n`;
             }
             if (contactWa) {
-                text += `� Konfirmasi: ${contactWa}\n`;
+                text += `• Konfirmasi: ${contactWa}\n`;
             }
         } else {
-            text += `� Nomor Anda belum terdaftar di sistem billing. Silakan hubungi admin untuk sinkronisasi.`;
+            text += `• Nomor Anda belum terdaftar di sistem billing. Silakan hubungi admin untuk sinkronisasi.`;
         }
 
         await sock.sendMessage(remoteJid, { text });

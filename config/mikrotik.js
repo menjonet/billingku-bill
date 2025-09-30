@@ -63,7 +63,7 @@ async function getMikrotikConnection() {
 
 // Fungsi untuk koneksi ke database RADIUS (MySQL)
 async function getRadiusConnection() {
-    const host = getSetting('radius_host', 'localhost');
+    const host = getSetting('radius_host', '192.168.8.1');
     const user = getSetting('radius_user', 'radius');
     const password = getSetting('radius_password', 'radius');
     const database = getSetting('radius_database', 'radius');

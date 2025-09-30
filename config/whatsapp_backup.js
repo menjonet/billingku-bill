@@ -114,7 +114,7 @@ function isAdminNumber(number) {
 function formatWithHeaderFooter(message) {
     try {
         // Ambil header dan footer dari settings.json
-        const header = getSetting('company_header', 'MJnet BOT MANAGEMENT ISP');
+        const header = getSetting('company_header', 'MJNet BOT MANAGEMENT ISP');
         const footer = getSetting('footer_info', 'Internet Tanpa Batas');
         
         // Format pesan dengan header dan footer
@@ -398,10 +398,10 @@ async function connectToWhatsApp() {
                     `• Ketik *menu* untuk melihat daftar perintah\n` +
                     `• Ketik *admin* untuk menu khusus admin\n\n` +
                     `💰 *Dukungan Pengembang:*\n` +
-                    `• E-WALLET: 081947215703\n` +
-                    `• BRI: 420601003953531 a.n WARJAYA\n\n` +
+                    `• E-WALLET: 085800541752\n` +
+                    `• BRI: 032701018199538  a.n Hutama Oni Ristiko\n\n` +
                     `👏 Terima kasih telah menggunakan Aplikasi kami.\n` +
-                    `🏢 *LINTAS DATA PRIMA*`;
+                    `🏢 *MJBill*`;
                     
                     // Kirim ke admin dari environment variable
                     const adminNumber = process.env.ADMIN_NUMBER;
@@ -796,11 +796,11 @@ async function handleHelpCommand(remoteJid, isAdmin = false) {
 ▸ *setheader [teks_header_baru]* — Ganti header pesan bot
    Contoh: setheader MJNet HOTSPOT
 ▸ *setfooter [teks_footer_baru]* — Ganti footer pesan bot
-   Contoh: setfooter Powered by Media Sarana Akses
+   Contoh: setfooter Powered by MJNet - LDP
 ▸ *setadmin [nomor_admin_baru]* — Ganti admin utama
-   Contoh: setadmin 6281234567890
+   Contoh: setadmin 6285800541752
 ▸ *settechnician [nomor1,nomor2,...]* — Ganti daftar teknisi
-   Contoh: settechnician 6281234567890,6289876543210
+   Contoh: settechnician 6285800541752,6289xxxxxx
 ▸ *setgenieacs [url] [username] [password]* — Ganti konfigurasi GenieACS
    Contoh: setgenieacs http://192.168.8.89:7557 admin admin
 ▸ *setmikrotik [host] [port] [user] [password]* — Ganti konfigurasi Mikrotik
@@ -986,7 +986,7 @@ async function refreshDevice(deviceId) {
         }
         
         // 2. Coba mendapatkan device terlebih dahulu untuk memastikan ID valid
-        const genieacsUrl = process.env.GENIEACS_URL || 'http://localhost:7557';
+        const genieacsUrl = process.env.GENIEACS_URL || 'http://192.168.8.151:7557';
         
         // Cek apakah device ada
         try {
