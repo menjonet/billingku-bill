@@ -8,7 +8,7 @@ const path = require('path');
 const express = require('express');
 const session = require('express-session');
 
-console.log('🧪 Testing installations route with valid session...');
+console.log('?? Testing installations route with valid session...');
 
 // Create test app
 const app = express();
@@ -34,7 +34,7 @@ const mockTechnicianAuth = (req, res, next) => {
 // Mock authManager
 const mockAuthManager = {
     logActivity: async (technicianId, activityType, description) => {
-        console.log(`📝 Mock activity log: ${technicianId} - ${activityType} - ${description}`);
+        console.log(`?? Mock activity log: ${technicianId} - ${activityType} - ${description}`);
         return true;
     }
 };
@@ -42,7 +42,7 @@ const mockAuthManager = {
 // Mock getSetting function
 const mockGetSetting = (key, defaultValue) => {
     const settings = {
-        'company_header': 'GEMBOK',
+        'company_header': 'MJBill',
         'footer_info': 'Portal Teknisi'
     };
     return settings[key] || defaultValue;
@@ -51,7 +51,7 @@ const mockGetSetting = (key, defaultValue) => {
 // Add the exact route from technicianDashboard.js
 app.get('/test-installations', mockTechnicianAuth, async (req, res) => {
     try {
-        console.log('🧪 Testing installations route logic...');
+        console.log('?? Testing installations route logic...');
         
         const sqlite3 = require('sqlite3').verbose();
         const dbPath = path.join(__dirname, '../data/billing.db');
@@ -157,13 +157,13 @@ app.get('/test-installations', mockTechnicianAuth, async (req, res) => {
             search,
             status,
             settings: {
-                company_header: mockGetSetting('company_header', 'GEMBOK'),
+                company_header: mockGetSetting('company_header', 'MJBill'),
                 footer_info: mockGetSetting('footer_info', 'Portal Teknisi')
             }
         };
 
-        console.log('✅ Template data prepared successfully!');
-        console.log('📊 Template data summary:');
+        console.log('? Template data prepared successfully!');
+        console.log('?? Template data summary:');
         console.log('  - Installation jobs:', installationJobs.length);
         console.log('  - Statistics:', stats);
         console.log('  - Pagination:', templateData.pagination);
@@ -178,7 +178,7 @@ app.get('/test-installations', mockTechnicianAuth, async (req, res) => {
         db.close();
 
     } catch (error) {
-        console.error('❌ Route error:', error);
+        console.error('? Route error:', error);
         res.status(500).json({
             success: false,
             error: error.message,
@@ -189,7 +189,7 @@ app.get('/test-installations', mockTechnicianAuth, async (req, res) => {
 
 // Test the route
 const server = app.listen(3004, () => {
-    console.log('🚀 Test server running on port 3004');
+    console.log('?? Test server running on port 3004');
     
     // Make test request
     const http = require('http');
@@ -209,12 +209,12 @@ const server = app.listen(3004, () => {
         
         res.on('end', () => {
             if (res.statusCode === 200) {
-                console.log('✅ Test successful!');
+                console.log('? Test successful!');
                 const result = JSON.parse(data);
-                console.log('📊 Result:', result.message);
+                console.log('?? Result:', result.message);
             } else {
-                console.log('❌ Test failed with status:', res.statusCode);
-                console.log('📄 Response:', data);
+                console.log('? Test failed with status:', res.statusCode);
+                console.log('?? Response:', data);
             }
             
             server.close();
@@ -222,7 +222,7 @@ const server = app.listen(3004, () => {
     });
     
     req.on('error', (error) => {
-        console.error('❌ Request error:', error.message);
+        console.error('? Request error:', error.message);
         server.close();
     });
     

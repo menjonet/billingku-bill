@@ -13,7 +13,7 @@ async function testWhatsAppGroupManagement() {
 
     const newTechnician = {
         name: 'Teknisi Test Group',
-        phone: '6281234567890',
+        phone: '6285800541752',
         role: 'technician',
         whatsapp_group_id: '120363123456789012@g.us',
         area_coverage: 'Area Test',
